@@ -4,8 +4,8 @@
     :close-on-content-click="false"
     left
     bottom
-    max-width="90%"
-    min-width="275"
+    max-width="90vw"
+    min-width="175"
     offset-x
     offset-y
     origin="top right"
@@ -37,18 +37,13 @@
       />
 
       <v-card-text>
-        <v-item-group
-          v-model="$vuetify.theme.themes.light.primary"
-          class="d-flex justify-center"
-        >
-          <v-item>
-            <div class="text-center">
+        <div class="text-center">
               <base-btn
                 :tile="false"
                 href="https://shoppy.gg/product/fEQCwAo"
                 target="_blank"
                 class="ma-2"
-                size="48"
+                size="24"
                 style="cursor: pointer;"
                 rounded
                 @click="menu = false"
@@ -57,15 +52,13 @@
                 4.50€
               </base-btn>
             </div>
-          </v-item>
-          <v-item>
             <div class="text-center">
               <base-btn
                 :tile="false"
                 href="https://shoppy.gg/product/9fQPJjT"
                 target="_blank"
                 class="ma-2"
-                size="48"
+                size="24"
                 style="cursor: pointer;"
                 rounded
                 @click="menu = false"
@@ -74,15 +67,13 @@
                 14.99€
               </base-btn>
             </div>
-          </v-item>
-          <v-item>
             <div class="text-center">
               <base-btn
                 :tile="false"
                 href="https://shoppy.gg/product/AJkk1Rl"
                 target="_blank"
                 class="ma-2"
-                size="48"
+                size="24"
                 style="cursor: pointer;"
                 rounded
                 @click="menu = false"
@@ -91,8 +82,6 @@
                 39.99€
               </base-btn>
             </div>
-          </v-item>
-        </v-item-group>
       </v-card-text>
     </v-card>
   </v-menu>

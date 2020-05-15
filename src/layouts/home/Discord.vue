@@ -37,43 +37,34 @@
       />
 
       <v-card-text>
-        <v-item-group
-          v-model="$vuetify.theme.themes.light.primary"
-          class="d-flex justify-center"
-        >
-          <v-item>
-            <div class="text-center">
-              <base-btn
-                :tile="false"
-                href="https://discord.com/invite/9AQv2pF"
-                target="_blank"
-                class="ma-2"
-                size="48"
-                style="cursor: pointer;"
-                rounded
-                @click="menu = false"
-              >
-                Spacesharp Discord
-              </base-btn>
-            </div>
-          </v-item>
-          <v-item>
-            <div class="text-center">
-              <base-btn
-                :tile="false"
-                href="https://discord.gg/R73yUKx"
-                target="_blank"
-                class="ma-2"
-                size="48"
-                style="cursor: pointer;"
-                rounded
-                @click="menu = false"
-              >
-                Spaceglider Discord
-              </base-btn>
-            </div>
-          </v-item>
-        </v-item-group>
+        <div class="text-center">
+          <base-btn
+            :tile="false"
+            href="https://discord.com/invite/9AQv2pF"
+            target="_blank"
+            class="ma-2"
+            size="48"
+            style="cursor: pointer;"
+            rounded
+            @click="menu = false"
+          >
+            Spacesharp Discord
+          </base-btn>
+        </div>
+        <div class="text-center">
+          <base-btn
+            :tile="false"
+            href="https://discord.gg/R73yUKx"
+            target="_blank"
+            class="ma-2"
+            size="48"
+            style="cursor: pointer;"
+            rounded
+            @click="menu = false"
+          >
+            Spaceglider Discord
+          </base-btn>
+        </div>
       </v-card-text>
     </v-card>
   </v-menu>

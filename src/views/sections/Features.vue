@@ -40,7 +40,7 @@
           text: 'Spacesharp is Optimized for ranged Characters, such as Kog\'maw, Twitch or Vayne, nonethless we still support all Champions and will do so in the Future.',
         },
         {
-          icon: 'mdi-camera-outline',
+          icon: 'mdi-flash-outline',
           title: 'Lethal Tempo',
           text: 'Utilize High Attackspeed above 2.50 FULLY with the use of Spacesharp. Our Tool is best used in combinations with Supporters, such as Lulu.',
         },
@@ -57,12 +57,12 @@
         {
           icon: 'mdi-crosshairs-question',
           title: 'Undetected',
-          text: 'Spacesharp is Easy-to-Use and lets you kite like you never did before. Best Used to kite away from enemies and to get them sweet penta kills.',
+          text: 'Spacesharp has been Public for a while and we did not recieve any Ban report for our Users. Our older tool Spaceglider has been Undetected for 8 Months+.',
         },
         {
           icon: 'mdi-lock',
           title: 'Fully External',
-          text: 'Spacesharp is Easy-to-Use and lets you kite like you never did before. Best Used to kite away from enemies and to get them sweet penta kills.',
+          text: 'We are not directly interacting with Leauge of Legends itself, which makes it harder of their Anti-Cheat to detect us.',
         },
       ],
     }),
