@@ -2,7 +2,7 @@
   <section id="hero">
     <v-img
       :min-height="minHeight"
-      :src="require('@/assets/home-5.jpg')"
+      :src="require('@/assets/home-1.jpg')"
       class="white--text"
       gradient="to right, rgba(5, 11, 31, .6), rgba(5, 11, 31, .6)"
     >
@@ -13,13 +13,24 @@
           max-width="700"
           width="100%"
         >
-          <base-heading title="OUR LEAGUE OF LEGENDS ORBWALKER WITH ENEMY DETECTION" />
+          <base-heading title="WELCOME TO SPACESHARP" />
 
           <base-body>
+          Spacesharp is a premium kiting Script that will help you <strong>Rank Up</strong> and gain <strong>LP</strong>. We first went public on 28.04.2020 and have been <strong>Undetected</strong> ever since. In terms of cost and value we're top of the line.<br>
+          We offer you one of the best external scripting platforms currently availiable for a fair price. Spacesharp comes with a few features, such as:
+
+          <ul>
+            <li><strong>Attack Champions Only</strong></li>
+            <li><strong>Stream Proof Attackrange Indicator</strong></li>
+            <li><strong>Minion Hit Marker</strong> (which will be Auto Last Hit in the Future)</li>
+          </ul>
+          </base-body>
+
+          <!-- <base-body>
             SpaceSharp is our newest League of Legends script, which was made public on 28.04.2020. There are providers who are private, but charge double or triple price a month for it! We have decided to make this software public available.
             In addition to the SpaceGlider features, SpaceSharp offers the ability to attack champions only. This means no more Minions will be attacked like with SpaceGlider!
             Furthermore, the configuration of SpaceSharp is much easier!
-          </base-body>
+          </base-body> -->
           <div
             :class="$vuetify.breakpoint.smAndDown ? 'flex-column align-start' : 'align-center'"
             class="d-flex flex-wrap"

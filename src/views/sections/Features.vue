@@ -57,12 +57,12 @@
         {
           icon: 'mdi-crosshairs-question',
           title: 'Undetected',
-          text: 'Spacesharp has been Public for a while and we did not recieve any Ban report for our Users. Our older tool Spaceglider has been Undetected for 8 Months+.',
+          text: 'The Detection rate of Spacesharp has a chance 0% since we are not Injecting or manipulating any files, processes or memory that is used by League of Legends.',
         },
         {
           icon: 'mdi-lock',
           title: 'Fully External',
-          text: 'We are not directly interacting with Leauge of Legends itself, which makes it harder of their Anti-Cheat to detect us.',
+          text: 'Our Tool will not interact with the files, processes or memory from League of Legends therefore you can enjoy a risk free experience.',
         },
       ],
     }),

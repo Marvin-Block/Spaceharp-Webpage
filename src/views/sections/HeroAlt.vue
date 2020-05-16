@@ -4,7 +4,7 @@
       <base-img
         :height="$vuetify.breakpoint.mdAndUp ? 350 : 225"
         :gradient="gradient"
-        :src="src"
+        :src="require('@/assets/home-5.jpg')"
         color="#45516b"
         flat
         max-width="100%"
