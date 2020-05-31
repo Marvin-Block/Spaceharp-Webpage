@@ -1,154 +1,149 @@
 <template>
   <base-section
     id="pro-features"
+    >
+  <v-card
+    class="mx-auto"
+    max-width="70vw"
+    outlined
   >
-    <!-- <v-img
-      :src="require('@/assets/logo.svg')"
-      class="mx-auto mb-8"
-      max-width="128"
-    />
-
-    <base-section-heading title="Feature Comparison">
-      Get the PRO version of <strong>Zero</strong> and level up your theme<br>with additional components, pages, and Free updates.
-    </base-section-heading>
-
     <v-container>
-      <v-row
-        align="center"
-        justify="center"
-      >
-        <v-col
-          cols="12"
-          md="7"
-        >
-          <v-simple-table>
-            <thead>
-              <tr>
-                <th />
-                <th class="body-1 font-weight-bold text-center">
-                  What's in the Demo?
-                </th>
-                <th class="body-1 font-weight-bold text-center">
-                  What's in the PRO version?
-                </th>
-              </tr>
-            </thead>
-
-            <tbody class="body-1">
-              <tr
-                v-for="([name, one, two], i) in features"
-                :key="i"
-              >
-                <td v-text="name" />
-
-                <td class="text-center font-weight-bold">
-                  <template v-if="typeof one === 'boolean'">
-                    <v-icon :color="one ? 'success' : 'error'">
-                      mdi-{{ one ? 'check' : 'close' }}
-                    </v-icon>
-                  </template>
-
-                  <template v-else>
-                    {{ one }}
-                  </template>
-                </td>
-
-                <td class="text-center font-weight-bold">
-                  <template v-if="typeof two === 'boolean'">
-                    <v-icon :color="two ? 'success' : 'error'">
-                      mdi-{{ two ? 'check' : 'close' }}
-                    </v-icon>
-                  </template>
-
-                  <template v-else>
-                    {{ two }}
-                  </template>
-                </td>
-              </tr>
-            </tbody>
-          </v-simple-table>
-        </v-col>
-
-        <v-col
-          cols="12"
-          md="5"
-        >
-          <v-card
-            elevation="16"
-            class="mb-12"
-          >
-            <base-img
-              max-width="100%"
-              src="https://cdn.vuetifyjs.com/store/themes/zero/pro.png"
-            />
-          </v-card>
-
-          <div class="text-center">
-            <base-btn
-              :tile="false"
-              color="primary"
-              href="https://store.vuetifyjs.com/product/zero-theme-pro/?ref=vtyd-pro-page-features"
-              rounded
-            >
-              Buy Pro Now
-
-              <v-icon right>
-                mdi-rocket
-              </v-icon>
-            </base-btn>
-          </div>
-        </v-col>
+      <v-row justify="center">
+        <v-col>Champion</v-col>
+        <v-col>Role</v-col>
+        <v-col>Tier</v-col>
+        <v-col>Amount of Scripts</v-col>
       </v-row>
-    </v-container> -->
-        <base-heading title="Coming soon" />
+    </v-container>
+  </v-card>
+  
 
-    <base-subheading
-      class="primary--text"
-      title="Coming soon"
-    />
-
-    <base-subheading
-      space="8"
-      title="This page is currently under Construction"
-    />
-
-    <base-img
-      :src="require('@/assets/traffic-sign.svg')"
-      class="mx-auto mb-12"
-      contain
-      height="350"
-      width="250"
-    />
-
-    <div class="text-center">
-      <base-btn :to="{ name: 'Home' }">
-        Get me Out of Here
-      </base-btn>
-    </div>
+  <v-container style="width:auto">
+    <v-row justify="center">
+      <v-expansion-panels inset>
+        <v-expansion-panel
+          v-for="champion in champions"
+          :key="champion"
+        >
+          <v-expansion-panel-header>
+            <v-col>
+              <div ID="championName">
+                <v-icon>mdi-account</v-icon>
+                {{champion.championName}}
+              </div>
+            </v-col>
+            <v-col>
+              <div ID="role">
+                 <I>{{champion.role}}</I>
+              </div>
+            </v-col>
+            <v-col>
+              <div ID="tier">
+                 {{champion.tier}}
+              </div>
+            </v-col>
+            <v-col>
+              <div ID="scriptcount">
+                 <v-icon>mdi-format-list-numbered</v-icon>
+                 {{champion.scriptcount}}
+              </div>
+            </v-col>
+            </v-expansion-panel-header>
+          <v-expansion-panel-content>
+            <v-container style="width:auto">
+              <v-row justify="center">
+                <v-expansion-panels inset>
+                  <v-expansion-panel
+                    v-for="item in items"
+                    :key="item"
+                  >
+                    <v-expansion-panel-header>
+                      <v-col>
+                        <div ID="Script-Name">
+                          {{item.name}}
+                        </div>
+                      </v-col>
+                      <v-col>
+                        <v-btn text medium ID="Script-Up" v-on:click.stop>
+                          <v-icon>mdi-arrow-up-bold</v-icon>
+                        </v-btn>
+                        {{item.up}}
+                      </v-col>
+                      <v-col>
+                        <v-btn text medium ID="Script-Down" v-on:click.stop>
+                          <v-icon>mdi-arrow-down-bold</v-icon>
+                        </v-btn>
+                        {{item.down}}
+                      </v-col>
+                      <v-col>
+                        <v-btn text medium ID="Script-Download" v-on:click.stop>
+                          <v-icon>mdi-file-download-outline</v-icon>
+                        </v-btn>
+                      </v-col>
+                      </v-expansion-panel-header>
+                    <v-expansion-panel-content>
+                      {{item.description}}
+                    </v-expansion-panel-content>
+                  </v-expansion-panel>
+                </v-expansion-panels>
+              </v-row>
+            </v-container>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
+    </v-row>
+  </v-container>
   </base-section>
 </template>
 
 <script>
-  // export default {
-  //   name: 'SectionProChart',
-
-  //   data: () => ({
-  //     features: [
-  //       ['Components', 23, '40+'],
-  //       ['Example Pages', 3, 10],
-  //       ['Bugfixes and Issues', true, true],
-  //       ['Vue CLI Support', true, true],
-  //       ['News, Project, and Pricing Pages', false, true],
-  //       ['6 Months Free Updates', false, true],
-  //       ['Price', 'Free', '$60'],
-  //     ],
-  //   }),
-  // }
+  import axios from 'axios'
   export default {
-    name: 'FourOhFour',
+    name: 'SectionProChart',
 
-    provide: {
-      heading: { align: 'center' },
+    data() {
+      return {
+        item: 1 ,
+        items: [],
+        champions: [{
+          "championName":"Annie",
+          "role":"Midlane",
+          "tier":"A",
+          "scriptcount":2
+        },{
+          "championName":"Twitch",
+          "role":"ADC",
+          "tier":"S",
+          "scriptcount":5
+        },
+        {
+          "championName":"Kog'Maw",
+          "role":"ADC",
+          "tier":"S+",
+          "scriptcount":6
+        },
+        {
+          "championName":"Soraka",
+          "role":"Support",
+          "tier":"B",
+          "scriptcount":3
+        }]
+      }
     },
+    methods:{
+      testing: function (event) {
+        console.log(event.target.parentNode.parentNode.ariaExpanded)
+      }
+    },
+    created() {
+      axios.get(`http://localhost:3600/scripts/all`)
+        .then(response => {
+      // JSON responses are automatically parsed.
+      this.items = response.data
+    })
+    .catch(e => {
+      console.log(e)
+    })
   }
+}
 </script>
