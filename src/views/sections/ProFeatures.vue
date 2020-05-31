@@ -78,6 +78,7 @@
                       <v-col>
                         <v-btn text medium ID="Script-Download" v-on:click.stop>
                           <v-icon>mdi-file-download-outline</v-icon>
+                          Download
                         </v-btn>
                       </v-col>
                       </v-expansion-panel-header>
