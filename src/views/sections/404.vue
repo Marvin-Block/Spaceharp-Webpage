@@ -13,7 +13,7 @@
     />
 
     <base-img
-      :src="require('@/assets/traffic-sign.svg')"
+      :src="require('@/assets/error-404.svg')"
       class="mx-auto mb-12"
       contain
       height="350"

@@ -40,9 +40,9 @@
           text: 'Spacesharp is Optimized for ranged Characters, such as Kog\'maw, Twitch or Vayne, nonethless we still support all Champions and will do so in the Future.',
         },
         {
-          icon: 'mdi-flash-outline',
-          title: 'Lethal Tempo',
-          text: 'Utilize High Attackspeed above 2.50 FULLY with the use of Spacesharp. Our Tool is best used in combinations with Supporters, such as Lulu.',
+          icon: 'mdi-code-not-equal-variant',
+          title: 'User Scripts',
+          text: 'Enjoy User-made Scripts that will execute Automatic Combos for you in in less than a Second. The Amount of Scripts grows per day, they range from Utility, to Champions (Auto Zhonyas, Lucian Full-Combo, etc.)',
         },
         {
           icon: 'mdi-clock-fast',

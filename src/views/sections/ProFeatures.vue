@@ -2,7 +2,7 @@
   <base-section
     id="pro-features"
   >
-    <v-img
+    <!-- <v-img
       :src="require('@/assets/logo.svg')"
       class="mx-auto mb-8"
       max-width="128"
@@ -99,24 +99,56 @@
           </div>
         </v-col>
       </v-row>
-    </v-container>
+    </v-container> -->
+        <base-heading title="Coming soon" />
+
+    <base-subheading
+      class="primary--text"
+      title="Coming soon"
+    />
+
+    <base-subheading
+      space="8"
+      title="This page is currently under Construction"
+    />
+
+    <base-img
+      :src="require('@/assets/traffic-sign.svg')"
+      class="mx-auto mb-12"
+      contain
+      height="350"
+      width="250"
+    />
+
+    <div class="text-center">
+      <base-btn :to="{ name: 'Home' }">
+        Get me Out of Here
+      </base-btn>
+    </div>
   </base-section>
 </template>
 
 <script>
-  export default {
-    name: 'SectionProChart',
+  // export default {
+  //   name: 'SectionProChart',
 
-    data: () => ({
-      features: [
-        ['Components', 23, '40+'],
-        ['Example Pages', 3, 10],
-        ['Bugfixes and Issues', true, true],
-        ['Vue CLI Support', true, true],
-        ['News, Project, and Pricing Pages', false, true],
-        ['6 Months Free Updates', false, true],
-        ['Price', 'Free', '$60'],
-      ],
-    }),
+  //   data: () => ({
+  //     features: [
+  //       ['Components', 23, '40+'],
+  //       ['Example Pages', 3, 10],
+  //       ['Bugfixes and Issues', true, true],
+  //       ['Vue CLI Support', true, true],
+  //       ['News, Project, and Pricing Pages', false, true],
+  //       ['6 Months Free Updates', false, true],
+  //       ['Price', 'Free', '$60'],
+  //     ],
+  //   }),
+  // }
+  export default {
+    name: 'FourOhFour',
+
+    provide: {
+      heading: { align: 'center' },
+    },
   }
 </script>

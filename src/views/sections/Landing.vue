@@ -22,13 +22,15 @@
           <ul>
             <li><strong>Attack Champions Only</strong></li>
             <li><strong>Stream Proof Attackrange Indicator</strong></li>
-            <li><strong>Auto Combo</strong> in the form of User Scripts</li>
-            <li><strong>Auto Heal / Barrier</strong></li>
             <li><strong>Minion Hit Marker</strong> (which will be Auto Last Hit in the Future)</li>
           </ul>
-          <br />
-          <p><I>If you're still not convinced, you can Join our Discord Server, open a ticket to request a Trial.</I></p>
           </base-body>
+
+          <!-- <base-body>
+            SpaceSharp is our newest League of Legends script, which was made public on 28.04.2020. There are providers who are private, but charge double or triple price a month for it! We have decided to make this software public available.
+            In addition to the SpaceGlider features, SpaceSharp offers the ability to attack champions only. This means no more Minions will be attacked like with SpaceGlider!
+            Furthermore, the configuration of SpaceSharp is much easier!
+          </base-body> -->
           <div
             :class="$vuetify.breakpoint.smAndDown ? 'flex-column align-start' : 'align-center'"
             class="d-flex flex-wrap"

@@ -6,9 +6,8 @@
 
     <home-footer />
 
-    <home-purchase />
+    <home-login />
 
-    <home-discord />
   </v-app>
 </template>
 
@@ -20,8 +19,7 @@
       HomeAppBar: () => import('@/layouts/home/AppBar'),
       HomeFooter: () => import('@/layouts/home/Footer'),
       HomeView: () => import('@/layouts/home/View'),
-      HomePurchase: () => import('@/layouts/home/Purchase.vue'),
-      HomeDiscord: () => import('@/layouts/home/Discord.vue'),
+      HomeLogin: () => import('@/layouts/home/Login.vue'),
     },
   }
 </script>

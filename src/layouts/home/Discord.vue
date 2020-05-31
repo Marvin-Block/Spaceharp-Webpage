@@ -51,7 +51,7 @@
             Spacesharp Discord
           </base-btn>
         </div>
-        <div class="text-center">
+        <!-- <div class="text-center">
           <base-btn
             :tile="false"
             href="https://discord.gg/R73yUKx"
@@ -64,7 +64,7 @@
           >
             Spaceglider Discord
           </base-btn>
-        </div>
+        </div> -->
       </v-card-text>
     </v-card>
   </v-menu>
@@ -72,7 +72,7 @@
 
 <script>
   export default {
-    name: 'HomePurchase',
+    name: 'HomeDiscord',
 
     data () {
       return {

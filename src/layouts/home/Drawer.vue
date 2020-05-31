@@ -1,11 +1,10 @@
 <template>
   <v-navigation-drawer
     bottom
-    color="transparent"
     fixed
     height="auto"
     overlay-color="secondary"
-    overlay-opacity=".8"
+    overlay-opacity=".3"
     temporary
     v-bind="$attrs"
     v-on="$listeners"

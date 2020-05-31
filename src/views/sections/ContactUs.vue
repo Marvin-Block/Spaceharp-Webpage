@@ -10,7 +10,7 @@
           <v-col cols="10">
             <base-title
               :space="$vuetify.breakpoint.mdAndUp ? 0 : 4"
-              title="STILL NOT CONVINCED ? JOIN US KNOW!"
+              title="STILL NOT CONVINCED ? JOIN US NOW!"
             />
 
             <base-body space="0">

@@ -70,8 +70,7 @@
       drawer: null,
       items: [
         'Home',
-        'About',
-        'Contact',
+        'Spacesharp-DB',
       ],
     }),
   }
