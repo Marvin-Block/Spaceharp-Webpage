@@ -2,6 +2,9 @@
   <base-section
     id="pro-features"
     >
+    <h3>TEST PAGE</h3>
+    <p>This page is still being tested and has no funciotnality whatsoever.</p>
+
   <v-card
     class="mx-auto"
     max-width="70vw"
@@ -16,7 +19,6 @@
       </v-row>
     </v-container>
   </v-card>
-  
 
   <v-container style="width:auto">
     <v-row justify="center">
