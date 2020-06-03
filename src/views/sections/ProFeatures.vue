@@ -1,200 +1,177 @@
 <template>
-  <base-section
-    id="pro-features"
-  >
-    <!-- <v-card
-      class="mx-auto"
-      max-width="70vw"
-      outlined
+  <section id="hero">
+    <v-img
+      :min-height="minHeight"
+      :src="require('@/assets/home-8.jpg')"
+      class="white--text"
+      gradient="to right, rgba(5, 11, 31, .3), rgba(5, 11, 31, .3)"
     >
-      <v-container>
+      <br>
+      <v-card
+        class="mx-auto"
+        max-width="70vw"
+      >
+        <v-container>
+          <v-row justify="center">
+            <h3>
+              TEST PAGE
+            </h3>
+          </v-row>
+          <v-row justify="center">
+            <p>
+              This page is still being tested and has no funciotnality whatsoever.
+            </p>
+          </v-row>
+        </v-container>
+      </v-card>
+      <v-container style="width:auto">
         <v-row justify="center">
-          <v-col>Champion</v-col>
-          <v-col>Role</v-col>
-          <v-col>Tier</v-col>
-          <v-col>Amount of Scripts</v-col>
-        </v-row>
-      </v-container>
-    </v-card> -->
-
-    <!-- <h3>
-        TEST PAGE
-      </h3>
-      <p>
-        This page is still being tested and has no funciotnality whatsoever.
-      </p> -->
-    <v-card
-      class="mx-auto"
-      max-width="70vw"
-    >
-      <v-container>
-        <v-row justify="center">
-          <h3>
-            TEST PAGE
-          </h3>
-        </v-row>
-        <v-row justify="center">
-          <p>
-            This page is still being tested and has no funciotnality whatsoever.
-          </p>
-        </v-row>
-      </v-container>
-    </v-card>
-    <v-container style="width:auto">
-      <v-row justify="center">
-        <v-expansion-panels
-          inset
-        >
-          <v-expansion-panel
-            v-for="champion in champions"
-            :key="champion"
+          <v-expansion-panels
+            accordion
           >
-            <v-expansion-panel-header>
-              <v-col>
-                <div ID="championName">
-                  <v-icon>mdi-account</v-icon>
-                  {{ champion.championName }}
-                </div>
-              </v-col>
-              <v-col>
-                <div ID="role">
-                  <I>{{ champion.role }}</I>
-                </div>
-              </v-col>
-              <v-col>
-                <div ID="tier">
-                  {{ champion.tier }}
-                </div>
-              </v-col>
-              <v-col>
-                <div ID="scriptcount">
-                  <v-icon>mdi-format-list-numbered</v-icon>
-                  {{ champion.scriptcount }}
-                </div>
-              </v-col>
-            </v-expansion-panel-header>
-            <v-expansion-panel-content>
-              <v-container style="width:100%">
-                <v-row justify="space-around">
-                  <v-data-table
-                    :headers="headers"
-                    :items="desserts"
-                    hide-default-footer
-                    class="elevation-1"
-                  >
-                    <template v-slot:top>
-                      <v-toolbar
-                        flat
+            <v-expansion-panel
+              v-for="(champion, i) in champions"
+              :key="champion"
+              hide-actions
+            >
+              <v-expansion-panel-header disable-icon-rotate>
+                <v-row
+                  align="center"
+                  class="spacer"
+                  no-gutters
+                >
+                  <v-col>
+                    <v-avatar
+                      size="36px"
+                    >
+                      <img
+                        height="1.5vh"
+                        :src="require(`@/assets/ChampIcons/${champion.championName}.png`)"
+                        alt="Avatar"
                       >
-                        <v-dialog
-                          v-model="dialog"
-                          max-width="500px"
+                    </v-avatar>
+                  </v-col>
+                  <v-col>
+                    {{ champion.championName }}
+                  </v-col>
+                  <v-col>
+                    <v-img
+                      contain
+                      height="1.5vw"
+                      :src="require(`@/assets/${champion.roleIcon}`)"
+                    />
+                  </v-col>
+                  <v-col>
+                    {{ champion.tier }}
+                  </v-col>
+                  <v-col>
+                    <v-icon>mdi-format-list-numbered</v-icon>
+                    {{ champion.content.length }}
+                  </v-col>
+                </v-row>
+              </v-expansion-panel-header>
+              <v-expansion-panel-content>
+                <v-container style="width:100%">
+                  <v-row justify="space-around">
+                    <v-row justify="center">
+                      <v-expansion-panels
+                        accordion
+                      >
+                        <v-expansion-panel
+                          v-for="test in championSort[i]"
+                          :key="test"
                         >
-                          <template v-slot:activator="{ on }">
-                            <v-btn
-
-                              outlined
-                              class="mb-2"
-                              v-on="on"
+                          <v-expansion-panel-header disable-icon-rotate>
+                            <v-row
+                              align="center"
+                              class="spacer"
+                              no-gutters
                             >
-                              New Script
-                            </v-btn>
-                          </template>
-                          <v-card>
-                            <v-card-title>
-                              <span class="headline">{{ formTitle }}</span>
-                            </v-card-title>
-
-                            <v-card-text>
-                              <v-container>
-                                <v-row>
-                                  <v-col
-                                    cols="12"
-                                    sm="6"
-                                    md="4"
+                              <v-col>
+                                <div>
+                                  <v-icon
+                                    smallclass="mr-2"
                                   >
-                                    <v-text-field
-                                      v-model="editedItem.name"
-                                      label="Script Name"
-                                    />
+                                    mdi-account
+                                  </v-icon>
+                                  {{ test.name }}
+                                </div>
+                              </v-col>
+                              <v-col>
+                                <div>
+                                  <I>{{ test.creator }}</I>
+                                </div>
+                              </v-col>
+                              <v-col>
+                                <div>
+                                  {{ test.upvotes }}
+                                </div>
+                              </v-col>
+                              <v-col>
+                                <div>
+                                  {{ test.downvotes }}
+                                </div>
+                              </v-col>
+                              <v-col>
+                                <div>
+                                  {{ test.downvotes }}
+                                </div>
+                              </v-col>
+                            </v-row>
+                          </v-expansion-panel-header>
+                          <v-expansion-panel-content>
+                            <v-container style="width:100%">
+                              <v-row justify="center">
+                                <v-row
+                                  align="center"
+                                  class="spacer"
+                                  no-gutters
+                                >
+                                  <v-col>
+                                    <div>
+                                      {{ test.description }}
+                                    </div>
                                   </v-col>
-                                  <v-col
-                                    cols="12"
-                                    sm="6"
-                                    md="4"
-                                  >
-                                    <v-text-field
-                                      v-model="editedItem.creator"
-                                      label="Creator"
-                                    />
+                                  <v-col>
+                                    <v-icon
+                                      class="mr-2"
+                                      @click="test()"
+                                    >
+                                      mdi-download
+                                    </v-icon>
                                   </v-col>
-                                  <v-col
-                                    cols="12"
-                                    sm="6"
-                                    md="4"
-                                  >
-                                    <v-text-field
-                                      v-model="editedItem.type"
-                                      label="Type"
-                                    />
+                                  <v-col>
+                                    <v-icon
+                                      class="mr-2"
+                                      @click="test()"
+                                    >
+                                      mdi-pencil
+                                    </v-icon>
+                                  </v-col>
+                                  <v-col>
+                                    <v-icon
+                                      class="mr-2"
+                                      @click="test()"
+                                    >
+                                      mdi-delete
+                                    </v-icon>
                                   </v-col>
                                 </v-row>
-                              </v-container>
-                            </v-card-text>
-
-                            <v-card-actions>
-                              <v-spacer />
-                              <v-btn
-                                outlined
-                                text
-                                @click="close"
-                              >
-                                Cancel
-                              </v-btn>
-                              <v-btn
-                                outlined
-                                text
-                                @click="save"
-                              >
-                                Save
-                              </v-btn>
-                            </v-card-actions>
-                          </v-card>
-                        </v-dialog>
-                      </v-toolbar>
-                    </template>
-                    <template v-slot:item.actions="{ item }">
-                      <v-icon
-                        small
-                        class="mr-2"
-                        @click="editItem(item)"
-                      >
-                        mdi-pencil
-                      </v-icon>
-                      <v-icon
-                        small
-                        @click="deleteItem(item)"
-                      >
-                        mdi-delete
-                      </v-icon>
-                    </template>
-                    <template v-slot:no-data>
-                      <v-btn
-                        color="primary"
-                        @click="initialize"
-                      >
-                        Reset
-                      </v-btn>
-                    </template>
-                  </v-data-table>
-                </v-row>
-              </v-container>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels>
-      </v-row>
-    </v-container>
-  </base-section>
+                              </v-row>
+                            </v-container>
+                          </v-expansion-panel-content>
+                        </v-expansion-panel>
+                      </v-expansion-panels>
+                    </v-row>
+                  </v-row>
+                </v-container>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
+        </v-row>
+      </v-container>
+    </v-img>
+  </section>
 </template>
 
 <script>
@@ -207,44 +184,100 @@
         image: '@/src/assets/gallery.jpg',
         itemsPerPage: 4,
         dialog: false,
-        headers: [
-          {
-            text: 'Script Name',
-            align: 'start',
-            sortable: false,
-            value: 'name',
-          },
-          { text: 'Creator', value: 'creator' },
-          { text: 'Type', value: 'type' },
-          { text: 'Upvotes', value: 'upvotes' },
-          { text: 'Downvotes', value: 'downvotes' },
-          { text: 'Downloads', value: 'downloads' },
-          { text: 'Actions', value: 'actions', sortable: false },
-        ],
-        desserts: [],
+        championheaders: ['Champion', 'Role', 'Tier', 'Scriptcount'],
         champions: [
           {
-            championName: 'Champion 1',
+            championName: 'Annie',
             role: 'Midlane',
+            roleIcon: 'mid.png',
             tier: 'A',
-            scriptcount: 2,
+            content: [],
           }, {
-            championName: 'Champion 2',
-            role: 'ADC',
+            championName: 'Ryze',
+            role: 'Midlane',
+            roleIcon: 'mid.png',
             tier: 'S',
-            scriptcount: 5,
+            content: [],
           },
           {
-            championName: 'Champion 3',
+            championName: 'Twitch',
             role: 'ADC',
+            roleIcon: 'bot.png',
             tier: 'S+',
-            scriptcount: 6,
+            content: [],
           },
           {
-            championName: 'Champion 4',
+            championName: 'Soraka',
             role: 'Support',
+            roleIcon: 'supp.png',
             tier: 'B',
-            scriptcount: 3,
+            content: [],
+          },
+        ],
+        scriptheaders: ['Name', 'Creator', 'Type', 'Upvotes', 'Downvotes', 'Download'],
+        scripts: [
+          {
+            name: 'Annie for Nenny',
+            champion: 'Annie',
+            type: 'Champion',
+            creator: 'test123',
+            upvotes: 0,
+            downvotes: 0,
+            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
+          },
+          {
+            name: 'Testing Annie combo',
+            champion: 'Annie',
+            type: 'Champion',
+            creator: 'etrujw46zr',
+            upvotes: 0,
+            downvotes: 0,
+            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
+          },
+          {
+            name: 'Annie is god',
+            champion: 'Annie',
+            type: 'Champion',
+            creator: '3456437',
+            upvotes: 0,
+            downvotes: 0,
+            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
+          },
+          {
+            name: 'Combo Annie Insane 2k20',
+            champion: 'Annie',
+            type: 'Champion',
+            creator: '43645',
+            upvotes: 0,
+            downvotes: 0,
+            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
+          },
+          {
+            name: 'Ryze YEET',
+            champion: 'Ryze',
+            type: 'Champion',
+            creator: 'yxcbdg123123',
+            upvotes: 0,
+            downvotes: 0,
+            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
+          },
+          {
+            name: 'IMAGINE PREDICTION',
+            champion: 'Ryze',
+            type: 'Champion',
+            creator: 'yxfj54',
+            upvotes: 0,
+            downvotes: 0,
+            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
+          },
+          {
+            name: 'KALISTA WHEN EVADE',
+            champion: 'Ryze',
+            type: 'Champion',
+            creator: '346hdfg',
+            upvotes: 0,
+            downvotes: 0,
+            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
           },
         ],
         editedIndex: -1,
@@ -261,11 +294,39 @@
       }
     },
     computed: {
+      championSort (champions, scripts) {
+        const arr1 = []
+        this.champions.forEach(champ => {
+          const arr2 = []
+          this.scripts.forEach(script => {
+            if (champ.championName === script.champion) {
+              arr2.push(script)
+            }
+          })
+          arr1.push(arr2)
+        })
+        return arr1
+      },
       formTitle () {
         return this.editedIndex === -1 ? 'New Script' : 'Edit Script'
       },
+      minHeight () {
+        const height = this.$vuetify.breakpoint.mdAndUp ? '100vh' : '50vh'
+
+        return `calc(${height} - ${this.$vuetify.application.top}px)`
+      },
     },
 
+    method: {
+      matchingChamp (arr1, arr2) {
+        const test = arr1
+        return test
+      },
+    },
+
+    provide: {
+      theme: { isDark: false },
+    },
     watch: {
       dialog (val) {
         val || this.close()
@@ -274,121 +335,6 @@
 
     created () {
       this.initialize()
-    },
-
-    methods: {
-      initialize () {
-        this.desserts = [
-          {
-            name: 'Super mega sick Annie',
-            creator: 'Nenny#1275',
-            type: 'Champion',
-            upvotes: 24,
-            downvotes: 4,
-            downloads: 1000,
-          },
-          {
-            name: 'Script 123',
-            creator: 'Trickory#1234',
-            type: 'Champion',
-            upvotes: 37,
-            downvotes: 4,
-            downloads: 1024,
-          },
-          {
-            name: 'Jesus is an Illuminati',
-            creator: 'Interlogy#6969',
-            type: 'Champion',
-            upvotes: 23,
-            downvotes: 6,
-            downloads: 1000,
-          },
-          {
-            name: '911 was an inside job',
-            creator: 'Kalist#187',
-            type: 'Module',
-            upvotes: 67,
-            downvotes: 5,
-            downloads: 1000,
-          },
-          {
-            name: 'Kys fgt',
-            creator: 'Test#1234',
-            type: 'Module',
-            upvotes: 49,
-            downvotes: 9,
-            downloads: 1000,
-          },
-          {
-            name: 'Nigglet on the run',
-            creator: 'why are there so many entries in this list#1234',
-            type: 'Champion',
-            upvotes: 94,
-            downvotes: 0,
-            downloads: 1000,
-          },
-          {
-            name: 'Sharp > Glider',
-            creator: 'please safe me',
-            type: 'Champion',
-            upvotes: 98,
-            downvotes: 0,
-            downloads: 23658,
-          },
-          {
-            name: '1256',
-            creator: 'end my suffering',
-            type: 'Utility',
-            upvotes: 87,
-            downvotes: 5,
-            downloads: 51525,
-          },
-          {
-            name: 'Super fast incel stomp',
-            creator: 'dear god',
-            type: 'Utility',
-            upvotes: 51,
-            downvotes: 7,
-            downloads: 1032600,
-          },
-          {
-            name: '1v14 machine kite god of doom',
-            creator: 'please forgive me, for i have sinned',
-            type: 'Champion',
-            upvotes: 65,
-            downvotes: 15,
-            downloads: 10,
-          },
-        ]
-      },
-
-      editItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialog = true
-      },
-
-      deleteItem (item) {
-        const index = this.desserts.indexOf(item)
-        confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1)
-      },
-
-      close () {
-        this.dialog = false
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        })
-      },
-
-      save () {
-        if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.editedItem)
-        } else {
-          this.desserts.push(this.editedItem)
-        }
-        this.close()
-      },
     },
     // created () {
     //   axios.get('http://localhost:3600/scripts/all')

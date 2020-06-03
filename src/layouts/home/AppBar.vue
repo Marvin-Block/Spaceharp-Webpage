@@ -3,7 +3,7 @@
     <v-app-bar
       id="home-app-bar"
       app
-      color="white"
+      color="grey-lighten"
       elevation="1"
       height="80"
     >
@@ -34,7 +34,7 @@
             :key="i"
             :to="{ name }"
             :exact="name === 'Home'"
-            :ripple="false"
+            :ripple="true"
             active-class="text--primary"
             class="font-weight-bold"
             min-width="96"

@@ -24,7 +24,7 @@
         v-on="on"
       >
         <v-icon large>
-          mdi-login
+          mdi-account
         </v-icon>
       </v-card>
     </template>
