@@ -120,18 +120,24 @@
                             </v-row>
                           </v-expansion-panel-header>
                           <v-expansion-panel-content>
-                            <v-container style="width:100%">
-                              <v-row justify="center">
-                                <v-row
-                                  align="center"
-                                  class="spacer"
-                                  no-gutters
+                            <v-container
+                              style="width:100%"
+                              fluid
+                            >
+                              <v-row
+                                align="center"
+                                class="spacer"
+                                no-gutters
+                              >
+                                <v-col>
+                                  <div>
+                                    {{ test.description }}
+                                  </div>
+                                </v-col>
+                                <v-card
+                                  class="pa-2"
+                                  outlined
                                 >
-                                  <v-col>
-                                    <div>
-                                      {{ test.description }}
-                                    </div>
-                                  </v-col>
                                   <v-col>
                                     <v-icon
                                       class="mr-2"
@@ -139,16 +145,14 @@
                                     >
                                       mdi-download
                                     </v-icon>
-                                  </v-col>
-                                  <v-col>
+                                    <spacer />
                                     <v-icon
                                       class="mr-2"
                                       @click="test()"
                                     >
                                       mdi-pencil
                                     </v-icon>
-                                  </v-col>
-                                  <v-col>
+                                    <spacer />
                                     <v-icon
                                       class="mr-2"
                                       @click="test()"
@@ -156,7 +160,7 @@
                                       mdi-delete
                                     </v-icon>
                                   </v-col>
-                                </v-row>
+                                </v-card>
                               </v-row>
                             </v-container>
                           </v-expansion-panel-content>
