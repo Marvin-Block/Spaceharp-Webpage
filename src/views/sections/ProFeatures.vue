@@ -9,7 +9,7 @@
       <br>
       <v-card
         class="mx-auto"
-        max-width="70vw"
+        max-width="60em"
       >
         <v-container>
           <v-row justify="center">
@@ -45,7 +45,7 @@
                       size="36px"
                     >
                       <img
-                        height="1.5vh"
+                        height="3em"
                         :src="require(`@/assets/ChampIcons/${champion.championName}.png`)"
                         alt="Avatar"
                       >
@@ -57,7 +57,7 @@
                   <v-col>
                     <v-img
                       contain
-                      height="1.5vw"
+                      height="2.5em"
                       :src="require(`@/assets/${champion.roleIcon}`)"
                     />
                   </v-col>
@@ -65,8 +65,12 @@
                     {{ champion.tier }}
                   </v-col>
                   <v-col>
-                    <v-icon>mdi-format-list-numbered</v-icon>
-                    {{ champion.content.length }}
+                    <v-icon
+                      width="2 em"
+                    >
+                      mdi-format-list-numbered
+                    </v-icon>
+                    {{ championSort[i].length }}
                   </v-col>
                 </v-row>
               </v-expansion-panel-header>
@@ -90,6 +94,7 @@
                               <v-col>
                                 <div>
                                   <v-icon
+                                    width="2 em"
                                     smallclass="mr-2"
                                   >
                                     mdi-account
@@ -134,26 +139,36 @@
                                     {{ test.description }}
                                   </div>
                                 </v-col>
+                                <v-divider
+                                  class="mx-4"
+                                  vertical
+                                />
                                 <v-card
-                                  class="pa-2"
                                   outlined
                                 >
                                   <v-col>
                                     <v-icon
+                                      width="2 em"
                                       class="mr-2"
                                       @click="test()"
                                     >
                                       mdi-download
                                     </v-icon>
                                     <spacer />
+                                  </v-col>
+                                  <v-col>
                                     <v-icon
+                                      width="2 em"
                                       class="mr-2"
                                       @click="test()"
                                     >
                                       mdi-pencil
                                     </v-icon>
-                                    <spacer />
+                                  </v-col>
+                                  <spacer />
+                                  <v-col>
                                     <v-icon
+                                      width="2 em"
                                       class="mr-2"
                                       @click="test()"
                                     >
@@ -185,10 +200,7 @@
 
     data () {
       return {
-        image: '@/src/assets/gallery.jpg',
-        itemsPerPage: 4,
         dialog: false,
-        championheaders: ['Champion', 'Role', 'Tier', 'Scriptcount'],
         champions: [
           {
             championName: 'Annie',
@@ -218,7 +230,6 @@
             content: [],
           },
         ],
-        scriptheaders: ['Name', 'Creator', 'Type', 'Upvotes', 'Downvotes', 'Download'],
         scripts: [
           {
             name: 'Annie for Nenny',
@@ -276,7 +287,115 @@
           },
           {
             name: 'KALISTA WHEN EVADE',
+            champion: 'Annie',
+            type: 'Champion',
+            creator: '346hdfg',
+            upvotes: 0,
+            downvotes: 0,
+            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
+          },
+          {
+            name: 'Ryze YEET',
             champion: 'Ryze',
+            type: 'Champion',
+            creator: 'yxcbdg123123',
+            upvotes: 0,
+            downvotes: 0,
+            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
+          },
+          {
+            name: 'IMAGINE PREDICTION',
+            champion: 'Soraka',
+            type: 'Champion',
+            creator: 'yxfj54',
+            upvotes: 0,
+            downvotes: 0,
+            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
+          },
+          {
+            name: 'KALISTA WHEN EVADE',
+            champion: 'Twitch',
+            type: 'Champion',
+            creator: '346hdfg',
+            upvotes: 0,
+            downvotes: 0,
+            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
+          },
+          {
+            name: 'Ryze YEET',
+            champion: 'Twitch',
+            type: 'Champion',
+            creator: 'yxcbdg123123',
+            upvotes: 0,
+            downvotes: 0,
+            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
+          },
+          {
+            name: 'IMAGINE PREDICTION',
+            champion: 'Twitch',
+            type: 'Champion',
+            creator: 'yxfj54',
+            upvotes: 0,
+            downvotes: 0,
+            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
+          },
+          {
+            name: 'KALISTA WHEN EVADE',
+            champion: 'Twitch',
+            type: 'Champion',
+            creator: '346hdfg',
+            upvotes: 0,
+            downvotes: 0,
+            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
+          },
+          {
+            name: 'Ryze YEET',
+            champion: 'Twitch',
+            type: 'Champion',
+            creator: 'yxcbdg123123',
+            upvotes: 0,
+            downvotes: 0,
+            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
+          },
+          {
+            name: 'IMAGINE PREDICTION',
+            champion: 'Twitch',
+            type: 'Champion',
+            creator: 'yxfj54',
+            upvotes: 0,
+            downvotes: 0,
+            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
+          },
+          {
+            name: 'KALISTA WHEN EVADE',
+            champion: 'Soraka',
+            type: 'Champion',
+            creator: '346hdfg',
+            upvotes: 0,
+            downvotes: 0,
+            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
+          },
+          {
+            name: 'Ryze YEET',
+            champion: 'Soraka',
+            type: 'Champion',
+            creator: 'yxcbdg123123',
+            upvotes: 0,
+            downvotes: 0,
+            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
+          },
+          {
+            name: 'IMAGINE PREDICTION',
+            champion: 'Soraka',
+            type: 'Champion',
+            creator: 'yxfj54',
+            upvotes: 0,
+            downvotes: 0,
+            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
+          },
+          {
+            name: 'KALISTA WHEN EVADE',
+            champion: 'Soraka',
             type: 'Champion',
             creator: '346hdfg',
             upvotes: 0,
@@ -298,6 +417,9 @@
       }
     },
     computed: {
+      counter: function () {
+        return 123
+      },
       championSort (champions, scripts) {
         const arr1 = []
         this.champions.forEach(champ => {
@@ -314,17 +436,13 @@
       formTitle () {
         return this.editedIndex === -1 ? 'New Script' : 'Edit Script'
       },
+      scriptNumber () {
+        return 123
+      },
       minHeight () {
         const height = this.$vuetify.breakpoint.mdAndUp ? '100vh' : '50vh'
 
         return `calc(${height} - ${this.$vuetify.application.top}px)`
-      },
-    },
-
-    method: {
-      matchingChamp (arr1, arr2) {
-        const test = arr1
-        return test
       },
     },
 
