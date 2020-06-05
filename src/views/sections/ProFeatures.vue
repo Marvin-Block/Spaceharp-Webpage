@@ -1,3 +1,4 @@
+/* eslint-disable vue/valid-v-for */
 <template>
   <section id="hero">
     <v-img
@@ -14,7 +15,7 @@
         <v-container>
           <v-row justify="center">
             <h3>
-              TEST PAGE
+              TESTING PAGE
             </h3>
           </v-row>
           <v-row justify="center">
@@ -24,23 +25,57 @@
           </v-row>
         </v-container>
       </v-card>
-      <v-container style="width:auto">
+      <br>
+      <v-container
+        v-if="!loading"
+        style="width:auto"
+      >
+        <v-row justify="center">
+          <v-row
+            align="center"
+            class="spacer"
+            no-gutters
+          >
+            <v-col style="text-align:center" />
+            <v-col style="text-align:center" />
+            <v-col style="text-align:center">
+              <p style="color:white">
+                Role
+              </p>
+            </v-col>
+            <v-col style="text-align:center">
+              <p style="color:white">
+                Tier
+              </p>
+            </v-col>
+            <v-col style="text-align:center">
+              <p style="color:white">
+                Number of Scripts
+              </p>
+            </v-col>
+          </v-row>
+        </v-row>
         <v-row justify="center">
           <v-expansion-panels
+            focusable
+            hover
             accordion
           >
             <v-expansion-panel
-              v-for="(champion, i) in champions"
+              v-for="champion in champions"
               :key="champion"
               hide-actions
             >
-              <v-expansion-panel-header disable-icon-rotate>
+              <v-expansion-panel-header
+                v-if="champion.scripts.length"
+                disable-icon-rotate
+              >
                 <v-row
                   align="center"
                   class="spacer"
                   no-gutters
                 >
-                  <v-col>
+                  <v-col style="text-align:center">
                     <v-avatar
                       size="36px"
                     >
@@ -51,75 +86,146 @@
                       >
                     </v-avatar>
                   </v-col>
-                  <v-col>
+                  <v-col style="text-align:center">
                     {{ champion.championName }}
                   </v-col>
-                  <v-col>
+                  <v-col style="text-align:center">
                     <v-img
                       contain
                       height="2.5em"
                       :src="require(`@/assets/${champion.roleIcon}`)"
                     />
                   </v-col>
-                  <v-col>
+                  <v-col style="text-align:center">
                     {{ champion.tier }}
                   </v-col>
-                  <v-col>
+                  <v-col style="text-align:center">
                     <v-icon
                       width="2 em"
                     >
                       mdi-format-list-numbered
                     </v-icon>
-                    {{ championSort[i].length }}
+                    {{ champion.scripts.length }}
                   </v-col>
                 </v-row>
               </v-expansion-panel-header>
               <v-expansion-panel-content>
-                <v-container style="width:100%">
+                <v-container>
                   <v-row justify="space-around">
                     <v-row justify="center">
                       <v-expansion-panels
+                        hide-actions
                         accordion
                       >
                         <v-expansion-panel
-                          v-for="test in championSort[i]"
-                          :key="test"
+                          style="pointer-events:none;cursor:defautl"
+                          readonly
                         >
-                          <v-expansion-panel-header disable-icon-rotate>
+                          <v-expansion-panel-header
+                            style="background:rgba(0,0,0,0.25)"
+                          >
+                            <template v-slot:actions>
+                              <v-icon color="#FF000000">
+                                mdi-check
+                              </v-icon>
+                            </template>
                             <v-row
                               align="center"
                               class="spacer"
                               no-gutters
                             >
-                              <v-col>
+                              <v-col style="text-align:center">
+                                Name
+                              </v-col>
+                              <v-divider
+                                class="mx-4"
+                                vertical
+                              />
+                              <v-col style="text-align:center">
+                                Creator
+                              </v-col>
+                              <v-divider
+                                class="mx-4"
+                                vertical
+                              />
+                              <v-col style="text-align:center">
+                                <v-icon color="success">
+                                  mdi-arrow-up-bold
+                                </v-icon>
+                              </v-col>
+                              <v-divider
+                                class="mx-4"
+                                vertical
+                              />
+                              <v-col style="text-align:center">
+                                <v-icon color="error">
+                                  mdi-arrow-down-bold
+                                </v-icon>
+                              </v-col>
+                              <v-divider
+                                class="mx-4"
+                                vertical
+                              />
+                              <v-col style="text-align:center">
+                                <v-icon color="black">
+                                  mdi-counter
+                                </v-icon>
+                              </v-col>
+                            </v-row>
+                          </v-expansion-panel-header>
+                        </v-expansion-panel>
+                        <v-expansion-panel
+                          v-for="script in champion.scripts"
+                          :key="script"
+                        >
+                          <v-expansion-panel-header
+                            disable-icon-rotate
+                            style="background:rgba(0,0,0,0.05)"
+                          >
+                            <v-row
+                              align="center"
+                              class="spacer"
+                              no-gutters
+                            >
+                              <v-col style="text-align:center">
                                 <div>
-                                  <v-icon
-                                    width="2 em"
-                                    smallclass="mr-2"
-                                  >
-                                    mdi-account
-                                  </v-icon>
-                                  {{ test.name }}
+                                  {{ script.name }}
                                 </div>
                               </v-col>
-                              <v-col>
+                              <v-divider
+                                class="mx-4"
+                                vertical
+                              />
+                              <v-col style="text-align:center">
                                 <div>
-                                  <I>{{ test.creator }}</I>
+                                  <I>{{ script.creator }}</I>
                                 </div>
                               </v-col>
-                              <v-col>
+                              <v-divider
+                                class="mx-4"
+                                vertical
+                              />
+                              <v-col style="text-align:center">
                                 <div>
-                                  {{ test.upvotes }}
+                                  {{ script.upvotes }}
                                 </div>
                               </v-col>
-                              <v-col>
+                              <v-divider
+                                class="mx-4"
+                                vertical
+                              />
+                              <v-col style="text-align:center">
                                 <div>
-                                  {{ test.downvotes }}
+                                  {{ script.downvotes }}
                                 </div>
                               </v-col>
-                              <v-col>
+                              <v-divider
+                                class="mx-4"
+                                vertical
+                              />
+                              <v-col style="text-align:center">
                                 <div>
-                                  {{ test.downvotes }}
+                                  {{ script.downvotes }}
                                 </div>
                               </v-col>
                             </v-row>
@@ -136,46 +242,23 @@
                               >
                                 <v-col>
                                   <div>
-                                    {{ test.description }}
+                                    {{ script.description }}
                                   </div>
                                 </v-col>
                                 <v-divider
                                   class="mx-4"
                                   vertical
                                 />
-                                <v-card
-                                  outlined
-                                >
-                                  <v-col>
-                                    <v-icon
-                                      width="2 em"
-                                      class="mr-2"
-                                      @click="test()"
-                                    >
-                                      mdi-download
-                                    </v-icon>
-                                    <spacer />
-                                  </v-col>
-                                  <v-col>
-                                    <v-icon
-                                      width="2 em"
-                                      class="mr-2"
-                                      @click="test()"
-                                    >
-                                      mdi-pencil
-                                    </v-icon>
-                                  </v-col>
-                                  <spacer />
-                                  <v-col>
-                                    <v-icon
-                                      width="2 em"
-                                      class="mr-2"
-                                      @click="test()"
-                                    >
-                                      mdi-delete
-                                    </v-icon>
-                                  </v-col>
-                                </v-card>
+                                <div>
+                                  <v-icon
+                                    width="2 em"
+                                    class="mr-2"
+                                    color="success"
+                                    @click="startDownload"
+                                  >
+                                    mdi-download
+                                  </v-icon>
+                                </div>
                               </v-row>
                             </v-container>
                           </v-expansion-panel-content>
@@ -189,284 +272,103 @@
           </v-expansion-panels>
         </v-row>
       </v-container>
+      <div
+        v-else-if="error"
+        class="text-center mx-auto"
+        style="max-width:80em"
+      >
+        <v-snackbar
+          v-model="error"
+          color="error"
+        >
+          <v-alert
+            prominent
+            type="error"
+            justify="center"
+          >
+            <v-row align="center">
+              <v-col class="grow">
+                There was an Error getting the Champion list. Please try again in a few Seconds.<br> If this issue persist, please contact
+                Muffin#4222
+              </v-col>
+            </v-row>
+          </v-alert>
+          <v-btn
+            color="black"
+            text
+            @click="reloadPage"
+          >
+            Close
+          </v-btn>
+        </v-snackbar>
+      </div>
+      <div
+        v-else
+        class="text-center"
+      >
+        <v-progress-circular
+          :size="70"
+          :width="7"
+          color="primary"
+          indeterminate
+        />
+      </div>
     </v-img>
   </section>
 </template>
 
 <script>
-  // import axios from 'axios'
+  import axios from 'axios'
   export default {
     name: 'SectionProChart',
 
     data () {
       return {
-        dialog: false,
-        champions: [
-          {
-            championName: 'Annie',
-            role: 'Midlane',
-            roleIcon: 'mid.png',
-            tier: 'A',
-            content: [],
-          }, {
-            championName: 'Ryze',
-            role: 'Midlane',
-            roleIcon: 'mid.png',
-            tier: 'S',
-            content: [],
-          },
-          {
-            championName: 'Twitch',
-            role: 'ADC',
-            roleIcon: 'bot.png',
-            tier: 'S+',
-            content: [],
-          },
-          {
-            championName: 'Soraka',
-            role: 'Support',
-            roleIcon: 'supp.png',
-            tier: 'B',
-            content: [],
-          },
-        ],
-        scripts: [
-          {
-            name: 'Annie for Nenny',
-            champion: 'Annie',
-            type: 'Champion',
-            creator: 'test123',
-            upvotes: 0,
-            downvotes: 0,
-            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
-          },
-          {
-            name: 'Testing Annie combo',
-            champion: 'Annie',
-            type: 'Champion',
-            creator: 'etrujw46zr',
-            upvotes: 0,
-            downvotes: 0,
-            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
-          },
-          {
-            name: 'Annie is god',
-            champion: 'Annie',
-            type: 'Champion',
-            creator: '3456437',
-            upvotes: 0,
-            downvotes: 0,
-            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
-          },
-          {
-            name: 'Combo Annie Insane 2k20',
-            champion: 'Annie',
-            type: 'Champion',
-            creator: '43645',
-            upvotes: 0,
-            downvotes: 0,
-            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
-          },
-          {
-            name: 'Ryze YEET',
-            champion: 'Ryze',
-            type: 'Champion',
-            creator: 'yxcbdg123123',
-            upvotes: 0,
-            downvotes: 0,
-            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
-          },
-          {
-            name: 'IMAGINE PREDICTION',
-            champion: 'Ryze',
-            type: 'Champion',
-            creator: 'yxfj54',
-            upvotes: 0,
-            downvotes: 0,
-            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
-          },
-          {
-            name: 'KALISTA WHEN EVADE',
-            champion: 'Annie',
-            type: 'Champion',
-            creator: '346hdfg',
-            upvotes: 0,
-            downvotes: 0,
-            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
-          },
-          {
-            name: 'Ryze YEET',
-            champion: 'Ryze',
-            type: 'Champion',
-            creator: 'yxcbdg123123',
-            upvotes: 0,
-            downvotes: 0,
-            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
-          },
-          {
-            name: 'IMAGINE PREDICTION',
-            champion: 'Soraka',
-            type: 'Champion',
-            creator: 'yxfj54',
-            upvotes: 0,
-            downvotes: 0,
-            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
-          },
-          {
-            name: 'KALISTA WHEN EVADE',
-            champion: 'Twitch',
-            type: 'Champion',
-            creator: '346hdfg',
-            upvotes: 0,
-            downvotes: 0,
-            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
-          },
-          {
-            name: 'Ryze YEET',
-            champion: 'Twitch',
-            type: 'Champion',
-            creator: 'yxcbdg123123',
-            upvotes: 0,
-            downvotes: 0,
-            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
-          },
-          {
-            name: 'IMAGINE PREDICTION',
-            champion: 'Twitch',
-            type: 'Champion',
-            creator: 'yxfj54',
-            upvotes: 0,
-            downvotes: 0,
-            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
-          },
-          {
-            name: 'KALISTA WHEN EVADE',
-            champion: 'Twitch',
-            type: 'Champion',
-            creator: '346hdfg',
-            upvotes: 0,
-            downvotes: 0,
-            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
-          },
-          {
-            name: 'Ryze YEET',
-            champion: 'Twitch',
-            type: 'Champion',
-            creator: 'yxcbdg123123',
-            upvotes: 0,
-            downvotes: 0,
-            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
-          },
-          {
-            name: 'IMAGINE PREDICTION',
-            champion: 'Twitch',
-            type: 'Champion',
-            creator: 'yxfj54',
-            upvotes: 0,
-            downvotes: 0,
-            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
-          },
-          {
-            name: 'KALISTA WHEN EVADE',
-            champion: 'Soraka',
-            type: 'Champion',
-            creator: '346hdfg',
-            upvotes: 0,
-            downvotes: 0,
-            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
-          },
-          {
-            name: 'Ryze YEET',
-            champion: 'Soraka',
-            type: 'Champion',
-            creator: 'yxcbdg123123',
-            upvotes: 0,
-            downvotes: 0,
-            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
-          },
-          {
-            name: 'IMAGINE PREDICTION',
-            champion: 'Soraka',
-            type: 'Champion',
-            creator: 'yxfj54',
-            upvotes: 0,
-            downvotes: 0,
-            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
-          },
-          {
-            name: 'KALISTA WHEN EVADE',
-            champion: 'Soraka',
-            type: 'Champion',
-            creator: '346hdfg',
-            upvotes: 0,
-            downvotes: 0,
-            description: 'Imagine some super fancy description, describin what this shitty script will do, but actually no one will ever read this, because kids are dumb and lazy :)',
-          },
-        ],
-        editedIndex: -1,
-        editedItem: {
-          name: '',
-          creator: '',
-          type: '',
-        },
-        defaultItem: {
-          name: '',
-          creator: '',
-          type: '',
-        },
+        snackbar: false,
+        multiline: true,
+        loading: true,
+        error: false,
+        champions: [],
+        scripts: [],
       }
-    },
-    computed: {
-      counter: function () {
-        return 123
-      },
-      championSort (champions, scripts) {
-        const arr1 = []
-        this.champions.forEach(champ => {
-          const arr2 = []
-          this.scripts.forEach(script => {
-            if (champ.championName === script.champion) {
-              arr2.push(script)
-            }
-          })
-          arr1.push(arr2)
-        })
-        return arr1
-      },
-      formTitle () {
-        return this.editedIndex === -1 ? 'New Script' : 'Edit Script'
-      },
-      scriptNumber () {
-        return 123
-      },
-      minHeight () {
-        const height = this.$vuetify.breakpoint.mdAndUp ? '100vh' : '50vh'
-
-        return `calc(${height} - ${this.$vuetify.application.top}px)`
-      },
-    },
-
-    provide: {
-      theme: { isDark: false },
-    },
-    watch: {
-      dialog (val) {
-        val || this.close()
-      },
     },
 
     created () {
-      this.initialize()
+      this.loading = true
+      axios.get('http://localhost:3600/champions/aggPart')
+        .then(response => {
+          this.champions = response.data
+          this.loading = false
+          this.error = false
+        })
+        .catch(e => {
+          this.error = true
+          console.log(e)
+        })
     },
-    // created () {
-    //   axios.get('http://localhost:3600/scripts/all')
-    //     .then(response => {
-    //       // JSON responses are automatically parsed.
-    //       this.items = response.data
-    //     })
-    //     .catch(e => {
-    //       console.log(e)
-    //     })
-    // },
+    methods: {
+      computed: {
+        counter: function () {
+          return 123
+        },
+        formTitle () {
+          return this.editedIndex === -1 ? 'New Script' : 'Edit Script'
+        },
+        minHeight () {
+          const height = this.$vuetify.breakpoint.mdAndUp ? '100vh' : '50vh'
+
+          return `calc(${height} - ${this.$vuetify.application.top}px)`
+        },
+      },
+      reloadPage () {
+        window.location.reload()
+      },
+      startDownload () {
+        alert('Download will soon be added')
+      },
+    },
+    provide: {
+      theme: { isDark: false },
+    },
   }
 </script>

@@ -16,18 +16,18 @@
           <base-heading title="WELCOME TO SPACESHARP" />
 
           <base-body>
-          Spacesharp is a premium kiting Script that will help you <strong>Rank Up</strong> and gain <strong>LP</strong>. We first went public on 28.04.2020 and have been <strong>Undetected</strong> ever since. In terms of cost and value we're top of the line.<br>
-          We offer you one of the best external scripting platforms currently availiable for a fair price. Spacesharp comes with a few features, such as:
+            Spacesharp is a premium kiting Script that will help you <strong>Rank Up</strong> and gain <strong>LP</strong>. We first went public on 28.04.2020 and have been <strong>Undetected</strong> ever since. In terms of cost and value we're top of the line.<br>
+            We offer you one of the best external scripting platforms currently availiable for a fair price. Spacesharp comes with a few features, such as:
 
-          <ul>
-            <li><strong>Attack Champions Only</strong></li>
-            <li><strong>Stream Proof Attackrange Indicator</strong></li>
-            <li><strong>Auto Combo</strong> in the form of User Scripts</li>
-            <li><strong>Auto Heal / Barrier</strong></li>
-            <li><strong>Minion Hit Marker</strong> (which will be Auto Last Hit in the Future)</li>
-          </ul>
-          <br />
-          <p><I>If you're still not convinced, you can Join our Discord Server, open a ticket to request a Trial.</I></p>
+            <ul>
+              <li><strong>Attack Champions Only</strong></li>
+              <li><strong>Stream Proof Attackrange Indicator</strong></li>
+              <li><strong>Auto Combo</strong> in the form of User Scripts</li>
+              <li><strong>Auto Heal / Barrier</strong></li>
+              <li><strong>Minion Hit Marker</strong> (which will be Auto Last Hit in the Future)</li>
+            </ul>
+            <br>
+            <p><I>If you're still not convinced, you can Join our Discord Server, open a ticket to request a Trial.</I></p>
           </base-body>
           <div
             :class="$vuetify.breakpoint.smAndDown ? 'flex-column align-start' : 'align-center'"
@@ -61,7 +61,6 @@
 </template>
 
 <script>
-
   export default {
     name: 'SectionHero',
 
@@ -76,5 +75,29 @@
         return `calc(${height} - ${this.$vuetify.application.top}px)`
       },
     },
+
+    // mounted () {
+    //   const apidata = []
+    //   axios.get('http://localhost:3600/champions/all')
+    //     .then(response => {
+    //       // JSON responses are automatically parsed.
+    //       apidata[0] = response.data
+    //       // this.$store.dispatch('changeChamps', response.data)
+    //       // this.champions = response.data
+    //     })
+    //     .catch(e => {
+    //       console.log(e)
+    //     })
+    //   axios.get('http://localhost:3600/scripts/all')
+    //     .then(response => {
+    //       // JSON responses are automatically parsed.
+    //       apidata[1] = response.data
+    //       // this.$store.dispatch('changeScripts', response.data)
+    //     })
+    //     .catch(e => {
+    //       console.log(e)
+    //     })
+    //   this.$store.dispatch('filteredChamps', apidata)
+    // },
   }
 </script>
