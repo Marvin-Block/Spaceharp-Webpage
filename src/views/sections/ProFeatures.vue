@@ -3,7 +3,6 @@
   <section id="hero">
     <v-img
       :min-height="minHeight"
-      :src="require('@/assets/home-8.jpg')"
       class="white--text"
       gradient="to right, rgba(5, 11, 31, .3), rgba(5, 11, 31, .3)"
     >
@@ -335,7 +334,7 @@
 
     created () {
       this.loading = true
-      axios.get('http://localhost:3600/champions/aggPart')
+      axios.get('http://spacesharp-db.com:3600/champions/aggPart')
         .then(response => {
           this.champions = response.data
           this.loading = false
