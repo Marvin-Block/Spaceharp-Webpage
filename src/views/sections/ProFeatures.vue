@@ -35,17 +35,17 @@
           <v-col style="text-align:center" />
           <v-col style="text-align:center" />
           <v-col style="text-align:center">
-            <p style="color:white">
+            <p style="color:black">
               Role
             </p>
           </v-col>
           <v-col style="text-align:center">
-            <p style="color:white">
+            <p style="color:black">
               Tier
             </p>
           </v-col>
           <v-col style="text-align:center">
-            <p style="color:white">
+            <p style="color:black">
               Number of Scripts
             </p>
           </v-col>
@@ -77,7 +77,7 @@
                   >
                     <img
                       height="3em"
-                      :src="`/root/ChampIcons/${champion.championName}.png`"
+                      :src="require(`@/assets/ChampIcons/${champion.championName}.png`)"
                       alt="Avatar"
                     >
                   </v-avatar>
@@ -330,7 +330,7 @@
 
     created () {
       this.loading = true
-      axios.get('https://spacesharp-db.com:3600/champions/aggPart')
+      axios.get('http://spacesharp-db.com:3600/champions/aggPart')
         .then(response => {
           this.champions = response.data
           this.loading = false
