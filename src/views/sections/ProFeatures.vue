@@ -77,7 +77,7 @@
                   >
                     <img
                       height="3em"
-                      :src="require(`/root/ChampIcons/${champion.championName}.png`)"
+                      :src="`/root/ChampIcons/${champion.championName}.png`"
                       alt="Avatar"
                     >
                   </v-avatar>
