@@ -1,318 +1,314 @@
 /* eslint-disable vue/valid-v-for */
 <template>
-  <section id="hero">
-    <v-img
-      :min-height="minHeight"
-      class="white--text"
-      gradient="to right, rgba(5, 11, 31, .3), rgba(5, 11, 31, .3)"
+  <section
+    id="hero"
+  >
+    <br>
+    <v-card
+      class="mx-auto"
+      max-width="60em"
     >
-      <br>
-      <v-card
-        class="mx-auto"
-        max-width="60em"
-      >
-        <v-container>
-          <v-row justify="center">
-            <h3>
-              TESTING PAGE
-            </h3>
-          </v-row>
-          <v-row justify="center">
-            <p>
-              This page is still being tested and has no funciotnality whatsoever.
-            </p>
-          </v-row>
-        </v-container>
-      </v-card>
-      <br>
-      <v-container
-        v-if="!loading"
-        style="width:auto"
-      >
+      <v-container>
         <v-row justify="center">
-          <v-row
-            align="center"
-            class="spacer"
-            no-gutters
-          >
-            <v-col style="text-align:center" />
-            <v-col style="text-align:center" />
-            <v-col style="text-align:center">
-              <p style="color:white">
-                Role
-              </p>
-            </v-col>
-            <v-col style="text-align:center">
-              <p style="color:white">
-                Tier
-              </p>
-            </v-col>
-            <v-col style="text-align:center">
-              <p style="color:white">
-                Number of Scripts
-              </p>
-            </v-col>
-          </v-row>
+          <h3>
+            TESTING PAGE
+          </h3>
         </v-row>
         <v-row justify="center">
-          <v-expansion-panels
-            focusable
-            hover
-            accordion
-          >
-            <v-expansion-panel
-              v-for="champion in champions"
-              :key="champion"
-              hide-actions
-            >
-              <v-expansion-panel-header
-                v-if="champion.scripts.length"
-                disable-icon-rotate
-              >
-                <v-row
-                  align="center"
-                  class="spacer"
-                  no-gutters
-                >
-                  <v-col style="text-align:center">
-                    <v-avatar
-                      size="36px"
-                    >
-                      <img
-                        height="3em"
-                        :src="require(`@/assets/ChampIcons/${champion.championName}.png`)"
-                        alt="Avatar"
-                      >
-                    </v-avatar>
-                  </v-col>
-                  <v-col style="text-align:center">
-                    {{ champion.championName }}
-                  </v-col>
-                  <v-col style="text-align:center">
-                    <v-img
-                      contain
-                      height="2.5em"
-                      :src="require(`@/assets/${champion.roleIcon}`)"
-                    />
-                  </v-col>
-                  <v-col style="text-align:center">
-                    {{ champion.tier }}
-                  </v-col>
-                  <v-col style="text-align:center">
-                    <v-icon
-                      width="2 em"
-                    >
-                      mdi-format-list-numbered
-                    </v-icon>
-                    {{ champion.scripts.length }}
-                  </v-col>
-                </v-row>
-              </v-expansion-panel-header>
-              <v-expansion-panel-content>
-                <v-container>
-                  <v-row justify="space-around">
-                    <v-row justify="center">
-                      <v-expansion-panels
-                        hide-actions
-                        accordion
-                      >
-                        <v-expansion-panel
-                          style="pointer-events:none;cursor:defautl"
-                          readonly
-                        >
-                          <v-expansion-panel-header
-                            style="background:rgba(0,0,0,0.25)"
-                          >
-                            <template v-slot:actions>
-                              <v-icon color="#FF000000">
-                                mdi-check
-                              </v-icon>
-                            </template>
-                            <v-row
-                              align="center"
-                              class="spacer"
-                              no-gutters
-                            >
-                              <v-col style="text-align:center">
-                                Name
-                              </v-col>
-                              <v-divider
-                                class="mx-4"
-                                vertical
-                              />
-                              <v-col style="text-align:center">
-                                Creator
-                              </v-col>
-                              <v-divider
-                                class="mx-4"
-                                vertical
-                              />
-                              <v-col style="text-align:center">
-                                <v-icon color="success">
-                                  mdi-arrow-up-bold
-                                </v-icon>
-                              </v-col>
-                              <v-divider
-                                class="mx-4"
-                                vertical
-                              />
-                              <v-col style="text-align:center">
-                                <v-icon color="error">
-                                  mdi-arrow-down-bold
-                                </v-icon>
-                              </v-col>
-                              <v-divider
-                                class="mx-4"
-                                vertical
-                              />
-                              <v-col style="text-align:center">
-                                <v-icon color="black">
-                                  mdi-counter
-                                </v-icon>
-                              </v-col>
-                            </v-row>
-                          </v-expansion-panel-header>
-                        </v-expansion-panel>
-                        <v-expansion-panel
-                          v-for="script in champion.scripts"
-                          :key="script"
-                        >
-                          <v-expansion-panel-header
-                            disable-icon-rotate
-                            style="background:rgba(0,0,0,0.05)"
-                          >
-                            <v-row
-                              align="center"
-                              class="spacer"
-                              no-gutters
-                            >
-                              <v-col style="text-align:center">
-                                <div>
-                                  {{ script.name }}
-                                </div>
-                              </v-col>
-                              <v-divider
-                                class="mx-4"
-                                vertical
-                              />
-                              <v-col style="text-align:center">
-                                <div>
-                                  <I>{{ script.creator }}</I>
-                                </div>
-                              </v-col>
-                              <v-divider
-                                class="mx-4"
-                                vertical
-                              />
-                              <v-col style="text-align:center">
-                                <div>
-                                  {{ script.upvotes }}
-                                </div>
-                              </v-col>
-                              <v-divider
-                                class="mx-4"
-                                vertical
-                              />
-                              <v-col style="text-align:center">
-                                <div>
-                                  {{ script.downvotes }}
-                                </div>
-                              </v-col>
-                              <v-divider
-                                class="mx-4"
-                                vertical
-                              />
-                              <v-col style="text-align:center">
-                                <div>
-                                  {{ script.downvotes }}
-                                </div>
-                              </v-col>
-                            </v-row>
-                          </v-expansion-panel-header>
-                          <v-expansion-panel-content>
-                            <v-container
-                              style="width:100%"
-                              fluid
-                            >
-                              <v-row
-                                align="center"
-                                class="spacer"
-                                no-gutters
-                              >
-                                <v-col>
-                                  <div>
-                                    {{ script.description }}
-                                  </div>
-                                </v-col>
-                                <v-divider
-                                  class="mx-4"
-                                  vertical
-                                />
-                                <div>
-                                  <v-icon
-                                    width="2 em"
-                                    class="mr-2"
-                                    color="success"
-                                    @click="startDownload"
-                                  >
-                                    mdi-download
-                                  </v-icon>
-                                </div>
-                              </v-row>
-                            </v-container>
-                          </v-expansion-panel-content>
-                        </v-expansion-panel>
-                      </v-expansion-panels>
-                    </v-row>
-                  </v-row>
-                </v-container>
-              </v-expansion-panel-content>
-            </v-expansion-panel>
-          </v-expansion-panels>
+          <p>
+            This page is still being tested and has no funciotnality whatsoever.
+          </p>
         </v-row>
       </v-container>
-      <div
-        v-else-if="error"
-        class="text-center mx-auto"
-        style="max-width:80em"
-      >
-        <v-snackbar
-          v-model="error"
-          color="error"
+    </v-card>
+    <br>
+    <v-container
+      v-if="!loading"
+      style="width:auto"
+    >
+      <v-row justify="center">
+        <v-row
+          align="center"
+          class="spacer"
+          no-gutters
         >
-          <v-alert
-            prominent
-            type="error"
-            justify="center"
+          <v-col style="text-align:center" />
+          <v-col style="text-align:center" />
+          <v-col style="text-align:center">
+            <p style="color:white">
+              Role
+            </p>
+          </v-col>
+          <v-col style="text-align:center">
+            <p style="color:white">
+              Tier
+            </p>
+          </v-col>
+          <v-col style="text-align:center">
+            <p style="color:white">
+              Number of Scripts
+            </p>
+          </v-col>
+        </v-row>
+      </v-row>
+      <v-row justify="center">
+        <v-expansion-panels
+          focusable
+          hover
+          accordion
+        >
+          <v-expansion-panel
+            v-for="champion in champions"
+            :key="champion"
+            hide-actions
           >
-            <v-row align="center">
-              <v-col class="grow">
-                There was an Error getting the Champion list. Please try again in a few Seconds.<br> If this issue persist, please contact
-                Muffin#4222
-              </v-col>
-            </v-row>
-          </v-alert>
-          <v-btn
-            color="black"
-            text
-            @click="reloadPage"
-          >
-            Close
-          </v-btn>
-        </v-snackbar>
-      </div>
-      <div
-        v-else
-        class="text-center"
+            <v-expansion-panel-header
+              v-if="champion.scripts.length"
+              disable-icon-rotate
+            >
+              <v-row
+                align="center"
+                class="spacer"
+                no-gutters
+              >
+                <v-col style="text-align:center">
+                  <v-avatar
+                    size="36px"
+                  >
+                    <img
+                      height="3em"
+                      :src="require(`@/assets/ChampIcons/${champion.championName}.png`)"
+                      alt="Avatar"
+                    >
+                  </v-avatar>
+                </v-col>
+                <v-col style="text-align:center">
+                  {{ champion.championName }}
+                </v-col>
+                <v-col style="text-align:center">
+                  <v-img
+                    contain
+                    height="2.5em"
+                    :src="require(`@/assets/${champion.roleIcon}`)"
+                  />
+                </v-col>
+                <v-col style="text-align:center">
+                  {{ champion.tier }}
+                </v-col>
+                <v-col style="text-align:center">
+                  <v-icon
+                    width="2 em"
+                  >
+                    mdi-format-list-numbered
+                  </v-icon>
+                  {{ champion.scripts.length }}
+                </v-col>
+              </v-row>
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <v-container>
+                <v-row justify="space-around">
+                  <v-row justify="center">
+                    <v-expansion-panels
+                      hide-actions
+                      accordion
+                    >
+                      <v-expansion-panel
+                        style="pointer-events:none;cursor:defautl"
+                        readonly
+                      >
+                        <v-expansion-panel-header
+                          style="background:rgba(0,0,0,0.25)"
+                        >
+                          <template v-slot:actions>
+                            <v-icon color="#FF000000">
+                              mdi-check
+                            </v-icon>
+                          </template>
+                          <v-row
+                            align="center"
+                            class="spacer"
+                            no-gutters
+                          >
+                            <v-col style="text-align:center">
+                              Name
+                            </v-col>
+                            <v-divider
+                              class="mx-4"
+                              vertical
+                            />
+                            <v-col style="text-align:center">
+                              Creator
+                            </v-col>
+                            <v-divider
+                              class="mx-4"
+                              vertical
+                            />
+                            <v-col style="text-align:center">
+                              <v-icon color="success">
+                                mdi-arrow-up-bold
+                              </v-icon>
+                            </v-col>
+                            <v-divider
+                              class="mx-4"
+                              vertical
+                            />
+                            <v-col style="text-align:center">
+                              <v-icon color="error">
+                                mdi-arrow-down-bold
+                              </v-icon>
+                            </v-col>
+                            <v-divider
+                              class="mx-4"
+                              vertical
+                            />
+                            <v-col style="text-align:center">
+                              <v-icon color="black">
+                                mdi-counter
+                              </v-icon>
+                            </v-col>
+                          </v-row>
+                        </v-expansion-panel-header>
+                      </v-expansion-panel>
+                      <v-expansion-panel
+                        v-for="script in champion.scripts"
+                        :key="script"
+                      >
+                        <v-expansion-panel-header
+                          disable-icon-rotate
+                          style="background:rgba(0,0,0,0.05)"
+                        >
+                          <v-row
+                            align="center"
+                            class="spacer"
+                            no-gutters
+                          >
+                            <v-col style="text-align:center">
+                              <div>
+                                {{ script.name }}
+                              </div>
+                            </v-col>
+                            <v-divider
+                              class="mx-4"
+                              vertical
+                            />
+                            <v-col style="text-align:center">
+                              <div>
+                                <I>{{ script.creator }}</I>
+                              </div>
+                            </v-col>
+                            <v-divider
+                              class="mx-4"
+                              vertical
+                            />
+                            <v-col style="text-align:center">
+                              <div>
+                                {{ script.upvotes }}
+                              </div>
+                            </v-col>
+                            <v-divider
+                              class="mx-4"
+                              vertical
+                            />
+                            <v-col style="text-align:center">
+                              <div>
+                                {{ script.downvotes }}
+                              </div>
+                            </v-col>
+                            <v-divider
+                              class="mx-4"
+                              vertical
+                            />
+                            <v-col style="text-align:center">
+                              <div>
+                                {{ script.downvotes }}
+                              </div>
+                            </v-col>
+                          </v-row>
+                        </v-expansion-panel-header>
+                        <v-expansion-panel-content>
+                          <v-container
+                            style="width:100%"
+                            fluid
+                          >
+                            <v-row
+                              align="center"
+                              class="spacer"
+                              no-gutters
+                            >
+                              <v-col>
+                                <div>
+                                  {{ script.description }}
+                                </div>
+                              </v-col>
+                              <v-divider
+                                class="mx-4"
+                                vertical
+                              />
+                              <div>
+                                <v-icon
+                                  width="2 em"
+                                  class="mr-2"
+                                  color="success"
+                                  @click="startDownload"
+                                >
+                                  mdi-download
+                                </v-icon>
+                              </div>
+                            </v-row>
+                          </v-container>
+                        </v-expansion-panel-content>
+                      </v-expansion-panel>
+                    </v-expansion-panels>
+                  </v-row>
+                </v-row>
+              </v-container>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </v-row>
+    </v-container>
+    <div
+      v-else-if="error"
+      class="text-center mx-auto"
+      style="max-width:80em"
+    >
+      <v-snackbar
+        v-model="error"
+        color="error"
       >
-        <v-progress-circular
-          :size="70"
-          :width="7"
-          color="primary"
-          indeterminate
-        />
-      </div>
-    </v-img>
+        <v-alert
+          prominent
+          type="error"
+          justify="center"
+        >
+          <v-row align="center">
+            <v-col class="grow">
+              There was an Error getting the Champion list. Please try again in a few Seconds.<br> If this issue persist, please contact
+              Muffin#4222
+            </v-col>
+          </v-row>
+        </v-alert>
+        <v-btn
+          color="black"
+          text
+          @click="reloadPage"
+        >
+          Close
+        </v-btn>
+      </v-snackbar>
+    </div>
+    <div
+      v-else
+      class="text-center"
+    >
+      <v-progress-circular
+        :size="70"
+        :width="7"
+        color="primary"
+        indeterminate
+      />
+    </div>
   </section>
 </template>
 
