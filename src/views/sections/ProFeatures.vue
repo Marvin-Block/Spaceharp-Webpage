@@ -77,7 +77,7 @@
                   >
                     <img
                       height="3em"
-                      :src="require(`@/assets/ChampIcons/${champion.championName}.png`)"
+                      :src="require(`/root/ChampIcons/${champion.championName}.png`)"
                       alt="Avatar"
                     >
                   </v-avatar>
@@ -330,7 +330,7 @@
 
     created () {
       this.loading = true
-      axios.get('http://spacesharp-db.com:3600/champions/aggPart')
+      axios.get('https://spacesharp-db.com:3600/champions/aggPart')
         .then(response => {
           this.champions = response.data
           this.loading = false
