@@ -1,7 +1,6 @@
 <template>
   <section id="hero">
     <v-img
-      :min-height="minHeight"
       :src="require('@/assets/home-5.jpg')"
       class="white--text"
       gradient="to right, rgba(5, 11, 31, .6), rgba(5, 11, 31, .6)"
@@ -9,7 +8,7 @@
       <v-container class="fill-height px-4 py-12">
         <v-responsive
           class="d-flex align-center"
-          height="100%"
+          :height="height"
           max-width="700"
           width="100%"
         >
@@ -69,8 +68,8 @@
     },
 
     computed: {
-      minHeight () {
-        const height = this.$vuetify.breakpoint.mdAndUp ? '100vh' : '50vh'
+      height () {
+        const height = this.$vuetify.breakpoint.xs ? '' : '100%'
 
         return `calc(${height} - ${this.$vuetify.application.top}px)`
       },

@@ -3,6 +3,11 @@
     id="features"
     class="light"
   >
+    <base-section-heading
+      color="grey lighten-2"
+      icon="mdi-format-list-bulleted"
+      title="About our Product"
+    />
     <v-responsive
       class="mx-auto"
       max-width="1350"

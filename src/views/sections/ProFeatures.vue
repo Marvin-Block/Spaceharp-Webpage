@@ -27,36 +27,42 @@
       style="width:auto"
     >
       <v-row justify="center">
-        <v-row
-          align="center"
-          class="spacer"
-          no-gutters
-        >
-          <v-col style="text-align:center" />
-          <v-col style="text-align:center" />
-          <v-col style="text-align:center">
-            <p style="color:black">
-              Role
-            </p>
-          </v-col>
-          <v-col style="text-align:center">
-            <p style="color:black">
-              Tier
-            </p>
-          </v-col>
-          <v-col style="text-align:center">
-            <p style="color:black">
-              Number of Scripts
-            </p>
-          </v-col>
-        </v-row>
-      </v-row>
-      <v-row justify="center">
         <v-expansion-panels
           focusable
           hover
           accordion
         >
+          <v-expansion-panel
+            style="pointer-events:none;cursor:defautl"
+            readonly
+          >
+            <v-expansion-panel-header>
+              <template v-slot:actions>
+                <v-icon color="#FF000000">
+                  mdi-check
+                </v-icon>
+              </template>
+              <v-row
+                align="center"
+                class="spacer"
+                no-gutters
+              >
+                <v-col style="text-align:center" />
+                <v-col style="text-align:center">
+                  Champion
+                </v-col>
+                <v-col style="text-align:center">
+                  Role
+                </v-col>
+                <v-col style="text-align:center">
+                  Tier
+                </v-col>
+                <v-col style="text-align:center">
+                  Number of Scripts
+                </v-col>
+              </v-row>
+            </v-expansion-panel-header>
+          </v-expansion-panel>
           <v-expansion-panel
             v-for="champion in champions"
             :key="champion"
