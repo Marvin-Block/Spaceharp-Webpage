@@ -65,12 +65,12 @@
         >
           Login
         </v-btn>
-        <!-- <v-btn
+        <v-btn
           color="primary"
           @click="register"
         >
           Register
-        </v-btn> -->
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-menu>
@@ -98,7 +98,10 @@
           username: this.username,
           password: this.password,
         }).then(response => {
-          alert(response)
+          if (response.status === 201) {
+            alert('Login was successfull')
+          }
+          // alert(`${response.data.accessToken} | ${response.data.refreshToken}`)
         }).catch(e => {
           this.error = true
           console.log(e)
@@ -109,7 +112,9 @@
           username: this.username,
           password: this.password,
         }).then(response => {
-          alert(response)
+          if (response.status === 201) {
+            alert('User Creation was successfull')
+          }
         }).catch(e => {
           this.error = true
           console.log(e)

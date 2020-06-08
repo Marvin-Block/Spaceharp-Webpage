@@ -6,6 +6,7 @@
       <v-row>
         <v-col>
           <iframe
+            v-if="!isMobile()"
             width="700"
             height="493"
             src="https://www.youtube.com/embed/ogWn0pky9uc?autoplay=1&controls=1&disablekb=1&fs=1&rel=0&showinfo=0&modestbranding=1&mute=1&iv_load_policy=3"
@@ -60,5 +61,14 @@
         },
       ],
     }),
+    methods: {
+      isMobile () {
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+          return true
+        } else {
+          return false
+        }
+      },
+    },
   }
 </script>
