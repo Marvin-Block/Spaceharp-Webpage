@@ -369,7 +369,7 @@
       },
     },
     provide: {
-      theme: { isDark: false },
+      theme: { isDark: true },
     },
   }
 </script>

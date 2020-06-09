@@ -29,13 +29,18 @@
       </v-card>
     </template>
 
-    <v-card class="elevation-12">
+    <v-card
+      v-if="!loading"
+      class="elevation-12"
+    >
       <v-toolbar
         color="primary"
         dark
         flat
       >
-        <v-toolbar-title>Log in to Spacesharp-DB</v-toolbar-title>
+        <v-toolbar-title>
+          Log in to Spacesharp-DB
+        </v-toolbar-title>
         <v-spacer />
       </v-toolbar>
       <v-card-text>
@@ -73,6 +78,29 @@
         </v-btn>
       </v-card-actions>
     </v-card>
+
+    <v-card
+      v-else
+      class="elevation-12"
+    >
+      <v-toolbar
+        color="primary"
+        dark
+        flat
+      >
+        <v-toolbar-title>
+          We're trying to reach the server.
+        </v-toolbar-title>
+        <v-spacer />
+      </v-toolbar>
+      <v-card-text>
+        <v-progress-circular
+
+          indeterminate
+          color="primary"
+        />
+      </v-card-text>
+    </v-card>
   </v-menu>
 </template>
 
@@ -82,10 +110,16 @@
     name: 'HomeLogin',
     data () {
       return {
+        loggedIn: false,
+        loading: false,
+        error: false,
+        success: false,
+        snackbar: false,
+        timeout: 5000,
         username: '',
         password: '',
         colors: [
-          this.$vuetify.theme.themes.light.primary,
+          this.$vuetify.theme.themes.dark.primary,
           '#9368e9',
           '#F4511E',
         ],
@@ -94,29 +128,36 @@
     },
     methods: {
       login () {
-        axios.post('https://spacesharp-db.com:3600/auth', {
+        this.loading = true
+        axios.post('http://localhost:3600/auth', {
           username: this.username,
           password: this.password,
         }).then(response => {
+          this.loading = false
           if (response.status === 201) {
+            this.$store.dispatch([response.data.accessToken, response.data.refreshToken])
+            console.log(this.$store.getters.user)
+            this.loggedIn = true
             alert('Login was successfull')
           }
-          // alert(`${response.data.accessToken} | ${response.data.refreshToken}`)
         }).catch(e => {
-          this.error = true
+          this.loading = false
           console.log(e)
         })
       },
       register () {
-        axios.post('https://spacesharp-db.com:3600/users', {
+        axios.post('http://localhost:3600/users/', {
           username: this.username,
           password: this.password,
         }).then(response => {
+          this.loading = false
           if (response.status === 201) {
+            this.loggedIn = true
             alert('User Creation was successfull')
           }
         }).catch(e => {
-          this.error = true
+          this.loading = false
+          alert(e)
           console.log(e)
         })
       },

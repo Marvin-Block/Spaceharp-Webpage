@@ -2,7 +2,7 @@
   <v-theme-provider dark>
     <base-section
       id="contact-us"
-      class="primary"
+      class="secondary"
       space="40"
     >
       <v-container>

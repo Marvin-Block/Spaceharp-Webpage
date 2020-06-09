@@ -1,5 +1,5 @@
 <template>
-  <v-content style="background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);">
+  <v-content style="background-color:#121212">
     <v-fade-transition mode="out-in">
       <router-view />
     </v-fade-transition>

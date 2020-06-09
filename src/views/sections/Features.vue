@@ -1,10 +1,10 @@
 <template>
   <base-section
     id="features"
-    class="light"
   >
     <base-section-heading
-      color="grey lighten-2"
+      color="accent"
+      style="color:white"
       icon="mdi-format-list-bulleted"
       title="About our Product"
     />
@@ -23,7 +23,7 @@
           >
             <base-info-card
               align="center"
-              light
+              dark
               v-bind="card"
             />
           </v-col>

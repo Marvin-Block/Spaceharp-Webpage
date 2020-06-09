@@ -3,12 +3,13 @@
     <v-app-bar
       id="home-app-bar"
       app
+      dark
       color="grey-lighten"
       elevation="1"
       height="80"
     >
       <base-img
-        :src="require('@/assets/Spacesharp.png')"
+        :src="require('@/assets/Spacesharp-red.png')"
         class="mr-3 hidden-xs-only"
         contain
         max-width="52"
@@ -16,9 +17,9 @@
       />
 
       <base-img
-        :src="require('@/assets/spacesharp-logo.svg')"
+        :src="require('@/assets/spacesharp_dark.svg')"
         contain
-        max-width="256"
+        max-width="270"
         width="100%"
       />
 
@@ -35,7 +36,6 @@
             :to="{ name }"
             :exact="name === 'Home'"
             :ripple="true"
-            active-class="text--primary"
             class="font-weight-bold"
             min-width="96"
             text

@@ -6,31 +6,25 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
   state: {
-    allChampions: [],
-    champions: [],
-    scripts: [],
+    user: [],
   },
   getters: {
-    champions: state => state.champions,
-    scripts: state => state.scripts,
+    user: state => state.user,
   },
   mutations: {
-    changeAllChamps (state, payload) {
-      state.allChampions = payload
+    logIn (state, payload) {
+      state.user = payload
     },
-    changeChamps (state, payload) {
-      state.champions = payload
-    },
-    changeScripts (state, payload) {
-      state.scripts = payload
+    logOut (state, payload) {
+      state.user = payload
     },
  },
   actions: {
-    changeChamps (context, payload) {
-      context.commit('changeChamps', payload)
+    logIn (context, payload) {
+      context.commit('logIn', payload)
     },
-    changeScripts (context, payload) {
-      context.commit('changeScripts', payload)
+    logOut (context, payload) {
+      context.commit('logOut', payload)
     },
   },
 })

@@ -18,7 +18,7 @@
       HomeAppBar: () => import('@/layouts/home/AppBar'),
       HomeFooter: () => import('@/layouts/home/Footer'),
       HomeView: () => import('@/layouts/home/View'),
-      HomeLogin: () => import('@/layouts/home/Login.vue'),
+      // HomeLogin: () => import('@/layouts/home/Login.vue'),
     },
   }
 </script>
