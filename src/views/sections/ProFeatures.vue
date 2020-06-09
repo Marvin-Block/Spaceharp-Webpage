@@ -8,14 +8,20 @@
       class="mx-auto"
       max-width="60em"
     >
-      <v-container>
+      <v-container style="background-color:yellow">
         <v-row justify="center">
-          <h3>
+          <v-icon color="black">
+            mdi-alert-outline
+          </v-icon>
+          <h3 style="color:black">
             TESTING PAGE
           </h3>
+          <v-icon color="black">
+            mdi-alert-outline
+          </v-icon>
         </v-row>
         <v-row justify="center">
-          <p>
+          <p style="color:black">
             This page is still being tested and has no funciotnality whatsoever.
           </p>
         </v-row>
@@ -28,7 +34,6 @@
     >
       <v-row justify="center">
         <v-expansion-panels
-          focusable
           hover
           accordion
         >
@@ -124,7 +129,7 @@
                         readonly
                       >
                         <v-expansion-panel-header
-                          style="background:rgba(0,0,0,0.25)"
+                          style="background:rgba(255,255,255,0.04)"
                         >
                           <template v-slot:actions>
                             <v-icon color="#FF000000">
@@ -151,7 +156,7 @@
                               vertical
                             />
                             <v-col style="text-align:center">
-                              <v-icon color="success">
+                              <v-icon color="accent">
                                 mdi-arrow-up-bold
                               </v-icon>
                             </v-col>
@@ -160,7 +165,7 @@
                               vertical
                             />
                             <v-col style="text-align:center">
-                              <v-icon color="error">
+                              <v-icon color="primary">
                                 mdi-arrow-down-bold
                               </v-icon>
                             </v-col>
@@ -169,8 +174,8 @@
                               vertical
                             />
                             <v-col style="text-align:center">
-                              <v-icon color="black">
-                                mdi-counter
+                              <v-icon color="white">
+                                mdi-numeric
                               </v-icon>
                             </v-col>
                           </v-row>
@@ -182,7 +187,7 @@
                       >
                         <v-expansion-panel-header
                           disable-icon-rotate
-                          style="background:rgba(0,0,0,0.05)"
+                          style="background:rgba(255,255,255,0.005)"
                         >
                           <v-row
                             align="center"
@@ -232,7 +237,7 @@
                             </v-col>
                           </v-row>
                         </v-expansion-panel-header>
-                        <v-expansion-panel-content>
+                        <v-expansion-panel-content style="background-color:rgba(255,255,255,0.0025)">
                           <v-container
                             style="width:100%"
                             fluid
@@ -255,7 +260,7 @@
                                 <v-icon
                                   width="2 em"
                                   class="mr-2"
-                                  color="success"
+                                  color="secondary"
                                   @click="startDownload"
                                 >
                                   mdi-download
