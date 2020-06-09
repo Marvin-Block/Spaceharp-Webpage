@@ -5,7 +5,7 @@
       app
       dark
       color="grey-lighten"
-      elevation="1"
+      elevation="3"
       height="80"
     >
       <base-img
@@ -19,8 +19,8 @@
       <base-img
         :src="require('@/assets/spacesharp_dark.svg')"
         contain
-        max-width="270"
-        width="100%"
+        max-width="15em"
+        width="16em"
       />
 
       <v-spacer />
@@ -31,7 +31,7 @@
           optional
         >
           <v-tab
-            v-for="(name, i) in items"
+            v-for="([name,icon], i) in items"
             :key="i"
             :to="{ name }"
             :exact="name === 'Home'"
@@ -69,8 +69,9 @@
     data: () => ({
       drawer: null,
       items: [
-        'Home',
-        'Spacesharp-DB',
+        ['Home', 'mdi-home-outline'],
+        ['Spacesharp-DB', 'mdi-file-table-box-multiple-outline'],
+        ['Login', 'mdi-account-key-outline'],
       ],
     }),
   }

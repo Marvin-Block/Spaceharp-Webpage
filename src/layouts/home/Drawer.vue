@@ -1,9 +1,9 @@
 <template>
   <v-navigation-drawer
-    bottom
+    dark
     fixed
-    height="auto"
-    overlay-color="secondary"
+    right
+    overlay-color="rgba(0,0,0,0.8)"
     overlay-opacity=".3"
     temporary
     v-bind="$attrs"
@@ -14,12 +14,17 @@
       shaped
     >
       <v-list-item
-        v-for="name in items"
-        :key="name"
+        v-for="([name, icon],i) in items"
+        :key="i"
         :to="{ name }"
         :exact="name === 'Home'"
-        color="primary"
+        color="white"
       >
+        <v-list-item-icon>
+          <v-icon>
+            {{ icon }}
+          </v-icon>
+        </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title v-text="name" />
         </v-list-item-content>
