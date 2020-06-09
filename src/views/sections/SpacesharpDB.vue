@@ -1,7 +1,7 @@
 /* eslint-disable vue/valid-v-for */
 <template>
   <section
-    id="hero"
+    id="SpacesharpDB"
   >
     <br>
     <v-card
@@ -326,7 +326,7 @@
 <script>
   import axios from 'axios'
   export default {
-    name: 'SectionProChart',
+    name: 'SectionSpacesharpDB',
 
     data () {
       return {

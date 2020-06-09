@@ -23,9 +23,19 @@ const router = new Router({
           component: () => import('@/views/home/Index.vue'),
         },
         {
-          path: 'Spacesharp-DB',
-          name: 'Spacesharp-DB',
+          path: 'SpacesharpDB',
+          name: 'SpacesharpDB',
           component: () => import('@/views/db/Index.vue'),
+        },
+        {
+          path: 'Login',
+          name: 'Login',
+          component: () => import('@/views/login/Index.vue'),
+        },
+        {
+          path: 'SpacesharpDB/Profile',
+          name: 'Profile',
+          component: () => import('@/views/404/Index.vue'),
         },
         {
           path: 'about',

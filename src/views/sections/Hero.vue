@@ -1,7 +1,7 @@
 <template>
   <section id="hero">
     <v-img
-      :src="require('@/assets/Hero.png')"
+      :src="require('@/assets/25411.png')"
       class="white--text"
       gradient="to right, rgba(5, 11, 31, .6), rgba(5, 11, 31, .6)"
     >
@@ -74,29 +74,5 @@
         return `calc(${height} - ${this.$vuetify.application.top}px)`
       },
     },
-
-    // mounted () {
-    //   const apidata = []
-    //   axios.get('http://localhost:3600/champions/all')
-    //     .then(response => {
-    //       // JSON responses are automatically parsed.
-    //       apidata[0] = response.data
-    //       // this.$store.dispatch('changeChamps', response.data)
-    //       // this.champions = response.data
-    //     })
-    //     .catch(e => {
-    //       console.log(e)
-    //     })
-    //   axios.get('http://localhost:3600/scripts/all')
-    //     .then(response => {
-    //       // JSON responses are automatically parsed.
-    //       apidata[1] = response.data
-    //       // this.$store.dispatch('changeScripts', response.data)
-    //     })
-    //     .catch(e => {
-    //       console.log(e)
-    //     })
-    //   this.$store.dispatch('filteredChamps', apidata)
-    // },
   }
 </script>

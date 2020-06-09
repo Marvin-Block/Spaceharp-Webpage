@@ -70,7 +70,7 @@
       drawer: null,
       items: [
         ['Home', 'mdi-home-outline'],
-        ['Spacesharp-DB', 'mdi-file-table-box-multiple-outline'],
+        ['SpacesharpDB', 'mdi-file-table-box-multiple-outline'],
         ['Login', 'mdi-account-key-outline'],
       ],
     }),

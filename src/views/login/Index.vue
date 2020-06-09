@@ -1,3 +1,4 @@
+
 <script>
   // Extensions
   import View from '@/views/View'
@@ -6,23 +7,22 @@
   import LoadSections from '@/mixins/load-sections'
 
   export default {
-    name: 'Database',
+    name: 'Login',
 
-    metaInfo: { title: 'S-DB' },
+    metaInfo: { title: 'Login' },
 
     extends: View,
 
     mixins: [
       LoadSections([
-        'spacesharp-d-b',
-        'info-alt',
+        'login',
       ]),
     ],
-
+    // 'pro-features', Add pro feature comparison above when done with the module
     props: {
       id: {
         type: String,
-        default: 'about',
+        default: 'home',
       },
     },
   }

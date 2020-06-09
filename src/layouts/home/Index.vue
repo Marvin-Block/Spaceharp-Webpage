@@ -5,8 +5,6 @@
     <home-view />
 
     <home-footer />
-
-    <home-login />
   </v-app>
 </template>
 

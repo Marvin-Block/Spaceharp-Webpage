@@ -2,7 +2,7 @@
   <section id="hero">
     <v-img
       :min-height="minHeight"
-      :src="require('@/assets/home-5.jpg')"
+      :src="require('@/assets/Hero.png')"
       class="white--text"
       gradient="to right, rgba(5, 11, 31, .6), rgba(5, 11, 31, .6)"
     >
