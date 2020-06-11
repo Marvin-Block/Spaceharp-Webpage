@@ -136,13 +136,11 @@
           this.loading = false
           if (response.status === 201) {
             this.$store.dispatch([response.data.accessToken, response.data.refreshToken])
-            console.log(this.$store.getters.user)
             this.loggedIn = true
             alert('Login was successfull')
           }
         }).catch(e => {
           this.loading = false
-          console.log(e)
         })
       },
       register () {
@@ -158,7 +156,6 @@
         }).catch(e => {
           this.loading = false
           alert(e)
-          console.log(e)
         })
       },
     },

@@ -349,7 +349,6 @@
         })
         .catch(e => {
           this.error = true
-          console.log(e)
         })
     },
     methods: {

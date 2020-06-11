@@ -8,7 +8,7 @@ Vue.use(Vuex)
 
 const getDefaultState = () => {
   return {
-    token: '',
+    accessToken: '',
     refreshToken: '',
     user: {},
   }
@@ -20,15 +20,18 @@ export default new Vuex.Store({
   state: getDefaultState(),
   getters: {
     isLoggedIn: state => {
-      return state.token
+      return state.accessToken
     },
     getUser: state => {
       return state.user
     },
+    getRefreshToken: state => {
+      return state.refreshToken
+    },
   },
   mutations: {
-    SET_TOKEN: (state, token) => {
-      state.token = token
+    SET_TOKEN: (state, accessToken) => {
+      state.accessToken = accessToken
     },
     SET_USER: (state, user) => {
       state.user = user
@@ -41,12 +44,12 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    login: ({ commit, dispatch }, { token, user, refreshToken }) => {
+    login: ({ commit, dispatch }, { accessToken, user, refreshToken }) => {
       commit('SET_REFRESHTOKEN', refreshToken)
-      commit('SET_TOKEN', token)
+      commit('SET_TOKEN', accessToken)
       commit('SET_USER', user)
       // set auth header
-      Axios.defaults.headers.common.Authorization = `Bearer ${token}`
+      Axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`
     },
     logout: ({ commit }) => {
       commit('RESET', '')

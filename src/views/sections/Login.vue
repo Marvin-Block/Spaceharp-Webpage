@@ -26,30 +26,30 @@
                   sm="8"
                   md="3"
                 >
-                  <v-card class="elevation-12">
+                  <v-card
+                    class="elevation-12"
+                  >
                     <v-toolbar
                       color="primary"
                       dark
                       flat
                     >
                       <v-toolbar-title>Login form</v-toolbar-title>
-                      <v-spacer />
-                      <v-tooltip bottom>
-                        <template v-slot:activator="{ on }">
-                          <v-btn
-                            :href="source"
-                            icon
-                            large
-                            target="_blank"
-                            v-on="on"
-                          >
-                            <v-icon>mdi-code-tags</v-icon>
-                          </v-btn>
-                        </template>
-                        <span>Source</span>
-                      </v-tooltip>
                     </v-toolbar>
-                    <v-card-text>
+                    <div
+                      v-if="loading"
+                      class="text-center"
+                    >
+                      <v-progress-circular
+                        :size="70"
+                        :width="7"
+                        color="primary"
+                        indeterminate
+                      />
+                    </div>
+                    <v-card-text
+                      v-if="!loading"
+                    >
                       <v-form>
                         <v-text-field
                           v-model="username"
@@ -66,7 +66,7 @@
                         />
                       </v-form>
                     </v-card-text>
-                    <v-card-actions>
+                    <v-card-actions v-if="!loading">
                       <v-spacer />
                       <v-btn
                         color="accent"
@@ -88,6 +88,57 @@
             </v-row>
           </v-container>
         </v-content>
+        <div
+          v-if="error"
+          class="text-center mx-auto"
+          style="max-width:80em"
+        >
+          <v-alert
+            prominent
+            type="error"
+            justify="center"
+          >
+            <v-row align="center">
+              <v-col class="grow">
+                There was an Error, please try again later.
+              </v-col>
+            </v-row>
+          </v-alert>
+        </div>
+        <div
+          v-if="userAlreadyTaken"
+          class="text-center mx-auto"
+          style="max-width:80em"
+        >
+          <v-alert
+            prominent
+            type="error"
+            justify="center"
+          >
+            <v-row align="center">
+              <v-col class="grow">
+                This Username is already taken.
+              </v-col>
+            </v-row>
+          </v-alert>
+        </div>
+        <div
+          v-if="registerSuccess"
+          class="text-center mx-auto"
+          style="max-width:80em"
+        >
+          <v-alert
+            prominent
+            type="success"
+            justify="center"
+          >
+            <v-row align="center">
+              <v-col class="grow">
+                You account has been successfully registered.
+              </v-col>
+            </v-row>
+          </v-alert>
+        </div>
       </base-img>
     </section>
   </v-theme-provider>
@@ -120,6 +171,10 @@
         username: '',
         password: '',
         msg: '',
+        loading: false,
+        error: false,
+        userAlreadyTaken: false,
+        registerSuccess: false,
       }
     },
 
@@ -143,19 +198,32 @@
     methods: {
       async signUp () {
         try {
-          console.log(this)
+          this.loading = true
           const credentials = {
             username: this.username,
             password: this.password,
           }
           const response = await AuthService.signUp(credentials)
+          this.registerSuccess = true
+          this.loading = false
           this.msg = response.msg
         } catch (error) {
+          this.loading = false
+          if (error.response.data.errors[0] === 'Username alredy in use') {
+            this.userAlreadyTaken = true
+          } else {
+            this.error = true
+          }
           this.msg = error.response.data.msg
+          setTimeout(() => {
+            this.error = false
+            this.userAlreadyTaken = false
+          }, 5000)
         }
       },
       async login () {
         try {
+          this.loading = true
           const credentials = {
             username: this.username,
             password: this.password,
@@ -163,11 +231,14 @@
           const response = await AuthService.login(credentials)
           this.msg = response.msg
           const accessToken = response.accessToken
-          const user = response.user
+          const user = response.username
           const refreshToken = response.refreshToken
           this.$store.dispatch('login', { accessToken, user, refreshToken })
-          this.$router.push('/')
+          this.loading = false
+          this.$router.push('/Profile')
         } catch (error) {
+          this.loading = false
+          this.error = true
           this.msg = error.response.data.msg
         }
       },

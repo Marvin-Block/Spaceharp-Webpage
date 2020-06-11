@@ -33,9 +33,9 @@ const router = new Router({
           component: () => import('@/views/login/Index.vue'),
         },
         {
-          path: 'SpacesharpDB/Profile',
+          path: 'Profile',
           name: 'Profile',
-          component: () => import('@/views/404/Index.vue'),
+          component: () => import('@/views/login/Profile.vue'),
         },
         {
           path: 'about',
