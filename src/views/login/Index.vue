@@ -25,5 +25,10 @@
         default: 'home',
       },
     },
+    async created () {
+      if (this.$store.getters.isLoggedIn) {
+        this.$router.push('/Profile')
+      }
+    },
   }
 </script>

@@ -129,7 +129,7 @@
     methods: {
       login () {
         this.loading = true
-        axios.post('http://localhost:3600/auth', {
+        axios.post('https://spacesharp-db.com:3600/auth', {
           username: this.username,
           password: this.password,
         }).then(response => {
@@ -144,7 +144,7 @@
         })
       },
       register () {
-        axios.post('http://localhost:3600/users/', {
+        axios.post('https://spacesharp-db.com:3600/users/', {
           username: this.username,
           password: this.password,
         }).then(response => {

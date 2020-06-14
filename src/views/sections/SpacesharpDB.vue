@@ -352,19 +352,6 @@
         })
     },
     methods: {
-      computed: {
-        counter: function () {
-          return 123
-        },
-        formTitle () {
-          return this.editedIndex === -1 ? 'New Script' : 'Edit Script'
-        },
-        minHeight () {
-          const height = this.$vuetify.breakpoint.mdAndUp ? '100vh' : '50vh'
-
-          return `calc(${height} - ${this.$vuetify.application.top}px)`
-        },
-      },
       reloadPage () {
         window.location.reload()
       },
