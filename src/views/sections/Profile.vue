@@ -9,7 +9,7 @@
       bottom
       right
       color="accent"
-      @click="uploadDialog = true"
+      @click="resetForm;uploadDialog = true"
     >
       <v-icon>mdi-plus</v-icon>
     </v-btn>
@@ -129,7 +129,6 @@
                       no-resize
                       placeholder="Please enter your Description"
                     />
-                    {{ editData }}
                   </v-col>
                 </v-row>
               </v-container>
@@ -140,14 +139,14 @@
               <v-btn
                 color="blue darken-1"
                 text
-                @click="editDialog = false"
+                @click="resetForm();editDialog = false"
               >
                 Close
               </v-btn>
               <v-btn
                 color="blue darken-1"
                 text
-                @click="editDialog = false"
+                @click="resetForm();editDialog = false"
               >
                 Save
               </v-btn>
@@ -231,7 +230,6 @@
                       no-resize
                       placeholder="Please enter your Description"
                     />
-                    {{ editData }}
                   </v-col>
                 </v-row>
               </v-container>
@@ -242,7 +240,7 @@
               <v-btn
                 color="blue darken-1"
                 text
-                @click="uploadDialog = false"
+                @click="resetForm();uploadDialog = false"
               >
                 Close
               </v-btn>
@@ -398,6 +396,15 @@
         }).catch(e => {
           this.error = true
         })
+      },
+      resetForm () {
+        const form = this.editData
+        form.id = ''
+        form.creator = ''
+        form.name = ''
+        form.role = ''
+        form.type = ''
+        form.champion = ''
       },
       editPreForm (script) {
         const form = this.editData
