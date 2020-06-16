@@ -2,7 +2,7 @@
   <v-theme-provider dark>
     <section id="login">
       <base-img
-        height="50em"
+        height="100vh"
         :src="require('@/assets/2476.png')"
         class="white--text"
         gradient="to right, rgba(5, 11, 31, .6), rgba(5, 11, 31, .6)"
@@ -43,7 +43,7 @@
                       <v-progress-circular
                         :size="70"
                         :width="7"
-                        color="primary"
+                        color="accent"
                         indeterminate
                       />
                     </div>

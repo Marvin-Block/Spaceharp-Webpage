@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 const url = 'https://spacesharp-db.com:3600/'
+// const url = 'http://localhost:3600/'
 
 export default {
   login (credentials) {
