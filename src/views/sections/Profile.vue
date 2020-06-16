@@ -9,7 +9,7 @@
       bottom
       right
       color="accent"
-      @click="resetForm;uploadDialog = true"
+      @click="resetForm();uploadDialog = true"
     >
       <v-icon>mdi-plus</v-icon>
     </v-btn>
@@ -59,94 +59,110 @@
               <span class="headline">Edit Script</span>
             </v-card-title>
             <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editData.name"
-                      dark
-                      label="Script Name*"
-                      required
-                    />
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-select
-                      v-model="editData.role"
-                      dark
-                      :items="listRole"
-                      label="Role*"
-                      required
-                    />
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-select
-                      v-model="editData.type"
-                      dark
-                      :items="listType"
-                      label="Type*"
-                      required
-                    />
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                  >
-                    <v-autocomplete
-                      v-model="editData.champion"
-                      :items="listChampion"
-                      label="Champion*"
-                    />
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    md="4"
-                  >
-                    <v-file-input
-                      accept=".sss"
-                      label="File input"
-                      prepend-icon="mdi-file-document"
-                    />
-                  </v-col>
-                  <v-col>
-                    <v-textarea
-                      v-model="editData.description"
-                      auto-grow
-                      clearable
-                      counter
-                      label="Description"
-                      no-resize
-                      placeholder="Please enter your Description"
-                    />
-                  </v-col>
-                </v-row>
-              </v-container>
-              *indicates required field
+              <v-form
+                ref="form"
+                v-model="valid"
+              >
+                <v-container>
+                  <v-row>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="4"
+                    >
+                      <v-text-field
+                        v-model="editData.name"
+                        dark
+                        :rules="nameRules"
+                        :counter="25"
+                        label="Script Name"
+                        required
+                      />
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="4"
+                    >
+                      <v-select
+                        v-model="editData.type"
+                        dark
+                        :items="listType"
+                        :rules="typeRules"
+                        label="Type"
+                        required
+                        @change="isChamp()"
+                      />
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="4"
+                    >
+                      <v-select
+                        v-model="editData.role"
+
+                        dark
+                        :disabled="!isChampion"
+                        :items="listRole"
+                        label="Role"
+                        required
+                      />
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      md="8"
+                    >
+                      <v-autocomplete
+                        v-model="editData.champion"
+                        :disabled="!isChampion"
+                        :items="listChampion"
+                        label="Champion"
+                      />
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      md="4"
+                    >
+                      <v-file-input
+                        v-model="editData.file"
+                        accept=".sss"
+                        label="File input"
+                        :rules="fileRules"
+                        prepend-icon="mdi-file-document"
+                      />
+                    </v-col>
+                    <v-col>
+                      <v-textarea
+                        v-model="editData.description"
+                        auto-grow
+                        clearable
+                        :counter="255"
+                        :rules="descriptionRules"
+                        label="Description"
+                        no-resize
+                        placeholder="Please enter your Description"
+                      />
+                    </v-col>
+                  </v-row>
+                  <v-form />
+                </v-container>
+              </v-form>
             </v-card-text>
             <v-card-actions>
               <v-spacer />
               <v-btn
-                color="blue darken-1"
+                color="danger"
                 text
                 @click="resetForm();editDialog = false"
               >
                 Close
               </v-btn>
               <v-btn
-                color="blue darken-1"
+                color="success"
                 text
-                @click="resetForm();editDialog = false"
+                :disabled="!valid"
+                @click="updateScript();editDialog = false"
               >
                 Save
               </v-btn>
@@ -163,91 +179,109 @@
               <span class="headline">Upload Script</span>
             </v-card-title>
             <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editData.name"
-                      label="Script Name*"
-                      required
-                    />
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-select
-                      v-model="editData.role"
-                      :items="listRole"
-                      label="Role*"
-                      required
-                    />
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-select
-                      v-model="editData.type"
-                      :items="listType"
-                      label="Type*"
-                      required
-                    />
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    md="8"
-                  >
-                    <v-autocomplete
-                      v-model="editData.champion"
-                      :items="listChampion"
-                      label="Champion*"
-                    />
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    md="4"
-                  >
-                    <v-file-input
-                      accept=".sss"
-                      label="File input"
-                      prepend-icon="mdi-file-document"
-                    />
-                  </v-col>
-                  <v-col>
-                    <v-textarea
-                      v-model="editData.description"
-                      auto-grow
-                      clearable
-                      counter
-                      label="Description"
-                      no-resize
-                      placeholder="Please enter your Description"
-                    />
-                  </v-col>
-                </v-row>
-              </v-container>
-              *indicates required field
+              <v-form
+                ref="form"
+                v-model="valid"
+              >
+                <v-container>
+                  <v-row>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="4"
+                    >
+                      <v-text-field
+                        v-model="editData.name"
+                        dark
+                        :rules="nameRules"
+                        :counter="25"
+                        label="Script Name"
+                        required
+                      />
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="4"
+                    >
+                      <v-select
+                        v-model="editData.type"
+                        dark
+                        :items="listType"
+                        :rules="typeRules"
+                        label="Type"
+                        required
+                        @change="isChamp()"
+                      />
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="4"
+                    >
+                      <v-select
+                        v-model="editData.role"
+                        dark
+                        :disabled="!isChampion"
+                        :items="listRole"
+                        label="Role"
+                        required
+                      />
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      md="8"
+                    >
+                      <v-autocomplete
+                        v-model="editData.champion"
+                        :disabled="!isChampion"
+                        :items="listChampion"
+                        label="Champion"
+                      />
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      md="4"
+                    >
+                      <v-file-input
+                        v-model="editData.file"
+                        accept=".sss"
+                        label="File input"
+                        :rules="fileRules"
+                        prepend-icon="mdi-file-document"
+                      />
+                    </v-col>
+                    <v-col>
+                      <v-textarea
+                        v-model="editData.description"
+                        auto-grow
+                        clearable
+                        :counter="255"
+                        :rules="descriptionRules"
+                        label="Description"
+                        no-resize
+                        placeholder="Please enter your Description"
+                      />
+                    </v-col>
+                  </v-row>
+                  <v-form />
+                </v-container>
+              </v-form>
             </v-card-text>
             <v-card-actions>
               <v-spacer />
               <v-btn
-                color="blue darken-1"
+                color="danger"
                 text
                 @click="resetForm();uploadDialog = false"
               >
                 Close
               </v-btn>
               <v-btn
-                color="blue darken-1"
+                color="success"
                 text
-                @click="uploadDialog;uploadDialog = false"
+                :disabled="!valid"
+                @click="uploadScript();uploadDialog = false"
               >
                 Save
               </v-btn>
@@ -348,6 +382,21 @@
 
     data () {
       return {
+        valid: true,
+        descriptionRules: [
+          v => (v.length <= 255) || 'Description has to be 255 or less characters',
+        ],
+        nameRules: [
+          v => !!v || 'Name is required',
+          v => (v && v.length <= 25) || 'Name has to be 30 or less characters',
+        ],
+        typeRules: [
+          v => !!v || 'Type is required',
+        ],
+        fileRules: [
+          v => !!v || 'Script file is required',
+        ],
+        isChampion: false,
         editDialog: false,
         deleteDialog: false,
         uploadDialog: false,
@@ -360,7 +409,9 @@
           type: '',
           champion: '',
           description: '',
+          file: [],
         },
+        file: '',
         targetScript: {},
         // add list of all champions
         listChampion: ['Ahri', 'Akali', 'Anivia', 'AurelionSol', 'Azir', 'Cassiopeia', 'Corki', 'Diana', 'Ekko', 'Fizz', 'Galio', 'Heimerdinger', 'Kassadin', 'Katarina', 'LeBlanc', 'Lissandra', 'Lux', 'Malzahar', 'Neeko', 'Orianna', 'Qiyana', 'Rumble', 'Ryze', 'Swain', 'Sylas', 'Syndra', 'Annie', 'Taliyah', 'Talon', 'TwistedFate', 'Veigar', 'VelKoz', 'Viktor', 'Vladimir', 'Xerath', 'Yasuo', 'Zed', 'Ziggs', 'Zoe', 'Alistar', 'Bard', 'Blitzcrank', 'Brand', 'Braum', 'Janna', 'Karma', 'Lulu', 'Morgana', 'Nami', 'Nautilus', 'Pyke', 'Rakan', 'Sona', 'Soraka', 'TahmKench', 'Taric', 'Thresh', 'Yuumi', 'Zilean', 'Zyra', 'Aphelios', 'Ashe', 'Caitlyn', 'Draven', 'Ezreal', 'Jhin', 'Jinx', 'KaiSa', 'Kalista', 'KogMaw', 'Lucian', 'Senna', 'Sivir', 'Tristana', 'Twitch', 'Varus', 'Vayne', 'Xayah', 'Aatrox', 'ChoGath', 'Darius', 'Fiora', 'Gangplank', 'Garen', 'Gnar', 'Illaoi', 'Irelia', 'Jax', 'Jayce', 'Kayle', 'Kennen', 'Kled', 'Malphite', 'Maokai', 'Mordekaiser', 'Nasus', 'Ornn', 'Poppy', 'Quinn', 'Renekton', 'Riven', 'Rumble', 'Sett', 'Shen', 'Singed', 'Sion', 'Swain', 'Teemo', 'Tryndamere', 'Urgot', 'Wukong', 'Volibear', 'Yorick', 'Amumu', 'DrMundo', 'Elise', 'Evelynn', 'Fiddlesticks', 'Gragas', 'Graves', 'Hecarim', 'Ivern', 'Jarvan', 'Khartus', 'Kayn', 'KhaZix', 'Kindred', 'LeeSin', 'MasterYi', 'Nidalee', 'Nocturne', 'Nunu&Willump', 'Olaf', 'Rammus', 'RekSai', 'Rengar', 'Sejuani', 'Shaco', 'Shyvana', 'Skarner', 'Trundle', 'Udyr', 'Vi', 'Warwick', 'XinZhao', 'Zac'],
@@ -397,14 +448,30 @@
           this.error = true
         })
       },
+      isChamp () {
+        if (this.editData.type === 'Champion') {
+          this.isChampion = true
+        } else {
+          this.editData.champion = ''
+          this.editData.role = ''
+          this.isChampion = false
+        }
+      },
+      validate () {
+        this.$refs.form.validate()
+      },
       resetForm () {
         const form = this.editData
         form.id = ''
-        form.creator = ''
+        form.creator = this.$store.getters.getUser
         form.name = ''
         form.role = ''
         form.type = ''
         form.champion = ''
+        form.file = ''
+      },
+      test (v) {
+        return !this.isChampion && !!v
       },
       editPreForm (script) {
         const form = this.editData
@@ -416,6 +483,8 @@
         form.champion = script.champion
       },
       updateScript () {
+        const data = this.editData
+        console.log({ data })
         // grab data, send patch, empty editData
         // refresh script list
         this.axiospost()
@@ -426,6 +495,8 @@
         this.axiospost()
       },
       uploadScript () {
+        const data = this.editData
+        console.log({ data })
         // grab data, send post, emptyeditData
         // refresh script list
         this.axiospost()
