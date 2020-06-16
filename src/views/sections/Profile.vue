@@ -2,29 +2,21 @@
   <base-section
     id="profile"
   >
+    <v-btn
+      absolute
+      dark
+      fab
+      bottom
+      right
+      color="accent"
+      @click="uploadDialog = true"
+    >
+      <v-icon>mdi-plus</v-icon>
+    </v-btn>
     <v-responsive
       class="mx-auto"
       max-width="1350"
     >
-      <v-card
-        class="mx-auto"
-        max-width="60em"
-      >
-        <v-container style="background-color:#1f1f1f">
-          <v-row
-            v-model="username"
-            justify="center"
-          >
-            {{ username }}
-          </v-row>
-          <v-row
-            justify="center"
-            style="color:white"
-          >
-            Welcome to your Profile.
-          </v-row>
-        </v-container>
-      </v-card>
       <br>
       <v-row justify="center">
         <v-dialog
@@ -75,6 +67,7 @@
                     md="4"
                   >
                     <v-text-field
+                      v-model="editData.name"
                       dark
                       label="Script Name*"
                       required
@@ -86,6 +79,7 @@
                     md="4"
                   >
                     <v-select
+                      v-model="editData.role"
                       dark
                       :items="listRole"
                       label="Role*"
@@ -98,6 +92,7 @@
                     md="4"
                   >
                     <v-select
+                      v-model="editData.type"
                       dark
                       :items="listType"
                       label="Type*"
@@ -109,9 +104,32 @@
                     sm="6"
                   >
                     <v-autocomplete
+                      v-model="editData.champion"
                       :items="listChampion"
                       label="Champion*"
                     />
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    md="4"
+                  >
+                    <v-file-input
+                      accept=".sss"
+                      label="File input"
+                      prepend-icon="mdi-file-document"
+                    />
+                  </v-col>
+                  <v-col>
+                    <v-textarea
+                      v-model="editData.description"
+                      auto-grow
+                      clearable
+                      counter
+                      label="Description"
+                      no-resize
+                      placeholder="Please enter your Description"
+                    />
+                    {{ editData }}
                   </v-col>
                 </v-row>
               </v-container>
@@ -154,6 +172,7 @@
                     md="4"
                   >
                     <v-text-field
+                      v-model="editData.name"
                       label="Script Name*"
                       required
                     />
@@ -164,6 +183,7 @@
                     md="4"
                   >
                     <v-select
+                      v-model="editData.role"
                       :items="listRole"
                       label="Role*"
                       required
@@ -175,6 +195,7 @@
                     md="4"
                   >
                     <v-select
+                      v-model="editData.type"
                       :items="listType"
                       label="Type*"
                       required
@@ -182,12 +203,35 @@
                   </v-col>
                   <v-col
                     cols="12"
-                    sm="6"
+                    md="8"
                   >
                     <v-autocomplete
+                      v-model="editData.champion"
                       :items="listChampion"
                       label="Champion*"
                     />
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    md="4"
+                  >
+                    <v-file-input
+                      accept=".sss"
+                      label="File input"
+                      prepend-icon="mdi-file-document"
+                    />
+                  </v-col>
+                  <v-col>
+                    <v-textarea
+                      v-model="editData.description"
+                      auto-grow
+                      clearable
+                      counter
+                      label="Description"
+                      no-resize
+                      placeholder="Please enter your Description"
+                    />
+                    {{ editData }}
                   </v-col>
                 </v-row>
               </v-container>
@@ -198,14 +242,14 @@
               <v-btn
                 color="blue darken-1"
                 text
-                @click="editDialog = false"
+                @click="uploadDialog = false"
               >
                 Close
               </v-btn>
               <v-btn
                 color="blue darken-1"
                 text
-                @click="editDialog = false"
+                @click="uploadDialog;uploadDialog = false"
               >
                 Save
               </v-btn>
@@ -216,81 +260,83 @@
           hide-actions
           accordion
         >
-          <v-expansion-panel
-            v-for="script in scripts"
-            :key="script"
-            style="pointer-events:none;cursor:default;background:rgba(255,255,255,0.05)"
-            readonly
-          >
-            <v-expansion-panel-header
-              style="background:rgba(255,255,255,0.005)"
+          <template>
+            <v-expansion-panel
+              v-for="script in scripts"
+              :key="script"
+              style="pointer-events:none;cursor:default;background:rgba(255,255,255,0.05)"
+              readonly
             >
-              <template v-slot:actions>
-                <!-- <v-icon color="#FF000000"> -->
-                <v-col>
-                  <div>
-                    <v-icon
-                      style="pointer-events:auto;cursor:pointer;"
-                      width="2 em"
-                      class="mr-2"
-                      color="secondary"
-                      @click="editScript(script);editDialog = true"
-                    >
-                      mdi-pencil
-                    </v-icon>
-                  </div>
+              <v-expansion-panel-header
+                style="background:rgba(255,255,255,0.005)"
+              >
+                <template v-slot:actions>
+                  <!-- <v-icon color="#FF000000"> -->
+                  <v-col>
+                    <div>
+                      <v-icon
+                        style="pointer-events:auto;cursor:pointer;"
+                        width="2 em"
+                        class="mr-2"
+                        color="secondary"
+                        @click="editPreForm(script);editDialog = true"
+                      >
+                        mdi-pencil
+                      </v-icon>
+                    </div>
+                    <v-divider
+                      class="mx-4"
+                    />
+                    <div>
+                      <v-icon
+                        style="pointer-events:auto;cursor:pointer;"
+                        width="2 em"
+                        class="mr-2"
+                        color="primary"
+                        @click="editPreForm(script);deleteDialog = true"
+                      >
+                        mdi-trash-can
+                      </v-icon>
+                    </div>
+                  </v-col>
+                </template>
+                <v-row
+                  align="center"
+                  class="spacer"
+                  no-gutters
+                >
+                  <v-col style="text-align:center;color:white">
+                    {{ script.name }}
+                  </v-col>
                   <v-divider
                     class="mx-4"
+                    vertical
                   />
-                  <div>
-                    <v-icon
-                      style="pointer-events:auto;cursor:pointer;"
-                      width="2 em"
-                      class="mr-2"
-                      color="primary"
-                      @click="deleteScript(script);deleteDialog = true"
-                    >
-                      mdi-trash-can
-                    </v-icon>
-                  </div>
-                </v-col>
-              </template>
-              <v-row
-                align="center"
-                class="spacer"
-                no-gutters
-              >
-                <v-col style="text-align:center;color:white">
-                  {{ script.name }}
-                </v-col>
-                <v-divider
-                  class="mx-4"
-                  vertical
-                />
-                <v-col style="text-align:center;color:white">
-                  {{ script.champion }}
-                </v-col>
-                <v-divider
-                  class="mx-4"
-                  vertical
-                />
-                <v-col style="text-align:center;color:white">
-                  {{ script.role }}
-                </v-col>
-                <v-divider
-                  class="mx-4"
-                  vertical
-                />
-                <v-col style="text-align:center;color:white">
-                  {{ script.type }}
-                </v-col>
-                <v-divider
-                  class="mx-4"
-                  vertical
-                />
-              </v-row>
-            </v-expansion-panel-header>
-          </v-expansion-panel>
+                  <v-col style="text-align:center;color:white">
+                    {{ script.champion }}
+                  </v-col>
+                  <v-divider
+                    class="mx-4"
+                    vertical
+                  />
+                  <v-col style="text-align:center;color:white">
+                    {{ script.role }}
+                  </v-col>
+                  <v-divider
+                    class="mx-4"
+                    vertical
+                  />
+                  <v-col style="text-align:center;color:white">
+                    {{ script.type }}
+                  </v-col>
+                  <v-divider
+                    class="mx-4"
+                    vertical
+                  />
+                </v-row>
+              </v-expansion-panel-header>
+            </v-expansion-panel>
+          </template>
         </v-expansion-panels>
       </v-row>
     </v-responsive>
@@ -309,10 +355,18 @@
         uploadDialog: false,
         error: false,
         loading: false,
+        editData: {
+          creator: this.$store.getters.getUser,
+          name: '',
+          role: '',
+          type: '',
+          champion: '',
+          description: '',
+        },
         targetScript: {},
         // add list of all champions
         listChampion: ['Ahri', 'Akali', 'Anivia', 'AurelionSol', 'Azir', 'Cassiopeia', 'Corki', 'Diana', 'Ekko', 'Fizz', 'Galio', 'Heimerdinger', 'Kassadin', 'Katarina', 'LeBlanc', 'Lissandra', 'Lux', 'Malzahar', 'Neeko', 'Orianna', 'Qiyana', 'Rumble', 'Ryze', 'Swain', 'Sylas', 'Syndra', 'Annie', 'Taliyah', 'Talon', 'TwistedFate', 'Veigar', 'VelKoz', 'Viktor', 'Vladimir', 'Xerath', 'Yasuo', 'Zed', 'Ziggs', 'Zoe', 'Alistar', 'Bard', 'Blitzcrank', 'Brand', 'Braum', 'Janna', 'Karma', 'Lulu', 'Morgana', 'Nami', 'Nautilus', 'Pyke', 'Rakan', 'Sona', 'Soraka', 'TahmKench', 'Taric', 'Thresh', 'Yuumi', 'Zilean', 'Zyra', 'Aphelios', 'Ashe', 'Caitlyn', 'Draven', 'Ezreal', 'Jhin', 'Jinx', 'KaiSa', 'Kalista', 'KogMaw', 'Lucian', 'Senna', 'Sivir', 'Tristana', 'Twitch', 'Varus', 'Vayne', 'Xayah', 'Aatrox', 'ChoGath', 'Darius', 'Fiora', 'Gangplank', 'Garen', 'Gnar', 'Illaoi', 'Irelia', 'Jax', 'Jayce', 'Kayle', 'Kennen', 'Kled', 'Malphite', 'Maokai', 'Mordekaiser', 'Nasus', 'Ornn', 'Poppy', 'Quinn', 'Renekton', 'Riven', 'Rumble', 'Sett', 'Shen', 'Singed', 'Sion', 'Swain', 'Teemo', 'Tryndamere', 'Urgot', 'Wukong', 'Volibear', 'Yorick', 'Amumu', 'DrMundo', 'Elise', 'Evelynn', 'Fiddlesticks', 'Gragas', 'Graves', 'Hecarim', 'Ivern', 'Jarvan', 'Khartus', 'Kayn', 'KhaZix', 'Kindred', 'LeeSin', 'MasterYi', 'Nidalee', 'Nocturne', 'Nunu&Willump', 'Olaf', 'Rammus', 'RekSai', 'Rengar', 'Sejuani', 'Shaco', 'Shyvana', 'Skarner', 'Trundle', 'Udyr', 'Vi', 'Warwick', 'XinZhao', 'Zac'],
-        listRole: ['Top', 'Jungle', 'Mid', 'Adc', 'Support'],
+        listRole: ['Toplane', 'Jungle', 'Midlane', 'ADC', 'Support'],
         listType: ['Champion', 'Module', 'Utility'],
         username: '',
         scripts: [],
@@ -326,34 +380,55 @@
     },
     created () {
       this.loading = true
-      axios({
-        method: 'post',
-        url: 'https://spacesharp-db.com:3600/scripts/user',
-        headers: {},
-        data: {
-          username: this.$store.getters.getUser,
-        },
-      }).then(response => {
-        this.scripts = response.data
-        this.loading = false
-      }).catch(e => {
-        this.error = true
-      })
+      this.axiospost()
     },
     methods: {
-      editScript (script) {
-        this.targetScript = script
+      axiospost () {
+        axios({
+          method: 'post',
+          url: 'https://spacesharp-db.com:3600/scripts/user',
+          // url: 'http://localhost:3600/scripts/user',
+          headers: {},
+          data: {
+            username: this.$store.getters.getUser,
+          },
+        }).then(response => {
+          this.scripts = response.data
+          this.loading = false
+        }).catch(e => {
+          this.error = true
+        })
       },
-      deleteScript (script) {
-        this.targetScript = script
+      editPreForm (script) {
+        const form = this.editData
+        form.id = script.id
+        form.creator = this.$store.getters.getUser
+        form.name = script.name
+        form.role = script.role
+        form.type = script.type
+        form.champion = script.champion
       },
-      uploadScript (username) {
-        console.log()
+      updateScript () {
+        // grab data, send patch, empty editData
+        // refresh script list
+        this.axiospost()
+      },
+      deleteScript () {
+        // grab id, send delete with username, empty editData
+        // refresh script list
+        this.axiospost()
+      },
+      uploadScript () {
+        // grab data, send post, emptyeditData
+        // refresh script list
+        this.axiospost()
       },
     },
   }
 </script>
+
 <style>
+
 html {
   font-size:14px
 }
