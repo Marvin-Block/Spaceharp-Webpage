@@ -396,6 +396,7 @@
         fileRules: [
           v => !!v || 'Script file is required',
         ],
+        yikes: '',
         isChampion: false,
         editDialog: false,
         deleteDialog: false,
@@ -409,9 +410,12 @@
           type: '',
           champion: '',
           description: '',
-          file: [],
+          up: '',
+          down: '',
+          lastchange: '',
+          uploaded: '',
+          file: Blob,
         },
-        file: '',
         targetScript: {},
         // add list of all champions
         listChampion: ['Ahri', 'Akali', 'Anivia', 'AurelionSol', 'Azir', 'Cassiopeia', 'Corki', 'Diana', 'Ekko', 'Fizz', 'Galio', 'Heimerdinger', 'Kassadin', 'Katarina', 'LeBlanc', 'Lissandra', 'Lux', 'Malzahar', 'Neeko', 'Orianna', 'Qiyana', 'Rumble', 'Ryze', 'Swain', 'Sylas', 'Syndra', 'Annie', 'Taliyah', 'Talon', 'TwistedFate', 'Veigar', 'VelKoz', 'Viktor', 'Vladimir', 'Xerath', 'Yasuo', 'Zed', 'Ziggs', 'Zoe', 'Alistar', 'Bard', 'Blitzcrank', 'Brand', 'Braum', 'Janna', 'Karma', 'Lulu', 'Morgana', 'Nami', 'Nautilus', 'Pyke', 'Rakan', 'Sona', 'Soraka', 'TahmKench', 'Taric', 'Thresh', 'Yuumi', 'Zilean', 'Zyra', 'Aphelios', 'Ashe', 'Caitlyn', 'Draven', 'Ezreal', 'Jhin', 'Jinx', 'KaiSa', 'Kalista', 'KogMaw', 'Lucian', 'Senna', 'Sivir', 'Tristana', 'Twitch', 'Varus', 'Vayne', 'Xayah', 'Aatrox', 'ChoGath', 'Darius', 'Fiora', 'Gangplank', 'Garen', 'Gnar', 'Illaoi', 'Irelia', 'Jax', 'Jayce', 'Kayle', 'Kennen', 'Kled', 'Malphite', 'Maokai', 'Mordekaiser', 'Nasus', 'Ornn', 'Poppy', 'Quinn', 'Renekton', 'Riven', 'Rumble', 'Sett', 'Shen', 'Singed', 'Sion', 'Swain', 'Teemo', 'Tryndamere', 'Urgot', 'Wukong', 'Volibear', 'Yorick', 'Amumu', 'DrMundo', 'Elise', 'Evelynn', 'Fiddlesticks', 'Gragas', 'Graves', 'Hecarim', 'Ivern', 'Jarvan', 'Khartus', 'Kayn', 'KhaZix', 'Kindred', 'LeeSin', 'MasterYi', 'Nidalee', 'Nocturne', 'Nunu&Willump', 'Olaf', 'Rammus', 'RekSai', 'Rengar', 'Sejuani', 'Shaco', 'Shyvana', 'Skarner', 'Trundle', 'Udyr', 'Vi', 'Warwick', 'XinZhao', 'Zac'],
@@ -460,6 +464,13 @@
       validate () {
         this.$refs.form.validate()
       },
+      loadTextFromFile (ev) {
+        const reader = new FileReader()
+        reader.onload = e => {
+          this.editData.file = e.target.result
+        }
+        reader.readAsText()
+      },
       resetForm () {
         const form = this.editData
         form.id = ''
@@ -469,9 +480,6 @@
         form.type = ''
         form.champion = ''
         form.file = ''
-      },
-      test (v) {
-        return !this.isChampion && !!v
       },
       editPreForm (script) {
         const form = this.editData
@@ -483,8 +491,7 @@
         form.champion = script.champion
       },
       updateScript () {
-        const data = this.editData
-        console.log({ data })
+        // const data = this.editData
         // grab data, send patch, empty editData
         // refresh script list
         this.axiospost()
@@ -495,10 +502,34 @@
         this.axiospost()
       },
       uploadScript () {
-        const data = this.editData
-        console.log({ data })
-        // grab data, send post, emptyeditData
-        // refresh script list
+        this.editData.file.text().then(text => {
+          const data = {
+            name: this.editData.name,
+            creator: this.editData.creator,
+            role: this.editData.role,
+            type: this.editData.type,
+            champion: this.editData.champion,
+            description: this.editData.description,
+            up: 0,
+            down: 0,
+            lastchange: new Date().toUTCString(),
+            uploaded: new Date().toUTCString(),
+            file: text,
+          }
+          axios({
+            method: 'post',
+            url: 'https://spacesharp-db.com:3600/scripts',
+            // url: 'http://localhost:3600/scripts',
+            data: {
+              data: data,
+            },
+          }).then(response => {
+          // Success Handle
+          }).catch(e => {
+            // Error handle
+            this.error = true
+          })
+        })
         this.axiospost()
       },
     },
