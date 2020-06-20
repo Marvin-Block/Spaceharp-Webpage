@@ -439,8 +439,8 @@
       axiospost () {
         axios({
           method: 'post',
-          // url: 'https://spacesharp-db.com:3600/scripts/user',
-          url: 'http://localhost:3600/scripts/user',
+          url: 'https://spacesharp-db.com:3600/scripts/user',
+          // url: 'http://localhost:3600/scripts/user',
           headers: {},
           data: {
             username: this.$store.getters.getUser,
@@ -518,13 +518,27 @@
           }
           axios({
             method: 'post',
-            // url: 'https://spacesharp-db.com:3600/scripts',
-            url: 'http://localhost:3600/scripts',
+            url: 'https://spacesharp-db.com:3600/scripts',
+            // url: 'http://localhost:3600/scripts',
             data: {
               data: data,
             },
           }).then(response => {
-          // Success Handle
+            axios({
+              method: 'post',
+              url: 'https://spacesharp-db.com:3600/scripts/user',
+              // url: 'http://localhost:3600/scripts/user',
+              headers: {},
+              data: {
+                username: this.$store.getters.getUser,
+              },
+            }).then(response => {
+              this.scripts = response.data
+              console.log(response.data)
+              this.loading = false
+            }).catch(e => {
+              this.error = true
+            })
           }).catch(e => {
             // Error handle
             this.error = true
