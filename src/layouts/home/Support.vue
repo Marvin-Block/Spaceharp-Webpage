@@ -13,18 +13,18 @@
   >
     <template v-slot:activator="{ attrs, on }">
       <v-card
-        id="discord"
+        id="support"
         class="py-2 px-4"
         color="#0000004D"
         dark
         flat
-        style="position: fixed; top: 85vh; right: -35px;"
+        style="position: fixed; top: 70vh; right: -35px;"
         width="100"
         v-bind="attrs"
         v-on="on"
       >
         <v-icon large>
-          mdi-discord
+          mdi-help
         </v-icon>
       </v-card>
     </template>
@@ -32,7 +32,7 @@
     <v-card class="py-2">
       <base-title
         align="center"
-        title="Join us"
+        title="Support me"
         space="0"
       />
 
@@ -40,31 +40,23 @@
         <div class="text-center">
           <base-btn
             :tile="false"
-            href="https://discord.com/invite/9AQv2pF"
+            href="https://ko-fi.com/muffin4222"
             target="_blank"
             class="ma-2"
             size="48"
             style="cursor: pointer;"
             rounded
+            color="pink"
             @click="menu = false"
           >
-            Spacesharp Discord
+            <v-icon
+              large
+              color="white"
+            >
+              mdi-heart
+            </v-icon>
           </base-btn>
         </div>
-        <!-- <div class="text-center">
-          <base-btn
-            :tile="false"
-            href="https://discord.gg/R73yUKx"
-            target="_blank"
-            class="ma-2"
-            size="48"
-            style="cursor: pointer;"
-            rounded
-            @click="menu = false"
-          >
-            Spaceglider Discord
-          </base-btn>
-        </div> -->
       </v-card-text>
     </v-card>
   </v-menu>
@@ -72,7 +64,7 @@
 
 <script>
   export default {
-    name: 'HomeDiscord',
+    name: 'HomeSupport',
 
     data () {
       return {

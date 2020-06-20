@@ -26,7 +26,6 @@
               max-height="24"
             >
               <v-divider vertical />
-              <v-divider vertical />
             </v-responsive>
             <v-icon>mdi-instagram</v-icon>
             <a
@@ -35,6 +34,22 @@
               href="https://www.lol-script.com/"
               target="_blank"
               v-text="'Instagram'"
+            />
+
+            <v-responsive
+              :key="'Discord'"
+              class="mx-4 shrink hidden-sm-and-down"
+              max-height="24"
+            >
+              <v-divider vertical />
+            </v-responsive>
+            <v-icon>mdi-heart</v-icon>
+            <a
+              :key="'Spaceglider'"
+              class="white--text pa-1 pa-md-0"
+              href="https://ko-fi.com/Muffin4222"
+              target="_blank"
+              v-text="'Support me'"
             />
 
             <v-responsive
