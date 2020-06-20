@@ -248,7 +248,7 @@
                               no-gutters
                             >
                               <v-col>
-                                <div>
+                                <div style="white-space:pre">
                                   {{ script.description }}
                                 </div>
                               </v-col>
