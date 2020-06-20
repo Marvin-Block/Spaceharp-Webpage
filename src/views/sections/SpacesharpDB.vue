@@ -261,7 +261,7 @@
                                   width="2 em"
                                   class="mr-2"
                                   color="secondary"
-                                  @click="startDownload"
+                                  @click="startDownload(script)"
                                 >
                                   mdi-download
                                 </v-icon>
@@ -356,8 +356,17 @@
       reloadPage () {
         window.location.reload()
       },
-      startDownload () {
+      startDownload (script) {
         alert('Download will soon be added')
+        axios({
+          method: 'get',
+          url: 'https://spacesharp-db.com:3600/scripts/' + script._id,
+          // url: 'http://localhost:3600/scripts/' + script._id,
+        }).then(response => {
+          console.log(response)
+        }).catch(e => {
+          this.error = true
+        })
       },
     },
     provide: {
