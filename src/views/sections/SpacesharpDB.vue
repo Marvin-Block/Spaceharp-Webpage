@@ -367,7 +367,6 @@
         window.location.reload()
       },
       startDownload (script) {
-        alert('Download will soon be added')
         axios({
           method: 'get',
           url: 'https://spacesharp-db.com:3600/scripts/' + script._id,
