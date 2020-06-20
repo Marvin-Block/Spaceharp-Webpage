@@ -29,9 +29,8 @@
             </v-responsive>
             <v-icon>mdi-instagram</v-icon>
             <a
-              :key="'Spaceglider'"
               class="white--text pa-1 pa-md-0"
-              href="https://www.lol-script.com/"
+              href="https://www.instagram.com/spacesharpofficial/?hl=de"
               target="_blank"
               v-text="'Instagram'"
             />
@@ -45,7 +44,6 @@
             </v-responsive>
             <v-icon>mdi-heart</v-icon>
             <a
-              :key="'Spaceglider'"
               class="white--text pa-1 pa-md-0"
               href="https://ko-fi.com/Muffin4222"
               target="_blank"
@@ -53,7 +51,20 @@
             />
 
             <v-responsive
-              :key="'Discord'"
+              class="mx-4 shrink hidden-sm-and-down"
+              max-height="24"
+            >
+              <v-divider vertical />
+            </v-responsive>
+            <v-icon>mdi-currency-usd</v-icon>
+            <a
+              class="white--text pa-1 pa-md-0"
+              href="https://lol-script.com/spacesharp-best-lol-script/"
+              target="_blank"
+              v-text="'Buy Spacesharp'"
+            />
+
+            <v-responsive
               class="mx-4 shrink hidden-sm-and-down"
               max-height="24"
             />
