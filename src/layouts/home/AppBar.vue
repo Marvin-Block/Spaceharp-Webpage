@@ -65,15 +65,26 @@
     components: {
       HomeDrawer: () => import('./Drawer'),
     },
-
     data: () => ({
       drawer: null,
       items: [
         ['Home', 'mdi-home-outline'],
         ['SpacesharpDB', 'mdi-file-table-box-multiple-outline'],
-        ['Login', 'mdi-account-key-outline'],
+        ['Login', 'mdi-key-outline'],
       ],
+      alreadyLoggedIn: false,
     }),
+    created () {
+      this.$root.$refs.AppBar = this
+    },
+    methods: {
+      refreshBar () {
+        if (this.$store.getters.isLoggedIn && this.alreadyLoggedIn === false) {
+          this.items.push(['Profile', 'mdi-account-outline'])
+          this.alreadyLoggedIn = true
+        }
+      },
+    },
   }
 </script>
 

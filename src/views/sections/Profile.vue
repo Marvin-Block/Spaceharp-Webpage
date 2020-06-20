@@ -20,7 +20,6 @@
         class="mx-auto"
         max-width="1350"
       >
-        <br>
         <v-col>
           <v-card
             style="pointer-events:none;cursor:default"
@@ -511,6 +510,7 @@
         this.$router.push('/login')
       }
       this.username = this.$store.getters.getUser
+      this.$root.$refs.AppBar.refreshBar()
     },
     created () {
       this.loading = true
