@@ -384,7 +384,7 @@
       return {
         valid: true,
         descriptionRules: [
-          v => (v.length <= 255) || 'Description has to be 255 or less characters',
+          v => (v.length <= 500) || 'Description has to be 500 or less characters',
         ],
         nameRules: [
           v => !!v || 'Name is required',
