@@ -214,7 +214,7 @@
                             />
                             <v-col style="text-align:center">
                               <div>
-                                {{ script.upvotes }}
+                                N/A
                               </div>
                             </v-col>
                             <v-divider
@@ -223,7 +223,7 @@
                             />
                             <v-col style="text-align:center">
                               <div>
-                                {{ script.downvotes }}
+                                N/A
                               </div>
                             </v-col>
                             <v-divider
@@ -232,7 +232,7 @@
                             />
                             <v-col style="text-align:center">
                               <div>
-                                {{ script.downvotes }}
+                                N/A
                               </div>
                             </v-col>
                           </v-row>

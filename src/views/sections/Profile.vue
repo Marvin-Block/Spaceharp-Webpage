@@ -388,7 +388,7 @@
         ],
         nameRules: [
           v => !!v || 'Name is required',
-          v => (v && v.length <= 25) || 'Name has to be 30 or less characters',
+          v => (v && v.length <= 25) || 'Name has to be 25 or less characters',
         ],
         typeRules: [
           v => !!v || 'Type is required',
