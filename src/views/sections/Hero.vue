@@ -1,7 +1,7 @@
 <template>
   <section id="hero">
     <v-img
-      :src="require('@/assets/25411.png')"
+      :src="require('@/assets/BG.jpg')"
       class="white--text"
       gradient="to right, rgba(5, 11, 31, .6), rgba(5, 11, 31, .6)"
     >
