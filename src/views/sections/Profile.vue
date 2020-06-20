@@ -174,7 +174,7 @@
                           v-model="editData.description"
                           auto-grow
                           clearable
-                          :counter="255"
+                          :counter="500"
                           :rules="descriptionRules"
                           label="Description"
                           no-resize
