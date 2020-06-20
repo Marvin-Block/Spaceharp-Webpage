@@ -10,19 +10,12 @@
     >
       <v-container style="background-color:yellow">
         <v-row justify="center">
-          <v-icon color="black">
-            mdi-alert-outline
-          </v-icon>
-          <h3 style="color:black">
-            TESTING PAGE
-          </h3>
-          <v-icon color="black">
-            mdi-alert-outline
-          </v-icon>
-        </v-row>
-        <v-row justify="center">
-          <p style="color:black">
-            This page is still being tested and has no funciotnality whatsoever.
+          <p
+            style="color:black"
+            class="text-center text--primary"
+          >
+            This page is still being tested.<br>
+            If anything breaks or isn't working contact Muffin#4222 on the Spacesharp Discord.
           </p>
         </v-row>
       </v-container>
