@@ -38,7 +38,7 @@
           accordion
         >
           <v-expansion-panel
-            style="pointer-events:none;cursor:defautl"
+            style="pointer-events:none;cursor:default"
             readonly
           >
             <v-expansion-panel-header>
