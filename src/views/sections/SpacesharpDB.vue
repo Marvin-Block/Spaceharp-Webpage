@@ -336,6 +336,7 @@
         error: false,
         champions: [],
         scripts: [],
+        downloadURL: null,
       }
     },
 
@@ -353,6 +354,15 @@
         })
     },
     methods: {
+      forceFileDownload (response) {
+        const url = window.URL.createObjectURL(new Blob([response.data.file]))
+        const link = document.createElement('a')
+        const filenName = response.data.name + '.sss'
+        link.href = url
+        link.setAttribute('download', filenName)
+        document.body.appendChild(link)
+        link.click()
+      },
       reloadPage () {
         window.location.reload()
       },
@@ -363,7 +373,7 @@
           url: 'https://spacesharp-db.com:3600/scripts/' + script._id,
           // url: 'http://localhost:3600/scripts/' + script._id,
         }).then(response => {
-          console.log(response)
+          this.forceFileDownload(response)
         }).catch(e => {
           this.error = true
         })
