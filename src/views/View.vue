@@ -26,3 +26,9 @@
     data: () => ({ sections: [] }),
   }
 </script>
+
+{<style>
+  html {
+  font-size:14px
+}
+</style>}

@@ -52,9 +52,9 @@
                 <v-col style="text-align:center">
                   Role
                 </v-col>
-                <v-col style="text-align:center">
+                <!-- <v-col style="text-align:center">
                   Tier
-                </v-col>
+                </v-col> -->
                 <v-col style="text-align:center">
                   Number of Scripts
                 </v-col>
@@ -96,9 +96,9 @@
                     :src="require(`@/assets/${champion.roleIcon}`)"
                   />
                 </v-col>
-                <v-col style="text-align:center">
+                <!-- <v-col style="text-align:center">
                   {{ champion.tier }}
-                </v-col>
+                </v-col> -->
                 <v-col style="text-align:center">
                   <v-icon
                     width="2 em"
@@ -110,9 +110,15 @@
               </v-row>
             </v-expansion-panel-header>
             <v-expansion-panel-content>
-              <v-container>
-                <v-row justify="space-around">
-                  <v-row justify="center">
+              <v-container
+                style="width:auto"
+              >
+                <v-row
+                  justify="space-around"
+                >
+                  <v-row
+                    justify="center"
+                  >
                     <v-expansion-panels
                       hide-actions
                       accordion
@@ -241,7 +247,7 @@
                               no-gutters
                             >
                               <v-col>
-                                <div style="white-space:pre">
+                                <div style="white-space:pre-wrap">
                                   {{ script.description }}
                                 </div>
                               </v-col>
