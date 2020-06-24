@@ -4,7 +4,7 @@
     id="SpacesharpDB"
   >
     <br>
-    <v-card
+    <!-- <v-card
       class="mx-auto"
       max-width="60em"
     >
@@ -19,7 +19,7 @@
           </p>
         </v-row>
       </v-container>
-    </v-card>
+    </v-card> -->
     <br>
     <v-container
       v-if="!loading"
@@ -242,6 +242,7 @@
                             fluid
                           >
                             <v-row
+                              v-if="hasLicense.length > 0"
                               align="center"
                               class="spacer"
                               no-gutters
@@ -265,6 +266,21 @@
                                   mdi-download
                                 </v-icon>
                               </div>
+                            </v-row>
+                            <v-row
+                              v-else
+                              align="center"
+                              class="spacer text-center"
+                              no-gutters
+                            >
+                              <v-col>
+                                <div
+                                  style="background-color:rgba(0,0,0,0.4); width:20em; padding:10px"
+                                  class="mx-auto"
+                                >
+                                  Please Sign in and Register an active license to see the Download.
+                                </div>
+                              </v-col>
                             </v-row>
                           </v-container>
                         </v-expansion-panel-content>
@@ -336,17 +352,20 @@
         champions: [],
         scripts: [],
         downloadURL: null,
+        hasLicense: '',
       }
     },
 
     created () {
       this.loading = true
       // axios.get('http://localhost:3600/champions/aggPart')
-      axios.get('https://spacesharp-db.com:3600/champions/aggPart')
+      axios.get('http://localhost:3600/champions/aggPart')
         .then(response => {
           this.champions = response.data
           this.loading = false
           this.error = false
+          console.log(this.hasLicense, this.$store.getters.hasLicense)
+          this.hasLicense = this.$store.getters.hasLicense
         })
         .catch(e => {
           this.error = true
@@ -368,8 +387,8 @@
       startDownload (script) {
         axios({
           method: 'get',
-          url: 'https://spacesharp-db.com:3600/scripts/' + script._id,
           // url: 'http://localhost:3600/scripts/' + script._id,
+          url: 'http://localhost:3600/scripts/' + script._id,
         }).then(response => {
           this.forceFileDownload(response)
         }).catch(e => {

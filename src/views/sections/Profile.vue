@@ -288,6 +288,17 @@
                           prepend-icon="mdi-file-document"
                         />
                       </v-col>
+                      <v-col
+                        cols="12"
+                        md="12"
+                      >
+                        <v-switch
+                          v-model="editData.encrypted"
+                          :label="`Encryption`"
+                          color="success"
+                          hide-details
+                        />
+                      </v-col>
                       <v-col>
                         <v-textarea
                           v-model="editData.description"
@@ -486,6 +497,7 @@
         editData: {
           creator: this.$store.getters.getUser,
           name: '',
+          encrypted: false,
           role: '',
           type: '',
           champion: '',
@@ -515,6 +527,7 @@
     },
     created () {
       this.loading = true
+      this.checkLicense()
       this.axiospost()
     },
     methods: {
@@ -559,6 +572,7 @@
       resetForm () {
         const form = this.editData
         form.id = ''
+        form.encrypted = false
         form.creator = this.$store.getters.getUser
         form.name = ''
         form.role = ''
@@ -568,6 +582,7 @@
       },
       editPreForm (script) {
         const form = this.editData
+        form.encrypted = false
         form.id = script.id
         form.creator = this.$store.getters.getUser
         form.name = script.name
@@ -614,6 +629,7 @@
         this.editData.file.text().then(text => {
           const data = {
             name: this.editData.name,
+            encrypted: this.editData.encrypted,
             creator: this.editData.creator,
             role: this.editData.role,
             type: this.editData.type,
@@ -652,6 +668,13 @@
             this.error = true
           })
         })
+      },
+      checkLicense () {
+        // Check License to server
+        const license = '200'
+        if (license) {
+          this.$store.dispatch('authorize', { license })
+        }
       },
     },
   }

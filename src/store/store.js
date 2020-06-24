@@ -11,6 +11,7 @@ const getDefaultState = () => {
     accessToken: '',
     refreshToken: '',
     user: {},
+    license: '',
   }
 }
 
@@ -28,6 +29,9 @@ export default new Vuex.Store({
     getRefreshToken: state => {
       return state.refreshToken
     },
+    hasLicense: state => {
+      return state.license
+    },
   },
   mutations: {
     SET_TOKEN: (state, accessToken) => {
@@ -42,8 +46,14 @@ export default new Vuex.Store({
     RESET: state => {
       Object.assign(state, getDefaultState())
     },
+    SET_ACTIVE_LICENSE: (state, license) => {
+      state.license = license
+    },
   },
   actions: {
+    authorize: ({ commit, dispatch }, { license }) => {
+      commit('SET_ACTIVE_LICENSE', license)
+    },
     login: ({ commit, dispatch }, { accessToken, user, refreshToken }) => {
       commit('SET_REFRESHTOKEN', refreshToken)
       commit('SET_TOKEN', accessToken)
