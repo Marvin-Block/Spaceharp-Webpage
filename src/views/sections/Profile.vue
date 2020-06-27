@@ -764,11 +764,11 @@
         })
       },
       addLicence () {
-        alert('triggered addLicence')
-        axios({
-          method: 'post',
-          url: 'https://lizenz.lol-script.com/api/spacesharp/validate',
-          headers: `LICENCE_KEY=${this.license}`,
+        console.log('triggered addLicence')
+        axios.post(' https://lizenz.lol-script.com/api/spacesharp/validate', null, {
+          params: {
+            LICENCE_KEY: this.licence,
+          },
         }).then(response => {
           alert(response)
         })
