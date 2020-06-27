@@ -769,6 +769,9 @@
           params: {
             LICENCE_KEY: this.licence,
           },
+          headers: {
+            'Access-Control-Allow-Origin': true,
+          },
         }).then(response => {
           alert(response)
         })
