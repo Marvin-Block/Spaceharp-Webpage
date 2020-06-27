@@ -359,7 +359,7 @@
     created () {
       this.loading = true
       // axios.get('http://localhost:3600/champions/aggPart')
-      axios.get('http://localhost:3600/champions/aggPart')
+      axios.get('https://spacesharp-db.com:3600/champions/aggPart')
         .then(response => {
           this.champions = response.data
           this.loading = false
@@ -388,7 +388,7 @@
         axios({
           method: 'get',
           // url: 'http://localhost:3600/scripts/' + script._id,
-          url: 'http://localhost:3600/scripts/' + script._id,
+          url: 'https://spacesharp-db.com:3600/scripts/' + script._id,
         }).then(response => {
           this.forceFileDownload(response)
         }).catch(e => {
