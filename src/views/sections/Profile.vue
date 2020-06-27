@@ -770,7 +770,7 @@
             LICENCE_KEY: this.licence,
           },
           headers: {
-            'Access-Control-Allow-Origin': true,
+            'Access-Control-Allow-Origin': '*',
           },
         }).then(response => {
           alert(response)
