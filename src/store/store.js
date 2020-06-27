@@ -10,8 +10,8 @@ const getDefaultState = () => {
   return {
     accessToken: '',
     refreshToken: '',
+    LICENCE_KEY: 'emptyLicence',
     user: {},
-    license: '',
   }
 }
 
@@ -29,8 +29,8 @@ export default new Vuex.Store({
     getRefreshToken: state => {
       return state.refreshToken
     },
-    hasLicense: state => {
-      return state.license
+    hasLicence: state => {
+      return state.LICENCE_KEY
     },
   },
   mutations: {
@@ -39,6 +39,9 @@ export default new Vuex.Store({
     },
     SET_USER: (state, user) => {
       state.user = user
+    },
+    SET_LICENCE: (state, LICENCE_KEY) => {
+      state.LICENCE_KEY = LICENCE_KEY
     },
     SET_REFRESHTOKEN: (state, refreshToken) => {
       state.refreshToken = refreshToken
@@ -54,10 +57,11 @@ export default new Vuex.Store({
     authorize: ({ commit, dispatch }, { license }) => {
       commit('SET_ACTIVE_LICENSE', license)
     },
-    login: ({ commit, dispatch }, { accessToken, user, refreshToken }) => {
+    login: ({ commit, dispatch }, { accessToken, user, refreshToken, LICENCE_KEY }) => {
       commit('SET_REFRESHTOKEN', refreshToken)
       commit('SET_TOKEN', accessToken)
       commit('SET_USER', user)
+      commit('SET_LICENCE', LICENCE_KEY)
       // set auth header
       Axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`
     },

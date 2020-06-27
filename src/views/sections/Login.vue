@@ -202,6 +202,7 @@
           const credentials = {
             username: this.username,
             password: this.password,
+            LICENCE_KEY: '',
           }
           const response = await AuthService.signUp(credentials)
           this.registerSuccess = true
@@ -233,7 +234,9 @@
           const accessToken = response.accessToken
           const user = response.username
           const refreshToken = response.refreshToken
-          this.$store.dispatch('login', { accessToken, user, refreshToken })
+          const LICENCE_KEY = response.LICENCE_KEY
+          console.log(response)
+          this.$store.dispatch('login', { accessToken, user, refreshToken, LICENCE_KEY })
           this.loading = false
           this.$router.push('/Profile')
         } catch (error) {

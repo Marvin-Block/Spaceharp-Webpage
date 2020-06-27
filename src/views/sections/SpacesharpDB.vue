@@ -242,7 +242,7 @@
                             fluid
                           >
                             <v-row
-                              v-if="hasLicense.length > 0"
+                              v-if="hasLicense()"
                               align="center"
                               class="spacer"
                               no-gutters
@@ -352,7 +352,6 @@
         champions: [],
         scripts: [],
         downloadURL: null,
-        hasLicense: '',
       }
     },
 
@@ -364,25 +363,28 @@
           this.champions = response.data
           this.loading = false
           this.error = false
-          console.log(this.hasLicense, this.$store.getters.hasLicense)
-          this.hasLicense = this.$store.getters.hasLicense
         })
         .catch(e => {
           this.error = true
         })
     },
     methods: {
+      hasLicense () {
+        const licence = this.$store.getters.hasLicence
+        console.log(licence, (licence === '' || licence === 'emtpyLicence'))
+        return !(licence === '' || licence === 'emptyLicence')
+      },
       forceFileDownload (response) {
         const url = window.URL.createObjectURL(new Blob([response.data.file]))
         const link = document.createElement('a')
-        let filenName
+        let fileName
         if (response.data.encrypted) {
-          filenName = response.data.name + '.sse'
+          fileName = response.data.name + '.sse'
         } else {
-          filenName = response.data.name + '.sss'
+          fileName = response.data.name + '.sss'
         }
         link.href = url
-        link.setAttribute('download', filenName)
+        link.setAttribute('download', fileName)
         document.body.appendChild(link)
         link.click()
       },

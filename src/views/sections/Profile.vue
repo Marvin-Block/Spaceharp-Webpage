@@ -493,6 +493,7 @@
         deleteDialog: false,
         uploadDialog: false,
         error: false,
+        uploadError: false,
         loading: false,
         editData: {
           creator: this.$store.getters.getUser,
@@ -515,6 +516,7 @@
         listType: ['Champion'],
         altListType: ['Champion', 'Module', 'Utility'],
         username: '',
+        license: '',
         scripts: [],
       }
     },
@@ -527,7 +529,7 @@
     },
     created () {
       this.loading = true
-      this.checkLicense()
+      // this.checkLicense()
       this.axiospost()
     },
     methods: {
@@ -665,16 +667,9 @@
             })
           }).catch(e => {
             // Error handle
-            this.error = true
+            this.uploadError = true
           })
         })
-      },
-      checkLicense () {
-        // Check License to server
-        const license = '200'
-        if (license) {
-          this.$store.dispatch('authorize', { license })
-        }
       },
     },
   }
