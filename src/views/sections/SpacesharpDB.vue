@@ -4,7 +4,7 @@
     id="SpacesharpDB"
   >
     <br>
-    <!-- <v-card
+    <v-card
       class="mx-auto"
       max-width="60em"
     >
@@ -14,12 +14,12 @@
             style="color:black"
             class="text-center text--primary"
           >
-            This page is still being tested.<br>
-            If anything breaks or isn't working contact Muffin#4222 on the Spacesharp Discord.
+            Due to recent changes you won't be able to Download any Scripts.<br>
+            I apologize for the inconvenience.
           </p>
         </v-row>
       </v-container>
-    </v-card> -->
+    </v-card>
     <br>
     <v-container
       v-if="!loading"
