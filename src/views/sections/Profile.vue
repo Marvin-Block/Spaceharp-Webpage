@@ -765,12 +765,12 @@
       },
       addLicence () {
         console.log('triggered addLicence')
-        axios.post(' https://lizenz.lol-script.com/api/spacesharp/validate', null, {
-          params: {
+        axios.post(' https://spacesharp-db.com:3600/users/addLicence', {
+          data: {
             LICENCE_KEY: this.licence,
           },
           headers: {
-            'Access-Control-Allow-Origin': '*',
+            Authorization: 'Bearer ' + this.$store.getters.isLoggedIn,
           },
         }).then(response => {
           alert(response)
