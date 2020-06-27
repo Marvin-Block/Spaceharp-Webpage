@@ -604,11 +604,13 @@
         licence: '',
         HWID: '',
         scripts: [],
+        LoggedIn: '',
         addLicenseDialog: false,
       }
     },
     beforeCreate () {
       if (!this.$store.getters.isLoggedIn) {
+        this.LoggedIn = this.$store.getters.isLoggedIn
         this.$router.push('/login')
       }
       this.username = this.$store.getters.getUser
@@ -768,9 +770,10 @@
         axios.post(' https://spacesharp-db.com:3600/users/addLicence', {
           data: {
             LICENCE_KEY: this.licence,
+            username: this.username,
           },
           headers: {
-            Authorization: 'Bearer ' + this.$store.getters.isLoggedIn,
+            Authorization: 'Bearer ' + this.LoggedIn,
           },
         }).then(response => {
           alert(response)
