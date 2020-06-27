@@ -2,6 +2,32 @@
   <base-section
     id="profile"
   >
+    <v-card
+      v-if="!hasLicense()"
+      class="mx-auto"
+      max-width="60em"
+    >
+      <v-container style="background-color:red">
+        <v-row justify="center">
+          <p
+            style="color:black"
+            class="text-center text--primary"
+          >
+            <strong> THIS IS BEING TESTED RIGHT NOW AND PROPABLY WONT WORK </strong> <br>
+            It seems you don't have an active Licence linked to your account.<br>
+            To remove this Message and be able to Download Scripts, please link a valid Licence. <br> <br>
+            <v-btn
+              dark
+              color="secondary"
+              @click="addLicenseDialog = true"
+            >
+              Add Licence
+            </v-btn>
+          </p>
+        </v-row>
+      </v-container>
+    </v-card>
+
     <v-btn
       absolute
       dark
@@ -13,6 +39,62 @@
     >
       <v-icon>mdi-plus</v-icon>
     </v-btn>
+
+    <v-dialog
+      v-model="addLicenseDialog"
+      persistent
+      max-width="800px"
+    >
+      <v-card dark>
+        <v-card-title>
+          <span class="headline">Add License</span>
+        </v-card-title>
+        <v-card-text>
+          <v-form
+            ref="form"
+            v-model="valid"
+          >
+            <v-container>
+              <v-row>
+                <v-col
+                  cols="12"
+                  sm="12"
+                  md="12"
+                >
+                  <v-text-field
+                    v-model="licence"
+                    dark
+                    :rules="licenceRule"
+                    :counter="25"
+                    label="Licence"
+                    required
+                  />
+                </v-col>
+              </v-row>
+              <v-form />
+            </v-container>
+          </v-form>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn
+            color="danger"
+            text
+            @click="addLicence();addLicenseDialog = false"
+          >
+            Close
+          </v-btn>
+          <v-btn
+            color="success"
+            text
+            :disabled="!valid"
+            @click="addLicenseDialog = false"
+          >
+            Save
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
 
     <div v-if="!loading">
       <v-responsive
@@ -487,6 +569,9 @@
         fileRules: [
           v => !!v || 'Script file is required',
         ],
+        licenceRule: [
+          v => (v.length <= 25),
+        ],
         yikes: '',
         isChampion: false,
         editDialog: false,
@@ -516,8 +601,10 @@
         listType: ['Champion'],
         altListType: ['Champion', 'Module', 'Utility'],
         username: '',
-        license: '',
+        licence: '',
+        HWID: '',
         scripts: [],
+        addLicenseDialog: false,
       }
     },
     beforeCreate () {
@@ -533,6 +620,11 @@
       this.axiospost()
     },
     methods: {
+      hasLicense () {
+        const licence = this.$store.getters.hasLicence
+        // console.log(licence, (licence === '' || licence === 'emtpyLicence'))
+        return !(licence === '' || licence === 'emptyLicence')
+      },
       axiospost () {
         axios({
           method: 'post',
@@ -669,6 +761,15 @@
             // Error handle
             this.uploadError = true
           })
+        })
+      },
+      addLicence () {
+        axios({
+          method: 'post',
+          url: 'https://lizenz.lol-script.com/api/spacesharp/validate',
+          headers: `LICENCE_KEY=${this.license}`,
+        }).then(response => {
+          alert(response)
         })
       },
     },
