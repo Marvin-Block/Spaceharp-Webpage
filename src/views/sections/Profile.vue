@@ -772,9 +772,6 @@
             LICENCE_KEY: this.licence,
             username: this.username,
           },
-          headers: {
-            Authorization: 'Bearer ' + this.LoggedIn,
-          },
         }).then(response => {
           alert(response)
         })
