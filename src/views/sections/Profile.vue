@@ -770,7 +770,7 @@
         axios.post(' https://spacesharp-db.com:3600/users/addLicence', {
           data: {
             LICENCE_KEY: this.licence,
-            username: this.username,
+            username: this.$store.getters.getUser,
           },
         }).then(response => {
           alert(response)
