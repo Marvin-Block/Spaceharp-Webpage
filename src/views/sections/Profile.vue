@@ -7,7 +7,7 @@
       class="mx-auto"
       max-width="60em"
     >
-      <v-container style="background-color:red">
+      <v-container style="background-color:rgba(255,0,0,0.7)">
         <v-row justify="center">
           <p
             style="color:black"
@@ -80,7 +80,7 @@
           <v-btn
             color="danger"
             text
-            @click="addLicence();addLicenseDialog = false"
+            @click="addLicenseDialog = false"
           >
             Close
           </v-btn>
@@ -88,7 +88,7 @@
             color="success"
             text
             :disabled="!valid"
-            @click="addLicenseDialog = false"
+            @click="addLicence();addLicenseDialog = false"
           >
             Save
           </v-btn>
@@ -764,6 +764,7 @@
         })
       },
       addLicence () {
+        alert('triggered addLicence')
         axios({
           method: 'post',
           url: 'https://lizenz.lol-script.com/api/spacesharp/validate',
