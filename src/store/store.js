@@ -10,7 +10,7 @@ const getDefaultState = () => {
   return {
     accessToken: '',
     refreshToken: '',
-    LICENCE_KEY: 'emptyLicence',
+    LICENCE_KEY: '',
     HWID: '',
     user: {},
   }

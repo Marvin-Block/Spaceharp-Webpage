@@ -2,33 +2,8 @@
   <base-section
     id="profile"
   >
-    <v-card
-      v-model="isActive"
-      class="mx-auto"
-      max-width="60em"
-    >
-      <v-container style="background-color:rgba(255,0,0,0.7)">
-        <v-row justify="center">
-          <p
-            style="color:black"
-            class="text-center text--primary"
-          >
-            <strong> THIS IS BEING TESTED RIGHT NOW AND PROPABLY WONT WORK </strong> <br>
-            It seems you don't have an active Licence linked to your account.<br>
-            To remove this Message and be able to Download Scripts, please link a valid Licence. <br> <br>
-            <v-btn
-              dark
-              color="secondary"
-              @click="addLicenseDialog = true"
-            >
-              Add Licence
-            </v-btn>
-          </p>
-        </v-row>
-      </v-container>
-    </v-card>
-
     <v-btn
+      v-if="!notValid"
       absolute
       dark
       fab
@@ -88,7 +63,7 @@
             color="success"
             text
             :disabled="!valid"
-            @click="addLicence();addLicenseDialog = false"
+            @click="addLicence();addLicenseDialog = false;loading = true"
           >
             Save
           </v-btn>
@@ -104,6 +79,7 @@
       >
         <v-col>
           <v-card
+            v-if="!notValid"
             style="pointer-events:none;cursor:default"
             height="auto"
             width="800"
@@ -125,6 +101,44 @@
                   <p style="color:white; margin-bottom:0px">
                     You can Upload scripts by Pressing the Green + (Plus) Icon in the bottom right corner
                   </p>
+                </div>
+              </v-row>
+            </v-card-text>
+          </v-card>
+          <v-card
+            v-else
+            style="pointer-events:none;cursor:default"
+            height="auto"
+            width="800"
+            dark
+            color="primary"
+            class="mx-auto"
+          >
+            <v-card-text
+              class="text-center"
+            >
+              <v-row
+                justify="center"
+              >
+                <div
+                  v-if="notValid"
+                  class="text--primary"
+                >
+                  <p style="color:white">
+                    It seem like you did not Link an Active License to your Account
+                  </p>
+                  <p style="color:white; margin-bottom:0px">
+                    You can do this by pressing the button Below
+                  </p>
+                  <br>
+                  <v-btn
+                    dark
+                    color="secondary"
+                    style="pointer-events:auto;cursor:pointer"
+                    @click="addLicenseDialog = true"
+                  >
+                    Add Licence
+                  </v-btn>
                 </div>
               </v-row>
             </v-card-text>
@@ -512,6 +526,7 @@
       <v-snackbar
         v-model="error"
         color="error"
+        :timeout="timeout"
       >
         <v-alert
           prominent
@@ -520,7 +535,7 @@
         >
           <v-row align="center">
             <v-col class="grow">
-              There was an Error getting the Champion list. Please try again in a few Seconds.<br> If this issue persist, please contact
+              There was an Error. Please try again in a few Seconds.<br> If this issue persist, please contact
               Muffin#4222
             </v-col>
           </v-row>
@@ -544,6 +559,37 @@
         color="primary"
         indeterminate
       />
+    </div>
+    <div
+      v-if="uploadError"
+      class="text-center mx-auto"
+      style="max-width:80em"
+    >
+      <v-snackbar
+        v-model="uploadError"
+        color="error"
+        :timeout="timeout"
+      >
+        <v-alert
+          prominent
+          type="error"
+          justify="center"
+        >
+          <v-row align="center">
+            <v-col class="grow">
+              There was an Error Uploading your Script. Please make sure the Syntax is Javascript and you're not missing any brackets.<br> If this issue persist, please contact
+              Muffin#4222
+            </v-col>
+          </v-row>
+        </v-alert>
+        <v-btn
+          color="black"
+          text
+          @click="reloadPage"
+        >
+          Close
+        </v-btn>
+      </v-snackbar>
     </div>
   </base-section>
 </template>
@@ -573,6 +619,7 @@
           v => (v.length <= 25),
         ],
         yikes: '',
+        timeout: 10000,
         isChampion: false,
         editDialog: false,
         deleteDialog: false,
@@ -584,6 +631,7 @@
           creator: this.$store.getters.getUser,
           name: '',
           encrypted: false,
+          hwid: '',
           role: '',
           type: '',
           champion: '',
@@ -603,11 +651,12 @@
         username: '',
         LICENCE_KEY: '',
         HWID: '',
-        isActive: false,
+        notValid: true,
         licence: '',
         scripts: [],
         LoggedIn: '',
         addLicenseDialog: false,
+        errorMsg: '',
       }
     },
     beforeCreate () {
@@ -621,13 +670,19 @@
     created () {
       this.loading = true
       // this.checkLicense()
+      this.isActivated()
       this.axiospost()
+    },
+    mounted () {
+      this.isActivated()
     },
     methods: {
       isActivated () {
         this.$store.getters.hasLicence === '' || this.$store.getters.hasLicence === 'emptyLicence' ? this.LICENCE_KEY = '' : this.LICENCE_KEY = this.$store.getters.hasLicence
         this.$store.getters.getHWID === '' ? this.HWID = '' : this.HWID = this.$store.getters.getHWID
-        this.HWID.length > 0 && this.LICENCE_KEY.length > 0 ? this.isActive = true : this.isActive = false
+        if (typeof (this.HWID) !== 'undefined' && typeof (this.LICENCE_KEY !== 'undefined')) {
+          this.HWID.length > 0 && this.LICENCE_KEY.length > 0 ? this.notValid = false : this.notValid = true
+        }
       },
       axiospost () {
         axios({
@@ -728,6 +783,7 @@
           const data = {
             name: this.editData.name,
             encrypted: this.editData.encrypted,
+            hwid: this.$store.getters.getHWID,
             creator: this.editData.creator,
             role: this.editData.role,
             type: this.editData.type,
@@ -763,6 +819,7 @@
             })
           }).catch(e => {
             // Error handle
+            this.errorMsg = e
             this.uploadError = true
           })
         })
@@ -774,8 +831,8 @@
             username: this.$store.getters.getUser,
           },
         }).then(response => {
-          console.log(response)
           if (response.status !== 200) {
+            this.errorMsg = response.errors
             this.error = true
           } else {
             axios.get('https://spacesharp-db.com:3600/users/user', {
@@ -785,8 +842,15 @@
               params: {
                 username: this.$store.getters.getUser,
               },
-            }).then(res => {
-              alert(res)
+            }).then(async res => {
+              const accessToken = this.$store.getters.isLoggedIn
+              const user = this.$store.getters.getUser
+              const refreshToken = this.$store.getters.getRefreshToken
+              const LICENCE_KEY = await res.data.LICENCE_KEY
+              const HWID = await res.data.HWID
+              this.$store.dispatch('login', { accessToken, user, refreshToken, LICENCE_KEY, HWID })
+              this.isActivated()
+              this.loading = false
             }).catch(e => {
               this.error = true
             })

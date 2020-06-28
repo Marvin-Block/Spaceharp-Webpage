@@ -4,46 +4,23 @@
     id="SpacesharpDB"
   >
     <br>
-    <v-dialog
-      v-model="NoDownload"
-      persistent
-      max-width="800px"
+    <!-- <v-card
+      class="mx-auto"
+      max-width="60em"
     >
-      <v-card dark>
-        <v-card-title>
-          <span class="headline"><strong> NO DOWNLOAD </strong></span>
-        </v-card-title>
-        <v-card-text>
-          <v-container>
-            <v-row>
-              <v-col
-                cols="12"
-                sm="12"
-                md="12"
-              >
-                <v-container style="background-color:yellow">
-                  <v-row justify="center">
-                    <p
-                      style="color:black;font-size:20px"
-                      class="text-center text--primary"
-                    >
-                      <strong>
-                        HERE NO DOWNLOAD <br>
-                        ME MAKING CHANGES <br>
-                        NO DOWNLOAD <br>
-                        IT WILL WORK WHEN IT WORKS <br>
-                        NO DOWNLOAD
-                      </strong>
-                    </p>
-                  </v-row>
-                </v-container>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
-    <br>
+      <v-container style="background-color:yellow">
+        <v-row justify="center">
+          <p
+            style="color:black"
+            class="text-center text--primary"
+          >
+            Due to recent changes you won't be able to Download any Scripts.<br>
+            I apologize for the inconvenience.
+          </p>
+        </v-row>
+      </v-container>
+    </v-card>
+    <br>-->
     <v-container
       v-if="!loading"
       style="width:auto"
@@ -265,7 +242,7 @@
                             fluid
                           >
                             <v-row
-                              v-if="hasLicense() && hasHWID()"
+                              v-if="!notValid"
                               align="center"
                               class="spacer"
                               no-gutters
@@ -325,6 +302,7 @@
       <v-snackbar
         v-model="error"
         color="error"
+        :timeout="timeout"
       >
         <v-alert
           prominent
@@ -368,7 +346,7 @@
 
     data () {
       return {
-        NoDownload: true,
+        timeout: 10000,
         snackbar: false,
         multiline: true,
         loading: true,
@@ -376,12 +354,14 @@
         champions: [],
         scripts: [],
         downloadURL: null,
+        HWID: '',
+        LICENCE_KEY: '',
+        notValid: false,
       }
     },
 
     created () {
       this.loading = true
-      // axios.get('http://localhost:3600/champions/aggPart')
       axios.get('https://spacesharp-db.com:3600/champions/aggPart')
         .then(response => {
           this.champions = response.data
@@ -391,15 +371,13 @@
         .catch(e => {
           this.error = true
         })
+      this.isActivated()
     },
     methods: {
-      hasLicense () {
-        const licence = this.$store.getters.hasLicence
-        return !(licence === '' || licence === 'emptyLicence')
-      },
-      hasHWID () {
-        const HWID = this.$store.getters.getHWID
-        return !(HWID === '')
+      isActivated () {
+        this.$store.getters.hasLicence === '' || this.$store.getters.hasLicence === 'emptyLicence' ? this.LICENCE_KEY = '' : this.LICENCE_KEY = this.$store.getters.hasLicence
+        this.$store.getters.getHWID === '' ? this.HWID = '' : this.HWID = this.$store.getters.getHWID
+        this.HWID.length > 0 && this.LICENCE_KEY.length > 0 ? this.notValid = false : this.notValid = true
       },
       forceFileDownload (response) {
         const url = window.URL.createObjectURL(new Blob([response.data.file]))
