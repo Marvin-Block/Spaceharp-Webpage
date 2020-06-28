@@ -4,22 +4,45 @@
     id="SpacesharpDB"
   >
     <br>
-    <v-card
-      class="mx-auto"
-      max-width="60em"
+    <v-dialog
+      v-model="NoDownload"
+      persistent
+      max-width="800px"
     >
-      <v-container style="background-color:yellow">
-        <v-row justify="center">
-          <p
-            style="color:black"
-            class="text-center text--primary"
-          >
-            Due to recent changes you won't be able to Download any Scripts.<br>
-            I apologize for the inconvenience.
-          </p>
-        </v-row>
-      </v-container>
-    </v-card>
+      <v-card dark>
+        <v-card-title>
+          <span class="headline"><strong> NO DOWNLOAD </strong></span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col
+                cols="12"
+                sm="12"
+                md="12"
+              >
+                <v-container style="background-color:yellow">
+                  <v-row justify="center">
+                    <p
+                      style="color:black;font-size:20px"
+                      class="text-center text--primary"
+                    >
+                      <strong>
+                        HERE NO DOWNLOAD <br>
+                        ME MAKING CHANGES <br>
+                        NO DOWNLOAD <br>
+                        IT WILL WORK WHEN IT WORKS <br>
+                        NO DOWNLOAD
+                      </strong>
+                    </p>
+                  </v-row>
+                </v-container>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
     <br>
     <v-container
       v-if="!loading"
@@ -345,6 +368,7 @@
 
     data () {
       return {
+        NoDownload: true,
         snackbar: false,
         multiline: true,
         loading: true,

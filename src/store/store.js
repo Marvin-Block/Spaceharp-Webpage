@@ -61,8 +61,9 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    authorize: ({ commit, dispatch }, { license }) => {
-      commit('SET_ACTIVE_LICENSE', license)
+    authorize: ({ commit, dispatch }, { LICENCE_KEY, HWID }) => {
+      commit('SET_LICENCE', LICENCE_KEY)
+      commit('SET_HWID', HWID)
     },
     login: ({ commit, dispatch }, { accessToken, user, refreshToken, LICENCE_KEY, HWID }) => {
       commit('SET_REFRESHTOKEN', refreshToken)

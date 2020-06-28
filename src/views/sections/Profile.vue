@@ -3,7 +3,7 @@
     id="profile"
   >
     <v-card
-      v-if="!hasLicense() && !hasHWID()"
+      v-model="isActive"
       class="mx-auto"
       max-width="60em"
     >
@@ -601,8 +601,10 @@
         listType: ['Champion'],
         altListType: ['Champion', 'Module', 'Utility'],
         username: '',
-        licence: '',
+        LICENCE_KEY: '',
         HWID: '',
+        isActive: false,
+        licence: '',
         scripts: [],
         LoggedIn: '',
         addLicenseDialog: false,
@@ -622,14 +624,10 @@
       this.axiospost()
     },
     methods: {
-      hasLicense () {
-        const licence = this.$store.getters.hasLicence
-        // console.log(licence, (licence === '' || licence === 'emtpyLicence'))
-        return !(licence === '' || licence === 'emptyLicence')
-      },
-      hasHWID () {
-        const HWID = this.$store.getters.getHWID
-        return !(HWID === '')
+      isActivated () {
+        this.$store.getters.hasLicence === '' || this.$store.getters.hasLicence === 'emptyLicence' ? this.LICENCE_KEY = '' : this.LICENCE_KEY = this.$store.getters.hasLicence
+        this.$store.getters.getHWID === '' ? this.HWID = '' : this.HWID = this.$store.getters.getHWID
+        this.HWID.length > 0 && this.LICENCE_KEY.length > 0 ? this.isActive = true : this.isActive = false
       },
       axiospost () {
         axios({
@@ -776,20 +774,19 @@
             username: this.$store.getters.getUser,
           },
         }).then(response => {
-          if (response.message.includes('429')) {
-
-          } else if (response.message.includes('403')) {
-
+          console.log(response)
+          if (response.status !== 200) {
+            this.error = true
           } else {
-            axios.get('https://spacesharp-db.com:3600/users/', {
+            axios.get('https://spacesharp-db.com:3600/users/user', {
               headers: {
                 Authorization: 'Bearer ' + this.$store.getters.isLoggedIn,
               },
-              data: {
+              params: {
                 username: this.$store.getters.getUser,
               },
             }).then(res => {
-
+              alert(res)
             }).catch(e => {
               this.error = true
             })
