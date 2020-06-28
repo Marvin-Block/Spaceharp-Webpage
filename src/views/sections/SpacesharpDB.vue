@@ -356,7 +356,7 @@
         downloadURL: null,
         HWID: '',
         LICENCE_KEY: '',
-        notValid: false,
+        notValid: true,
       }
     },
 
