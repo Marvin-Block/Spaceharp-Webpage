@@ -766,15 +766,19 @@
         })
       },
       addLicence () {
-        console.log('triggered addLicence')
-        axios.post(' https://spacesharp-db.com:3600/users/addLicence', {
+        axios.post('https://spacesharp-db.com:3600/users/addLicence', {
           data: {
             LICENCE_KEY: this.licence,
             username: this.$store.getters.getUser,
           },
         }).then(response => {
-          alert(response)
+          console.log(response)
         })
+        // axios.post('https://lizenz.lol-script.com/api/spacesharp/validate', null, {
+        //   params: {
+        //     LICENCE_KEY: this.licence,
+        //   },
+        // })
       },
     },
   }
