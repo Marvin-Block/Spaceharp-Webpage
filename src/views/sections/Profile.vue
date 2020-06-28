@@ -3,7 +3,7 @@
     id="profile"
   >
     <v-card
-      v-if="!hasLicense()"
+      v-if="!hasLicense() && !hasHWID()"
       class="mx-auto"
       max-width="60em"
     >
@@ -627,6 +627,10 @@
         // console.log(licence, (licence === '' || licence === 'emtpyLicence'))
         return !(licence === '' || licence === 'emptyLicence')
       },
+      hasHWID () {
+        const HWID = this.$store.getters.getHWID
+        return !(HWID === '')
+      },
       axiospost () {
         axios({
           method: 'post',
@@ -772,7 +776,26 @@
             username: this.$store.getters.getUser,
           },
         }).then(response => {
-          console.log(response)
+          if (response.message.includes('429')) {
+
+          } else if (response.message.includes('403')) {
+
+          } else {
+            axios.get('https://spacesharp-db.com:3600/users/', {
+              headers: {
+                Authorization: 'Bearer ' + this.$store.getters.isLoggedIn,
+              },
+              data: {
+                username: this.$store.getters.getUser,
+              },
+            }).then(res => {
+
+            }).catch(e => {
+              this.error = true
+            })
+          }
+        }).catch(e => {
+          this.error = true
         })
         // axios.post('https://lizenz.lol-script.com/api/spacesharp/validate', null, {
         //   params: {

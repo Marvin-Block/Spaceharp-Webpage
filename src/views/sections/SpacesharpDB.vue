@@ -242,7 +242,7 @@
                             fluid
                           >
                             <v-row
-                              v-if="hasLicense()"
+                              v-if="hasLicense() && hasHWID()"
                               align="center"
                               class="spacer"
                               no-gutters
@@ -371,8 +371,11 @@
     methods: {
       hasLicense () {
         const licence = this.$store.getters.hasLicence
-        console.log(licence, (licence === '' || licence === 'emtpyLicence'))
         return !(licence === '' || licence === 'emptyLicence')
+      },
+      hasHWID () {
+        const HWID = this.$store.getters.getHWID
+        return !(HWID === '')
       },
       forceFileDownload (response) {
         const url = window.URL.createObjectURL(new Blob([response.data.file]))
