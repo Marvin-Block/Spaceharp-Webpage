@@ -71,7 +71,7 @@
       </v-card>
     </v-dialog>
 
-    <div v-if="!loading">
+    <div v-if="!loading && notValid">
       <v-responsive
         v-if="scripts.length < 1 && uploadDialog == false"
         class="mx-auto"
