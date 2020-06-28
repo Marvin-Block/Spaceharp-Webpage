@@ -321,7 +321,7 @@
                       <v-col
                         cols="12"
                         sm="6"
-                        md="4"
+                        md="6"
                       >
                         <v-text-field
                           v-model="editData.name"
@@ -335,7 +335,7 @@
                       <v-col
                         cols="12"
                         sm="6"
-                        md="4"
+                        md="6"
                       >
                         <v-select
                           v-model="editData.type"
@@ -347,7 +347,7 @@
                           @change="isChamp()"
                         />
                       </v-col>
-                      <v-col
+                      <!-- <v-col
                         cols="12"
                         sm="6"
                         md="4"
@@ -360,7 +360,7 @@
                           label="Role"
                           required
                         />
-                      </v-col>
+                      </v-col> -->
                       <v-col
                         cols="12"
                         md="8"
