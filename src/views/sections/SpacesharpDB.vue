@@ -401,6 +401,10 @@
           method: 'get',
           // url: 'http://localhost:3600/scripts/' + script._id,
           url: 'https://spacesharp-db.com:3600/scripts/' + script._id,
+          params: {
+            id: script._id,
+            hwid: this.HWID,
+          },
         }).then(response => {
           this.forceFileDownload(response)
         }).catch(e => {
