@@ -662,10 +662,10 @@
     beforeCreate () {
       if (!this.$store.getters.isLoggedIn) {
         this.LoggedIn = this.$store.getters.isLoggedIn
-        this.$router.push('/login')
+        // this.$router.push('/login')
       }
       this.username = this.$store.getters.getUser
-      this.$root.$refs.AppBar.refreshBar()
+      // this.$root.$refs.AppBar.refreshBar()
     },
     created () {
       this.loading = true

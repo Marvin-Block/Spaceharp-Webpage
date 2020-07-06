@@ -78,10 +78,32 @@
       this.$root.$refs.AppBar = this
     },
     methods: {
-      refreshBar () {
+      addProfile () {
         if (this.$store.getters.isLoggedIn && this.alreadyLoggedIn === false) {
+          for (let index = 0; index < this.items.length; index++) {
+            const element = this.items[index]
+            if (element[0] === 'Login') {
+              this.items[index].splice(index, 1)
+              console.log(this.items[index])
+            }
+          };
           this.items.push(['Profile', 'mdi-account-outline'])
           this.alreadyLoggedIn = true
+          // this.items.
+          console.log(this.items[2])
+        }
+      },
+      addLogin () {
+        if (!this.$store.getters.isLoggedIn && this.alreadyLoggedIn === false) {
+          for (let index = 0; index < this.items.length; index++) {
+            const element = this.items[index]
+            if (element[0] === 'Profile') {
+              this.items[index].splice(index, 1)
+              console.log(this.items[index], element[0])
+            }
+          };
+          this.items.push(['Login', 'mdi-key-outline'])
+          this.alreadyLoggedIn = false
         }
       },
     },
