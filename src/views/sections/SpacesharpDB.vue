@@ -426,7 +426,7 @@
             hwid: this.HWID,
           },
         }).then(response => {
-          this.forceFileDownload(response[0])
+          this.forceFileDownload(response)
         }).catch(e => {
           this.error = true
         })
