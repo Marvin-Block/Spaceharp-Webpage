@@ -797,10 +797,10 @@
           },
         }).then(response => {
           this.scripts = response.data
-        }).catch(e => {
-          this.error = true
-        }).finally(function () {
           this.loading = false
+        }).catch(e => {
+          this.loading = false
+          this.error = true
         })
       },
       reloadPage () {

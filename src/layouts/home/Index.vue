@@ -4,7 +4,7 @@
 
     <home-view />
 
-    <home-support />
+    <!-- <home-support /> -->
 
     <home-footer />
   </v-app>

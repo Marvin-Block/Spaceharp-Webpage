@@ -15,7 +15,6 @@
     mixins: [
       LoadSections([
         'spacesharp-d-b',
-        'info-alt',
       ]),
     ],
 

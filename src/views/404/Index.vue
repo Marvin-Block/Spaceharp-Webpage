@@ -15,7 +15,6 @@
     mixins: [
       LoadSections([
         '404',
-        'info-alt',
       ]),
     ],
 
