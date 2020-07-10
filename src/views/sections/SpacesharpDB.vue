@@ -179,9 +179,7 @@
                               vertical
                             />
                             <v-col style="text-align:center">
-                              <v-icon color="white">
-                                mdi-numeric
-                              </v-icon>
+                              Downloads
                             </v-col>
                           </v-row>
                         </v-expansion-panel-header>
@@ -251,7 +249,7 @@
                             />
                             <v-col style="text-align:center">
                               <div>
-                                N/A
+                                {{ script.downloads }}
                               </div>
                             </v-col>
                           </v-row>

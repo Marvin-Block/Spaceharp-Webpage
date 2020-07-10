@@ -533,6 +533,74 @@
           >
             <template>
               <v-expansion-panel
+                style="pointer-events:none;cursor:default;background:rgba(255,255,255,0.025)"
+                readonly
+              >
+                <v-expansion-panel-header>
+                  <template v-slot:actions>
+                    <v-col>
+                      <div>
+                        <v-icon
+                          style="pointer-events:none;cursor:pointer;"
+                          width="2 em"
+                          class="mr-2"
+                          color="#FF000000"
+                        >
+                          mdi-pencil
+                        </v-icon>
+                      </div>
+                      <v-divider
+                        class="mx-4"
+                      />
+                    </v-col>
+                  </template>
+                  <v-row
+                    align="center"
+                    class="spacer"
+                    no-gutters
+                  >
+                    <v-avatar
+                      size="36px"
+                      style="padding-left: 1em"
+                    >
+                      <div />
+                    </v-avatar>
+                    <v-divider
+                      class="mx-4"
+                      vertical
+                    />
+                    <v-col style="text-align:center;color:white">
+                      Script Name
+                    </v-col>
+                    <v-divider
+                      class="mx-4"
+                      vertical
+                    />
+                    <v-col style="text-align:center;color:white">
+                      Encrypted
+                    </v-col>
+                    <v-divider
+                      class="mx-4"
+                      vertical
+                    />
+                    <v-col style="text-align:center;color:white">
+                      Type
+                    </v-col>
+                    <v-divider
+                      class="mx-4"
+                      vertical
+                    />
+                    <v-col style="text-align:center;color:white">
+                      Downloads
+                    </v-col>
+                    <v-divider
+                      class="mx-4"
+                      vertical
+                    />
+                  </v-row>
+                </v-expansion-panel-header>
+              </v-expansion-panel>
+              <v-expansion-panel
                 v-for="script in scripts"
                 :key="script"
                 style="pointer-events:none;cursor:default;background:rgba(255,255,255,0.05)"
@@ -591,22 +659,6 @@
                       vertical
                     />
                     <v-col style="text-align:center;color:white">
-                      {{ script.champion[0].championName }}
-                    </v-col>
-                    <v-divider
-                      class="mx-4"
-                      vertical
-                    />
-                    <v-img
-                      contain
-                      height="2.5em"
-                      :src="require(`@/assets/${script.champion[0].roleIcon}`)"
-                    />
-                    <v-divider
-                      class="mx-4"
-                      vertical
-                    />
-                    <v-col style="text-align:center;color:white">
                       {{ script.name }}
                     </v-col>
                     <v-divider
@@ -633,6 +685,13 @@
                     />
                     <v-col style="text-align:center;color:white">
                       {{ script.type }}
+                    </v-col>
+                    <v-divider
+                      class="mx-4"
+                      vertical
+                    />
+                    <v-col style="text-align:center;color:white">
+                      {{ script.downloads }}
                     </v-col>
                     <v-divider
                       class="mx-4"
