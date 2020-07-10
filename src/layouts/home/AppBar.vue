@@ -8,20 +8,30 @@
       elevation="3"
       height="80"
     >
-      <base-img
-        :src="require('@/assets/Spacesharp-red.png')"
-        class="mr-3 hidden-xs-only"
-        contain
-        max-width="52"
-        width="100%"
-      />
+      <a
+        style="cursor:default"
+        @click="backHome()"
+      >
+        <base-img
+          :src="require('@/assets/Spacesharp-red.png')"
+          class="mr-3 hidden-xs-only"
+          contain
+          max-width="52"
+          width="100%"
+        />
+      </a>
 
-      <base-img
-        :src="require('@/assets/spacesharp_dark.svg')"
-        contain
-        max-width="15em"
-        width="16em"
-      />
+      <a
+        style="cursor:default"
+        @click="backHome()"
+      >
+        <base-img
+          :src="require('@/assets/spacesharp_dark.svg')"
+          contain
+          max-width="15em"
+          width="16em"
+        />
+      </a>
 
       <v-spacer />
 
@@ -83,6 +93,11 @@
       }
     },
     methods: {
+      backHome () {
+        if (this.$route.name !== 'Home') {
+          this.$router.push('/')
+        }
+      },
       refreshBar () {
         if (this.$store.getters.isLoggedIn.length > 0) {
           this.items[2] = ['Profile', 'mdi-account-outline']
