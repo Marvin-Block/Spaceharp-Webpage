@@ -546,10 +546,10 @@
                     <v-col>
                       <div>
                         <v-icon
-                          style="pointer-events:auto;cursor:pointer;"
+                          style="pointer-events:none;cursor:pointer;"
                           width="2 em"
                           class="mr-2"
-                          color="secondary"
+                          color="grey"
                           @click="editPreForm(script);editDialog = true"
                         >
                           mdi-pencil
