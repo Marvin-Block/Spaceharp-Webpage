@@ -77,7 +77,7 @@
         >
           <div class="d-flex flex-wrap justify-md-end justify-center justify-md-none">
             <div class="white--text pa-1 pa-md-0">
-              <small>Version 0.2.12 (BETA)</small>
+              <small>Version 0.2.13 (BETA)</small>
             </div>
             <v-responsive
               class="mx-4 shrink hidden-sm-and-down"

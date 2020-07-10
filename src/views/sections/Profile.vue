@@ -996,42 +996,6 @@
           this.error = true
         })
       },
-      refreshLicence () {
-        return alert('Not Implemented yet')
-        // axios.post('https://spacesharp-db.com:3600/users/addLicence', {
-        //   data: {
-        //     LICENCE_KEY: this.licence,
-        //     username: this.$store.getters.getUser,
-        //   },
-        // }).then(response => {
-        //   if (response.status !== 200) {
-        //     this.errorMsg = response.errors
-        //     this.error = true
-        //   } else {
-        //     axios.get('https://spacesharp-db.com:3600/users/user', {
-        //       headers: {
-        //         Authorization: 'Bearer ' + this.$store.getters.isLoggedIn,
-        //       },
-        //       params: {
-        //         username: this.$store.getters.getUser,
-        //       },
-        //     }).then(async res => {
-        //       const accessToken = this.$store.getters.isLoggedIn
-        //       const user = this.$store.getters.getUser
-        //       const refreshToken = this.$store.getters.getRefreshToken
-        //       const LICENCE_KEY = await res.data.LICENCE_KEY
-        //       const HWID = await res.data.HWID
-        //       this.$store.dispatch('login', { accessToken, user, refreshToken, LICENCE_KEY, HWID })
-        //       this.isActivated()
-        //       this.loading = false
-        //     }).catch(e => {
-        //       this.error = true
-        //     })
-        //   }
-        // }).catch(e => {
-        //   this.error = true
-        // })
-      },
     },
   }
 </script>
