@@ -576,15 +576,38 @@
                     class="spacer"
                     no-gutters
                   >
-                    <v-col style="text-align:center;color:white">
-                      {{ script.name }}
-                    </v-col>
+                    <v-avatar
+                      size="36px"
+                      style="padding-left: 1em"
+                    >
+                      <img
+                        height="3em"
+                        :src="require(`@/assets/ChampIcons/${script.champion[0].championName}.png`)"
+                        alt="Avatar"
+                      >
+                    </v-avatar>
                     <v-divider
                       class="mx-4"
                       vertical
                     />
                     <v-col style="text-align:center;color:white">
-                      {{ script.champion }}
+                      {{ script.champion[0].championName }}
+                    </v-col>
+                    <v-divider
+                      class="mx-4"
+                      vertical
+                    />
+                    <v-img
+                      contain
+                      height="2.5em"
+                      :src="require(`@/assets/${script.champion[0].roleIcon}`)"
+                    />
+                    <v-divider
+                      class="mx-4"
+                      vertical
+                    />
+                    <v-col style="text-align:center;color:white">
+                      {{ script.name }}
                     </v-col>
                     <v-divider
                       class="mx-4"
@@ -740,7 +763,11 @@
           hwid: '',
           role: '',
           type: '',
-          champion: '',
+          champion: {
+            championName: '',
+            role: '',
+            roleIcon: '',
+          },
           description: '',
           up: 0,
           down: 0,
@@ -800,7 +827,7 @@
       axiospost () {
         axios({
           method: 'post',
-          url: 'https://spacesharp-db.com:3600/scripts/user',
+          url: 'https://spacesharp-db.com:3600/scripts/aggUser',
           // url: 'http://localhost:3600/scripts/user',
           headers: {},
           data: {
@@ -808,6 +835,7 @@
           },
         }).then(response => {
           this.scripts = response.data
+          console.log(this.scripts)
           this.loading = false
         }).catch(e => {
           this.loading = false
