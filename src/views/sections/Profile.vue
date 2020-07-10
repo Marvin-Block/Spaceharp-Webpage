@@ -102,7 +102,7 @@
             color="success"
             text
             :disabled="!valid"
-            @click="refreshLicence();refreshLicenseDialog = false"
+            @click="addLicence();refreshLicenseDialog = false"
           >
             Save
           </v-btn>
