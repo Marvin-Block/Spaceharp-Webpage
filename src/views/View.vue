@@ -24,14 +24,6 @@
     },
 
     data: () => ({ sections: [] }),
-    beforeMount () {
-      if (!this.$store.getters.isLoggedIn) {
-        // this.$router.push('/login')
-        this.$root.$refs.AppBar.addLogin()
-      }
-      console.log(this.$root.$refs.AppBar)
-      this.$root.$refs.AppBar.addProfile()
-    },
   }
 </script>
 

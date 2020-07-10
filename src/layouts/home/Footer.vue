@@ -70,13 +70,25 @@
             />
           </div>
         </v-col>
-
         <v-col
           class="text-center text-md-right"
           cols="12"
           md="6"
         >
-          Copyright &copy; 2020 Muffin#4222
+          <div class="d-flex flex-wrap justify-md-end justify-center justify-md-none">
+            <div class="white--text pa-1 pa-md-0">
+              <small>Version 0.2.7 (BETA)</small>
+            </div>
+            <v-responsive
+              class="mx-4 shrink hidden-sm-and-down"
+              max-height="24"
+            >
+              <v-divider vertical />
+            </v-responsive>
+            <div class="white--text pa-1 pa-md-0">
+              Copyright © 2020 Muffin#4222
+            </div>
+          </div>
         </v-col>
       </v-row>
     </v-container>
