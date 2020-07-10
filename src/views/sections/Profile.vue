@@ -936,7 +936,7 @@
       editPreForm (script) {
         const form = this.editData
         form.encrypted = false
-        form.id = script.id
+        form.id = script._id
         form.creator = this.$store.getters.getUser
         form.name = script.name
         form.role = script.role
@@ -957,7 +957,7 @@
         }).then(response => {
           axios({
             method: 'post',
-            url: 'https://spacesharp-db.com:3600/scripts/user',
+            url: 'https://spacesharp-db.com:3600/scripts/aggUser',
             // url: 'http://localhost:3600/scripts/user',
             headers: {},
             data: {
