@@ -1000,7 +1000,7 @@
           }).then(response => {
             axios({
               method: 'post',
-              url: 'https://spacesharp-db.com:3600/scripts/user',
+              url: 'https://spacesharp-db.com:3600/scripts/aggUser',
               // url: 'http://localhost:3600/scripts/user',
               headers: {},
               data: {
