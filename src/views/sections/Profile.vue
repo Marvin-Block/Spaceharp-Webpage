@@ -2,18 +2,113 @@
   <base-section
     id="profile"
   >
-    <v-btn
+    <v-speed-dial
       v-if="!notValid"
       absolute
       dark
       fab
-      bottom
       right
-      color="accent"
-      @click="resetForm();uploadDialog = true"
+      bottom
+      direction="top"
+      transition="slide-y-reverse-transition"
     >
-      <v-icon>mdi-plus</v-icon>
-    </v-btn>
+      <template v-slot:activator>
+        <v-btn
+          color="blue darken-2"
+          dark
+          fab
+        >
+          <v-icon>
+            mdi-account-circle
+          </v-icon>
+        </v-btn>
+      </template>
+      <v-btn
+        dark
+        fab
+        bottom
+        right
+        small
+        color="accent"
+        @click="resetForm();uploadDialog = true"
+      >
+        <v-icon>mdi-plus</v-icon>
+      </v-btn>
+      <v-btn
+        fab
+        dark
+        small
+        color="primary"
+        @click="logout()"
+      >
+        <v-icon>mdi-logout</v-icon>
+      </v-btn>
+      <v-btn
+        fab
+        dark
+        small
+        color="secondary"
+        @click="refreshLicenseDialog = true"
+      >
+        <v-icon>mdi-refresh</v-icon>
+      </v-btn>
+    </v-speed-dial>
+
+    <v-dialog
+      v-model="refreshLicenseDialog"
+      persistent
+      max-width="800px"
+    >
+      <v-card dark>
+        <v-card-title>
+          <span class="headline">Refresh License</span>
+        </v-card-title>
+        <v-card-text>
+          <v-form
+            ref="form"
+            v-model="valid"
+          >
+            <v-container>
+              <v-row>
+                <v-col
+                  cols="12"
+                  sm="12"
+                  md="12"
+                >
+                  <v-text-field
+                    v-model="licence"
+                    dark
+                    :rules="licenceRule"
+                    :counter="25"
+                    label="Licence"
+                    required
+                  />
+                </v-col>
+              </v-row>
+              <v-form />
+            </v-container>
+          </v-form>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn
+            color="danger"
+            text
+            @click="refreshLicenseDialog = false"
+          >
+            Close
+          </v-btn>
+          <v-btn
+            color="success"
+            text
+            :disabled="!valid"
+            @click="refreshLicence();refreshLicenseDialog = false"
+          >
+            Save
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
 
     <v-dialog
       v-model="addLicenseDialog"
@@ -63,7 +158,7 @@
             color="success"
             text
             :disabled="!valid"
-            @click="addLicence();addLicenseDialog = false;loading = true"
+            @click="addLicence();addLicenseDialog = false"
           >
             Save
           </v-btn>
@@ -550,7 +645,7 @@
       </v-snackbar>
     </div>
     <div
-      v-else
+      v-if="loading"
       class="text-center"
     >
       <v-progress-circular
@@ -656,6 +751,7 @@
         scripts: [],
         LoggedIn: '',
         addLicenseDialog: false,
+        refreshLicenseDialog: false,
         errorMsg: '',
       }
     },
@@ -669,7 +765,6 @@
     },
     created () {
       this.loading = true
-      // this.checkLicense()
       this.isActivated()
       this.axiospost()
     },
@@ -677,12 +772,19 @@
       this.isActivated()
     },
     methods: {
+      logout () {
+        this.$store.dispatch('logout')
+        this.$router.push('/')
+        this.$root.$refs.AppBar.removeProfile()
+        // this.reloadPage()
+      },
       isActivated () {
         this.$store.getters.hasLicence === '' || this.$store.getters.hasLicence === 'emptyLicence' ? this.LICENCE_KEY = '' : this.LICENCE_KEY = this.$store.getters.hasLicence
         this.$store.getters.getHWID === '' ? this.HWID = '' : this.HWID = this.$store.getters.getHWID
         if (typeof (this.HWID) !== 'undefined' && typeof (this.LICENCE_KEY !== 'undefined')) {
           this.HWID.length > 0 && this.LICENCE_KEY.length > 0 ? this.notValid = false : this.notValid = true
         }
+        this.loading = false
       },
       axiospost () {
         axios({
@@ -695,9 +797,10 @@
           },
         }).then(response => {
           this.scripts = response.data
-          this.loading = false
         }).catch(e => {
           this.error = true
+        }).finally(function () {
+          this.loading = false
         })
       },
       reloadPage () {
@@ -744,14 +847,9 @@
         form.champion = script.champion
       },
       updateScript () {
-        // const data = this.editData
-        // grab data, send patch, empty editData
-        // refresh script list
         this.axiospost()
       },
       deleteScript () {
-        // grab id, send delete with username, empty editData
-        // refresh script list
         axios.delete('https://spacesharp-db.com:3600/scripts/', {
           headers: {
             Authorization: 'Bearer ' + this.$store.getters.isLoggedIn,
@@ -858,10 +956,41 @@
         }).catch(e => {
           this.error = true
         })
-        // axios.post('https://lizenz.lol-script.com/api/spacesharp/validate', null, {
-        //   params: {
+      },
+      refreshLicence () {
+        return alert('Not Implemented yet')
+        // axios.post('https://spacesharp-db.com:3600/users/addLicence', {
+        //   data: {
         //     LICENCE_KEY: this.licence,
+        //     username: this.$store.getters.getUser,
         //   },
+        // }).then(response => {
+        //   if (response.status !== 200) {
+        //     this.errorMsg = response.errors
+        //     this.error = true
+        //   } else {
+        //     axios.get('https://spacesharp-db.com:3600/users/user', {
+        //       headers: {
+        //         Authorization: 'Bearer ' + this.$store.getters.isLoggedIn,
+        //       },
+        //       params: {
+        //         username: this.$store.getters.getUser,
+        //       },
+        //     }).then(async res => {
+        //       const accessToken = this.$store.getters.isLoggedIn
+        //       const user = this.$store.getters.getUser
+        //       const refreshToken = this.$store.getters.getRefreshToken
+        //       const LICENCE_KEY = await res.data.LICENCE_KEY
+        //       const HWID = await res.data.HWID
+        //       this.$store.dispatch('login', { accessToken, user, refreshToken, LICENCE_KEY, HWID })
+        //       this.isActivated()
+        //       this.loading = false
+        //     }).catch(e => {
+        //       this.error = true
+        //     })
+        //   }
+        // }).catch(e => {
+        //   this.error = true
         // })
       },
     },

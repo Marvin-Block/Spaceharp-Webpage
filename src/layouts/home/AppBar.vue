@@ -70,19 +70,36 @@
       items: [
         ['Home', 'mdi-home-outline'],
         ['SpacesharpDB', 'mdi-file-table-box-multiple-outline'],
-        ['Login', 'mdi-key-outline'],
       ],
-      alreadyLoggedIn: false,
     }),
-    created () {
+    beforeMount () {
       this.$root.$refs.AppBar = this
+      if (this.$store.getters.isLoggedIn.length > 0) {
+        this.items[2] = ['Profile', 'mdi-account-outline']
+        this.alreadyLoggedIn = true
+      } else {
+        this.items[2] = ['Login', 'mdi-key-outline']
+        this.alreadyLoggedIn = false
+      }
     },
     methods: {
       refreshBar () {
-        if (this.$store.getters.isLoggedIn && this.alreadyLoggedIn === false) {
-          this.items.push(['Profile', 'mdi-account-outline'])
+        if (this.$store.getters.isLoggedIn.length > 0) {
+          this.items[2] = ['Profile', 'mdi-account-outline']
           this.alreadyLoggedIn = true
+        } else {
+          this.items[2] = ['Login', 'mdi-key-outline']
+          this.alreadyLoggedIn = false
+          this.$router.push('/login')
         }
+      },
+      removeLogin () {
+        this.items[2] = ['Profile', 'mdi-account-outline']
+        this.$forceUpdate()
+      },
+      removeProfile () {
+        this.items[2] = ['Login', 'mdi-key-outline']
+        this.$forceUpdate()
       },
     },
   }

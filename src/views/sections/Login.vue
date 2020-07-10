@@ -236,10 +236,10 @@
           const refreshToken = response.refreshToken
           const LICENCE_KEY = response.LICENCE_KEY
           const HWID = response.HWID
-          console.log(response)
           this.$store.dispatch('login', { accessToken, user, refreshToken, LICENCE_KEY, HWID })
           this.loading = false
           this.$router.push('/Profile')
+          this.$root.$refs.AppBar.removeLogin()
         } catch (error) {
           this.loading = false
           this.error = true

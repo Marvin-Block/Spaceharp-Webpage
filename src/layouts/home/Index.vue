@@ -17,7 +17,7 @@
     components: {
       HomeAppBar: () => import('@/layouts/home/AppBar'),
       HomeFooter: () => import('@/layouts/home/Footer'),
-      HomeSupport: () => import('@/layouts/home/Support'),
+      // HomeSupport: () => import('@/layouts/home/Support'),
       HomeView: () => import('@/layouts/home/View'),
       // HomeLogin: () => import('@/layouts/home/Login.vue'),
     },
