@@ -894,7 +894,6 @@
           },
         }).then(response => {
           this.scripts = response.data
-          console.log(this.scripts)
           this.loading = false
         }).catch(e => {
           this.loading = false
