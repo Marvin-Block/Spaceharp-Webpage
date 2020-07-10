@@ -154,7 +154,7 @@
                               class="mx-4"
                               vertical
                             />
-                            <v-col style="text-align:center">
+                            <!-- <v-col style="text-align:center">
                               <v-icon color="accent">
                                 mdi-arrow-up-bold
                               </v-icon>
@@ -167,7 +167,13 @@
                               <v-icon color="primary">
                                 mdi-arrow-down-bold
                               </v-icon>
-                            </v-col>
+                            </v-col> -->
+                            <v-icon
+                              style="padding-left: 1em;padding-right: 1em"
+                              color="white"
+                            >
+                              mdi-lock-question
+                            </v-icon>
                             <v-divider
                               class="mx-4"
                               vertical
@@ -211,7 +217,7 @@
                               class="mx-4"
                               vertical
                             />
-                            <v-col style="text-align:center">
+                            <!-- <v-col style="text-align:center">
                               <div>
                                 N/A
                               </div>
@@ -219,12 +225,26 @@
                             <v-divider
                               class="mx-4"
                               vertical
-                            />
-                            <v-col style="text-align:center">
+                            /> -->
+                            <!-- <v-col style="text-align:center">
                               <div>
                                 N/A
                               </div>
-                            </v-col>
+                            </v-col> -->
+                            <v-icon
+                              v-if="script.encrypted"
+                              style="padding-left: 1em;padding-right: 1em"
+                              color="accent"
+                            >
+                              mdi-lock
+                            </v-icon>
+                            <v-icon
+                              v-else
+                              style="padding-left: 1em;padding-right: 1em"
+                              color="primary"
+                            >
+                              mdi-lock-open-variant
+                            </v-icon>
                             <v-divider
                               class="mx-4"
                               vertical

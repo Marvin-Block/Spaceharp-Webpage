@@ -591,7 +591,18 @@
                       vertical
                     />
                     <v-col style="text-align:center;color:white">
-                      {{ script.role }}
+                      <v-icon
+                        v-if="script.encrypted"
+                        color="accent"
+                      >
+                        mdi-lock
+                      </v-icon>
+                      <v-icon
+                        v-else
+                        color="primary"
+                      >
+                        mdi-lock-open-variant
+                      </v-icon>
                     </v-col>
                     <v-divider
                       class="mx-4"
