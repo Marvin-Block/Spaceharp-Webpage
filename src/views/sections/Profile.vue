@@ -109,7 +109,100 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-
+    <v-dialog
+      v-model="LicenseInUse"
+      persistent
+      max-width="800px"
+    >
+      <v-card dark>
+        <v-card-title>
+          <span class="headline">License <span style="color:#9f2823">Error</span></span>
+        </v-card-title>
+        <v-card-text>
+          <v-row
+            justify="center"
+          >
+            <v-icon
+              large
+              color="primary"
+              class="text-center"
+            >
+              mdi-alert
+            </v-icon>
+          </v-row>
+          <v-row
+            justify="center"
+          >
+            <h3>This license is already in use. </h3>
+          </v-row>
+          <v-row
+            justify="center"
+          >
+            <h3>Please try another one</h3>
+          </v-row>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn
+            color="accent"
+            text
+            @click="LicenseInUse = false"
+          >
+            Close
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog
+      v-model="InvalidLicense"
+      persistent
+      max-width="800px"
+    >
+      <v-card dark>
+        <v-card-title>
+          <span class="headline">License <span style="color:#9f2823">Error</span></span>
+        </v-card-title>
+        <v-card-text>
+          <v-row
+            justify="center"
+          >
+            <v-icon
+              large
+              color="primary"
+              class="text-center"
+            >
+              mdi-alert
+            </v-icon>
+          </v-row>
+          <h3>
+            <v-row
+              justify="center"
+            >
+              You license is not valid. Please check the following:
+            </v-row>
+            <v-row
+              justify="center"
+            >
+              <ol>
+                <li>Log in to Spacesharp first and check your license</li>
+                <li>Test licenses are not aviliable for the DB</li>
+                <li>Make sure you entered the correct license without any empty spaces</li>
+              </ol>
+            </v-row>
+          </h3>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn
+            color="accent"
+            text
+            @click="InvalidLicense = false"
+          >
+            Close
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <v-dialog
       v-model="addLicenseDialog"
       persistent
@@ -219,16 +312,18 @@
                   v-if="notValid"
                   class="text--primary"
                 >
-                  <p style="color:white">
-                    It seem like you did not Link an Active License to your Account
-                  </p>
-                  <p style="color:white; margin-bottom:0px">
-                    You can do this by pressing the button Below
-                  </p>
+                  <h3>
+                    <p style="color:white">
+                      It seem like you did not Link an Active License to your Account
+                    </p>
+                    <p style="color:white; margin-bottom:0px">
+                      You can do this by pressing the button Below
+                    </p>
+                  </h3>
                   <br>
                   <v-btn
                     dark
-                    color="secondary"
+                    color="accent"
                     style="pointer-events:auto;cursor:pointer"
                     @click="addLicenseDialog = true"
                   >
@@ -849,6 +944,8 @@
         LoggedIn: '',
         addLicenseDialog: false,
         refreshLicenseDialog: false,
+        LicenseInUse: false,
+        InvalidLicense: false,
         errorMsg: '',
       }
     },
@@ -1029,6 +1126,7 @@
           if (response.status !== 200) {
             this.errorMsg = response.errors
             this.error = true
+            // console.log("Error1")
           } else {
             axios.get('https://spacesharp-db.com:3600/users/user', {
               headers: {
@@ -1047,11 +1145,14 @@
               this.isActivated()
               this.loading = false
             }).catch(e => {
-              this.error = true
+              // console.log("Error2")
             })
           }
         }).catch(e => {
-          this.error = true
+          // eslint-disable-next-line no-constant-condition
+          e.message = 'Request failed with status code 400' ? this.InvalidLicense = true : this.InvalidLicense = false
+          // eslint-disable-next-line no-constant-condition
+          e.response.data.errors[0] = 'Licence alredy in use' ? this.LicenseInUse = true : this.LicenseInUse = false
         })
       },
     },
