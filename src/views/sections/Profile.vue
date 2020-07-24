@@ -296,7 +296,7 @@
                       <v-col
                         cols="12"
                         sm="6"
-                        md="4"
+                        md="6"
                       >
                         <v-text-field
                           v-model="editData.name"
@@ -310,7 +310,7 @@
                       <v-col
                         cols="12"
                         sm="6"
-                        md="4"
+                        md="6"
                       >
                         <v-select
                           v-model="editData.type"
@@ -324,25 +324,10 @@
                       </v-col>
                       <v-col
                         cols="12"
-                        sm="6"
-                        md="4"
-                      >
-                        <v-select
-                          v-model="editData.role"
-
-                          dark
-                          :disabled="!isChampion"
-                          :items="listRole"
-                          label="Role"
-                          required
-                        />
-                      </v-col>
-                      <v-col
-                        cols="12"
                         md="8"
                       >
                         <v-autocomplete
-                          v-model="editData.champion"
+                          v-model="editData.champion[0].championName"
                           :disabled="!isChampion"
                           :items="listChampion"
                           label="Champion"
@@ -380,7 +365,7 @@
               <v-card-actions>
                 <v-spacer />
                 <v-btn
-                  color="danger"
+                  color="primary"
                   text
                   @click="resetForm();editDialog = false"
                 >
@@ -614,10 +599,10 @@
                     <v-col>
                       <div>
                         <v-icon
-                          style="pointer-events:none;cursor:pointer;"
+                          style="pointer-events:auto;cursor:pointer;"
                           width="2 em"
                           class="mr-2"
-                          color="grey"
+                          color="secondary"
                           @click="editPreForm(script);editDialog = true"
                         >
                           mdi-pencil
@@ -944,7 +929,46 @@
         form.champion = script.champion
       },
       updateScript () {
-        this.axiospost()
+        this.editData.file.text().then(text => {
+          const data = {
+            name: this.editData.name,
+            encrypted: this.editData.encrypted,
+            hwid: this.$store.getters.getHWID,
+            creator: this.editData.creator,
+            role: this.editData.role,
+            type: this.editData.type,
+            champion: this.editData.champion[0].championName,
+            description: this.editData.description,
+            lastchange: new Date().toUTCString(),
+            uploaded: new Date().toUTCString(),
+            file: text,
+          }
+          axios({
+            method: 'post',
+            url: 'https://spacesharp-db.com:3600/scripts/update',
+            data: {
+              data: data,
+            },
+          }).then(response => {
+            axios({
+              method: 'post',
+              url: 'https://spacesharp-db.com:3600/scripts/aggUser',
+              headers: {},
+              data: {
+                username: this.$store.getters.getUser,
+              },
+            }).then(response => {
+              this.scripts = response.data
+              this.loading = false
+            }).catch(e => {
+              this.error = true
+            })
+          }).catch(e => {
+            // Error handle
+            this.errorMsg = e
+            this.uploadError = true
+          })
+        })
       },
       deleteScript () {
         axios.delete('https://spacesharp-db.com:3600/scripts/', {
