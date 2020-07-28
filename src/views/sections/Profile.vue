@@ -111,6 +111,50 @@
       </v-card>
     </v-dialog>
     <v-dialog
+      v-model="ScriptNameInUse"
+      persistent
+      max-width="800px"
+    >
+      <v-card dark>
+        <v-card-title>
+          <span class="headline">Script <span style="color:#9f2823">Error</span></span>
+        </v-card-title>
+        <v-card-text>
+          <v-row
+            justify="center"
+          >
+            <v-icon
+              large
+              color="primary"
+              class="text-center"
+            >
+              mdi-alert
+            </v-icon>
+          </v-row>
+          <v-row
+            justify="center"
+          >
+            <h3>This script name is already in use. </h3>
+          </v-row>
+          <v-row
+            justify="center"
+          >
+            <h3>Please try another one</h3>
+          </v-row>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn
+            color="accent"
+            text
+            @click="ScriptNameInUse = false"
+          >
+            Close
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog
       v-model="LicenseInUse"
       persistent
       max-width="800px"
@@ -939,6 +983,7 @@
         refreshLicenseDialog: false,
         LicenseInUse: false,
         InvalidLicense: false,
+        ScriptNameInUse: false,
         errorMsg: '',
       }
     },
@@ -1066,13 +1111,11 @@
             }).then(response => {
               this.scripts = response.data
               this.loading = false
-            }).catch(e => {
-              this.error = true
             })
           }).catch(e => {
-            // Error handle
-            this.errorMsg = e
-            this.uploadError = true
+            if (e.response.data.errors[0] === 'Name already in use.') {
+              this.ScriptNameInUse = true
+            }
           })
         })
       },
@@ -1099,8 +1142,6 @@
           }).catch(e => {
             this.error = true
           })
-        }).catch(e => {
-          alert(e)
         })
       },
       uploadScript () {
@@ -1139,13 +1180,12 @@
             }).then(response => {
               this.scripts = response.data
               this.loading = false
-            }).catch(e => {
-              this.error = true
             })
           }).catch(e => {
             // Error handle
-            this.errorMsg = e
-            this.uploadError = true
+            if (e.response.data.errors[0] === 'Name already in use.') {
+              this.ScriptNameInUse = true
+            }
           })
         })
       },
@@ -1182,11 +1222,11 @@
             })
           }
         }).catch(e => {
-          console.log(e.response.data.errors[0].message)
           if (typeof e.response.data.errors[0].message !== 'undefined') {
             const err = e.response.data.errors[0].message
             err === 'Request failed with status code 403' || err === 'Request failed with status code 400' ? this.InvalidLicense = true : this.InvalidLicense = false
           } else {
+            // eslint-disable-next-line no-constant-condition
             e.message = 'Licence alredy in use' ? this.LicenseInUse = true : this.LicenseInUse = false
           }
           // eslint-disable-next-line no-constant-condition
