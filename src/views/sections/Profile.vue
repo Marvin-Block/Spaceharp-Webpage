@@ -3,7 +3,6 @@
     id="profile"
   >
     <v-speed-dial
-      v-if="!notValid"
       absolute
       dark
       fab
@@ -24,6 +23,7 @@
         </v-btn>
       </template>
       <v-btn
+        v-if="!notValid"
         dark
         fab
         bottom
@@ -44,6 +44,7 @@
         <v-icon>mdi-logout</v-icon>
       </v-btn>
       <v-btn
+        v-if="!notValid"
         fab
         dark
         small
@@ -177,6 +178,7 @@
           <h3>
             <v-row
               justify="center"
+              class="pb-6"
             >
               You license is not valid. Please check the following:
             </v-row>
@@ -700,7 +702,7 @@
                     <v-col>
                       <div>
                         <v-icon
-                          style="pointer-events:auto;cursor:pointer;"
+                          style="pointer-events:auto;cursor:pointer;display:none"
                           width="2 em"
                           class="mr-2"
                           color="secondary"
@@ -1180,10 +1182,15 @@
             })
           }
         }).catch(e => {
+          console.log(e.response.data.errors[0].message)
+          if (typeof e.response.data.errors[0].message !== 'undefined') {
+            const err = e.response.data.errors[0].message
+            err === 'Request failed with status code 403' || err === 'Request failed with status code 400' ? this.InvalidLicense = true : this.InvalidLicense = false
+          } else {
+            e.message = 'Licence alredy in use' ? this.LicenseInUse = true : this.LicenseInUse = false
+          }
           // eslint-disable-next-line no-constant-condition
-          e.message = 'Request failed with status code 400' ? this.InvalidLicense = true : this.InvalidLicense = false
           // eslint-disable-next-line no-constant-condition
-          e.response.data.errors[0] = 'Licence alredy in use' ? this.LicenseInUse = true : this.LicenseInUse = false
         })
       },
     },
