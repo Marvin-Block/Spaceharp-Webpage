@@ -18,7 +18,6 @@
               class="white--text pa-1 pa-md-0"
               href="https://discord.com/invite/9AQv2pF"
               target="_blank"
-              v-text="'Discord'"
             />
             <v-responsive
               :key="'Discord'"
@@ -32,7 +31,6 @@
               class="white--text pa-1 pa-md-0"
               href="https://www.instagram.com/spacesharpofficial/?hl=de"
               target="_blank"
-              v-text="'Instagram'"
             />
 
             <v-responsive
@@ -47,7 +45,6 @@
               class="white--text pa-1 pa-md-0"
               href="https://ko-fi.com/Muffin4222"
               target="_blank"
-              v-text="'Support me'"
             />
 
             <v-responsive
@@ -77,7 +74,7 @@
         >
           <div class="d-flex flex-wrap justify-md-end justify-center justify-md-none">
             <div class="white--text pa-1 pa-md-0">
-              <small>Version 0.2.16 (BETA)</small>
+              <small>Version 0.2.20 (BETA)</small>
             </div>
             <v-responsive
               class="mx-4 shrink hidden-sm-and-down"
