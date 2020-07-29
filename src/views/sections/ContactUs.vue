@@ -15,7 +15,7 @@
 
             <base-body space="0">
               <span class="white--text">
-                If you have any Problems or Questions you can always Join our Discord server and ask our Team for help.<br>
+                If you have any problems or questions you can always join our Discord server and ask our team for help.<br>
                 They'll be glad to assist you.
               </span>
             </base-body>
